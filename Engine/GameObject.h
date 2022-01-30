@@ -9,6 +9,7 @@ class GameObject {
 
 public:
 	GameObject();
+	GameObject(RenderNode* renderNode, PhysicsObject* physicsObject);
 	~GameObject();
 
 	UUID GetId();

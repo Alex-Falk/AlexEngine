@@ -8,6 +8,7 @@
 class Scene
 {
 public:
+	virtual ~Scene() = default;
 
 	void AddGameObject(GameObject* object);
 
@@ -17,7 +18,7 @@ public:
 	bool RemoveGameObject(GameObject* object);
 	bool RemoveGameObjectById(UUID id);
 
-	void ActivateScene();
+	virtual void ActivateScene();
 	void DeactivateScene();
 
 	void Cleanup();

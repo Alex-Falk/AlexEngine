@@ -237,7 +237,7 @@ bool	OBJMesh::LoadOBJMesh(std::string filename)	{
 			m->BufferData();
 
 			if(i != 0) {
-				AddChild(m);
+				//AddChild(m);
 			}	
 		}
 		delete inputSubMeshes[i];

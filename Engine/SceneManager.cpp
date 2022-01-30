@@ -1,5 +1,7 @@
 #include "SceneManager.h"
 
+#include "CommonMeshes.h"
+
 void SceneManager::AddScene(Scene* scene)
 {
 	if (scene == nullptr) {
@@ -33,6 +35,7 @@ bool SceneManager::GoToScene(const std::string& name)
 
 SceneManager::SceneManager()
 {
+	CommonMeshes::InitializeMeshes();
 }
 
 SceneManager::~SceneManager()

@@ -491,7 +491,7 @@ void MD5FileData::CreateMeshes()	{
 
 		MD5Mesh*target = new MD5Mesh(*this);
 
-		rootMesh->AddChild(target);
+		//rootMesh->AddChild(target);
 
 		target->texture		  = subMesh.texIndex;				//Assign the diffuse map
 		target->vertices	  = new Vector3[subMesh.numverts];	//Make vertex	mem

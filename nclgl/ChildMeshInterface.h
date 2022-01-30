@@ -27,9 +27,6 @@ _-_-_-_-_-_-_-""  ""
 class ChildMeshInterface	{
 public:
 	//Adds a child mesh to this mesh (only used by OBJ and MD5Mesh)
-	void ChildMeshInterface::AddChild(Mesh*m)	{
-		children.push_back(m);
-	}
 
 	virtual ~ChildMeshInterface() {
 		for(unsigned int i = 0; i < children.size(); ++i) {

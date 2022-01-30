@@ -2,7 +2,9 @@
 #include <PhysicsEngine/PhysicsEngine.h>
 #include <PhysicsEngine/GraphicsPipeline.h>
 
-#include "Engine/SceneManager.h"
+#include <Engine/SceneManager.h>
+
+#include "TestScene.h"
 
 void Quit(bool error, const string& reason);
 
@@ -11,9 +13,13 @@ void Initialize()
 	if (!Window::Initialise("Game Technologies - Collision Resolution", 1280, 800, false))
 		Quit(true, "Window failed to initialise!");
 
-
-	//PhysicsEngine::Instance();
+	PhysicsEngine::Instance();
 	GraphicsPipeline::Instance();
+	SceneManager::Instance();
+
+	Scene* scene = new TestScene();
+	SceneManager::Instance()->AddScene(scene);
+	scene->ActivateScene();
 }
 
 void Quit(bool error, const string& reason) {
@@ -37,5 +43,11 @@ int main() {
 
 	while (Window::GetWindow().UpdateWindow() && !Window::GetKeyboard()->KeyDown(KEYBOARD_ESCAPE)) {
 		//Start Timing
+		float dt = Window::GetWindow().GetTimer()->GetTimedMS() * 0.001f;	//How many milliseconds since last update?
+
+		auto scene = SceneManager::Instance()->GetActiveScene();
+
+		GraphicsPipeline::Instance()->UpdateScene(dt);
+		GraphicsPipeline::Instance()->RenderScene();
 	}
 }
