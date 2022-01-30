@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GraphicsEngine\TSingleton.h>
+#include <nclgl\TSingleton.h>
 #include "Scene.h"
 
 class SceneManager : public TSingleton<SceneManager>
@@ -13,7 +13,7 @@ public:
 
 	bool GoToScene(const std::string& name);
 
-	inline Scene* GetActiveScene() { return m_scene; }
+	inline Scene* GetActiveScene() const { return m_scene; }
 
 protected:
 	SceneManager();

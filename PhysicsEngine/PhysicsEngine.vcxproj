@@ -123,6 +123,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -141,30 +144,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="CollisionShape.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Constraint.h" />
+    <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ScreenPicker.h" />
     <ClInclude Include="SphereObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="CollisionShape.cpp" />
     <ClCompile Include="Constraint.cpp" />
+    <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="ScreenPicker.cpp" />
     <ClCompile Include="SphereObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PhysicsEngine.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GraphicsEngine\nclgl.vcxproj">
-      <Project>{98d6b51b-cb0a-4389-adc6-24082b967c3f}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

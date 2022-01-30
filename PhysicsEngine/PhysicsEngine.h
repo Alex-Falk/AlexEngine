@@ -1,11 +1,13 @@
 #pragma once
 
 #include "PhysicsObject.h"
-#include <GraphicsEngine/TSingleton.h>
+#include <nclgl/TSingleton.h>
 #include <vector>
 
-class PhysicsEngine : TSingleton<PhysicsEngine>
+class PhysicsEngine : public TSingleton<PhysicsEngine>
 {
+	friend class TSingleton<PhysicsEngine>;
+
 public:
 
 	void AddPhysicsObject(PhysicsObject* obj);

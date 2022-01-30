@@ -1,7 +1,7 @@
 #pragma once
 
-#include <MathLibrary/Matrix4.h>
-#include <GraphicsEngine/Quaternion.h>
+#include <nclgl/Matrix4.h>
+#include <nclgl/Quaternion.h>
 #include "common.h"
 
 class PhysicsObject
