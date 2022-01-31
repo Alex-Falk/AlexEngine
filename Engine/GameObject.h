@@ -4,15 +4,22 @@
 
 #include "nclgl/RenderNode.h"
 #include "PhysicsEngine/PhysicsObject.h"
+#include <Engine/Component.h>
 
 class GameObject {
 
 public:
 	GameObject();
-	GameObject(RenderNode* renderNode, PhysicsObject* physicsObject);
 	~GameObject();
 
 	UUID GetId();
+
+	virtual void OnInitialise();
+
+	void AddComponent(Component* component);
+
+	template<class T>
+	T* GetComponentOfType();
 
 protected:
 
@@ -20,6 +27,7 @@ private:
 
 	UUID m_id;
 
-	RenderNode* m_renderNode;
-	PhysicsObject* m_physicsObject;
+	std::vector<Component*> m_components;
+
 };
+

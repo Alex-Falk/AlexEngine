@@ -3,6 +3,9 @@
 #include <nclgl\RenderNode.h>
 #include <functional>
 
+#include <Engine/RenderComponent.h>
+#include <Engine/PhysicsComponent.h>
+
 #include "PhysicsEngine/CollisionShape.h"
 #include "PhysicsEngine/ScreenPicker.h"
 
@@ -55,7 +58,7 @@ GameObject* CommonUtils::BuildSphereObject(
 {
 	//Due to the way SceneNode/RenderNode's were setup, we have to make a dummy node which has the mesh and scaling transform
 	// and a parent node that will contain the world transform/physics transform
-	RenderNode* rnode = new RenderNode();
+	RenderComponent* rnode = new RenderComponent();
 
 	RenderNode* dummy = new RenderNode(CommonMeshes::Sphere(), color);
 	dummy->SetTransform(Matrix4::Scale(Vector3(radius, radius, radius)));
@@ -67,10 +70,10 @@ GameObject* CommonUtils::BuildSphereObject(
 	rnode->SetTransform(Matrix4::Translation(pos));
 	rnode->SetBoundingRadius(radius);
 
-	PhysicsObject* pnode = NULL;	
+	PhysicsComponent* pnode = NULL;	
 	if (physics_enabled)
 	{
-		pnode = new PhysicsObject();
+		pnode = new PhysicsComponent();
 		//pnode->SetPosition(pos);
 		//pnode->SetInverseMass(inverse_mass);
 		//pnode->SetBoundingRadius(radius);
@@ -89,7 +92,10 @@ GameObject* CommonUtils::BuildSphereObject(
 		}
 	}
 
-	GameObject* obj = new GameObject(rnode, pnode);
+	GameObject* obj = new GameObject();
+	obj->AddComponent(rnode);
+	obj->AddComponent(pnode);
+
 
 	if (dragable)
 	{
@@ -115,7 +121,7 @@ GameObject* CommonUtils::BuildCuboidObject(
 {
 	//Due to the way SceneNode/RenderNode's were setup, we have to make a dummy node which has the mesh and scaling transform
 	// and a parent node that will contain the world transform/physics transform
-	RenderNode* rnode = new RenderNode();
+	RenderComponent* rnode = new RenderComponent();
 
 	Mesh * mesh = new Mesh();
 	*mesh = *CommonMeshes::Cube();
@@ -133,10 +139,10 @@ GameObject* CommonUtils::BuildCuboidObject(
 	rnode->SetTransform(Matrix4::Translation(pos));
 	rnode->SetBoundingRadius(halfdims.Length());
 
-	PhysicsObject* pnode = NULL;
+	PhysicsComponent* pnode = NULL;
 	if (physics_enabled)
 	{
-		pnode = new PhysicsObject();
+		pnode = new PhysicsComponent();
 		//pnode->SetPosition(pos);
 		//pnode->SetInverseMass(inverse_mass);
 		//pnode->SetType(objectType);
@@ -164,7 +170,9 @@ GameObject* CommonUtils::BuildCuboidObject(
 		}
 	}
 
-	GameObject* obj = new GameObject(rnode, pnode);
+	GameObject* obj = new GameObject();
+	obj->AddComponent(rnode);
+	obj->AddComponent(pnode);
 
 	if (dragable)
 	{
@@ -188,7 +196,7 @@ GameObject* CommonUtils::BuildPlaneObject(
 {
 	//Due to the way SceneNode/RenderNode's were setup, we have to make a dummy node which has the mesh and scaling transform
 	// and a parent node that will contain the world transform/physics transform
-	RenderNode* rnode = new RenderNode();
+	RenderComponent* rnode = new RenderComponent();
 
 	RenderNode* dummy = new RenderNode(Mesh::GenerateQuad(), color);
 	dummy->SetTransform(Matrix4::Scale(halfdims));
@@ -201,10 +209,10 @@ GameObject* CommonUtils::BuildPlaneObject(
 	rnode->SetTransform(Matrix4::Translation(pos));
 	rnode->SetBoundingRadius(halfdims.Length());
 
-	PhysicsObject* pnode = NULL;
+	PhysicsComponent* pnode = NULL;
 	if (physics_enabled)
 	{
-		pnode = new PhysicsObject();
+		pnode = new PhysicsComponent();
 		//pnode->SetPosition(pos);
 		//pnode->SetInverseMass(inverse_mass);
 		//pnode->SetType(objectType);
@@ -232,7 +240,9 @@ GameObject* CommonUtils::BuildPlaneObject(
 		}
 	}
 
-	GameObject* obj = new GameObject(rnode, pnode);
+	GameObject* obj = new GameObject();
+	obj->AddComponent(rnode);
+	obj->AddComponent(pnode);
 
 	if (dragable)
 	{
@@ -249,9 +259,9 @@ GameObject* CommonUtils::InvisibleWall(
 	const Vector3& pos,
 	const Vector3& halfdims)
 {
-	PhysicsObject* pnode = NULL;
+	PhysicsComponent* pnode = NULL;
 
-	pnode = new PhysicsObject();
+	pnode = new PhysicsComponent();
 	//pnode->SetPosition(pos);
 	//pnode->SetInverseMass(0);
 	//pnode->SetType(INVISIBLE_WALL);
@@ -271,8 +281,10 @@ GameObject* CommonUtils::InvisibleWall(
 	//pnode->SetCollisionShape(pColshape);
 	//pnode->SetInverseInertia(pColshape->BuildInverseInertia(0));
 
-	RenderNode* rnode = new RenderNode();
-	GameObject* obj = new GameObject(rnode, pnode);
+	RenderComponent* rnode = new RenderComponent();
+	GameObject* obj = new GameObject();
+	obj->AddComponent(rnode);
+	obj->AddComponent(pnode);
 
 	return obj;
 }

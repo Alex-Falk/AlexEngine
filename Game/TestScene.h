@@ -17,6 +17,8 @@ class TestScene : public Scene
 			Vector4(0.2f, 0.5f, 1.0f, 1.0f));
 
 		this->AddGameObject(ground);
+
+		ground->OnInitialise();
 	}
 };
 
