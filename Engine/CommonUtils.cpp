@@ -7,7 +7,7 @@
 #include <Engine/PhysicsComponent.h>
 
 #include "PhysicsEngine/CollisionShape.h"
-#include "PhysicsEngine/ScreenPicker.h"
+#include "nclgl/ScreenPicker.h"
 
 //Horrible!!!
 // TODO: Fix these variables!

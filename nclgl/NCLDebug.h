@@ -63,8 +63,8 @@ function as it will include the filename and linenumber it was triggered on with
 #pragma once
 #include <nclgl/Matrix4.h>
 #include <nclgl/Matrix3.h>
-#include <nclgl/Vector4.h>
-#include <nclgl/Vector3.h>
+#include <Maths/Vector3.h>
+#include <Maths/Vector4.h>
 #include "Shader.h"
 #include <vector>
 #include <mutex>

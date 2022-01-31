@@ -19,7 +19,7 @@ Description:
 
 #include "GameObject.h"
 #include "Engine/GameObject.h"
-#include "nclgl/vector3.h"
+#include <Maths/Vector3.h>
 
 
 namespace CommonUtils

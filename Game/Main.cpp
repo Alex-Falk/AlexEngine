@@ -1,6 +1,6 @@
 
 #include <PhysicsEngine/PhysicsEngine.h>
-#include <PhysicsEngine/GraphicsPipeline.h>
+#include <nclgl/GraphicsPipeline.h>
 
 #include <Engine/SceneManager.h>
 

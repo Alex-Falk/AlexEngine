@@ -61,8 +61,8 @@ than performing everything on the GPU.
 
 #include "ChildMeshInterface.h"
 #include "Quaternion.h"
-#include "Vector3.h"
-#include "Vector2.h"
+#include <Maths/Vector3.h>
+#include <Maths/Vector2.h>
 
 #include "Mesh.h"
 #include "MD5Anim.h"

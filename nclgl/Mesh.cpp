@@ -576,7 +576,7 @@ void	Mesh::GenerateNormals()	{
 	}
 
 	for(GLuint i = 0; i < numVertices; ++i){
-		normals[i].Normalise();
+		normals[i].Normalize();
 	}
 }
 
@@ -630,7 +630,7 @@ void Mesh::GenerateTangents() {
 		}
 	}
 	for(GLuint i = 0; i < numVertices; ++i){
-		tangents[i].Normalise();
+		tangents[i].Normalize();
 	}
 }
 

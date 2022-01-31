@@ -28,7 +28,7 @@ _-_-_-_-_-_-_-""  ""
 
 #include <iostream>
 #include "common.h"
-#include "Vector3.h"
+#include <Maths/Vector3.h>
 #include "Matrix4.h"
 #include "Matrix3.h"
 

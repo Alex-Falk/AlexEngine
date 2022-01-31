@@ -26,7 +26,7 @@ _-_-_-_-_-_-_-""  ""
 #include <string>
 
 #include "quaternion.h"
-#include "Vector3.h"
+#include <Maths/Vector3.h>
 
 #include "MD5Mesh.h"
 #include "MD5FileData.h"

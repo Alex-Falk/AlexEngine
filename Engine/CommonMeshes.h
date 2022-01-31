@@ -31,6 +31,8 @@ public:
 	//Sphere
 	static Mesh* Sphere()		{ return m_pSphere; }
 
+	static const GLuint CheckerboardTex() { return m_pCheckerboardTex; }
+
 protected:
 	//Called by SceneRenderer
 	static void InitializeMeshes();
@@ -39,4 +41,7 @@ protected:
 protected:
 	static Mesh* m_pCube;
 	static Mesh* m_pSphere;
+
+
+	static GLuint m_pCheckerboardTex;
 };

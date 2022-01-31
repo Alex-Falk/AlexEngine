@@ -1,5 +1,5 @@
 #include "RenderComponent.h"
-#include <PhysicsEngine\GraphicsPipeline.h>
+#include <nclgl\GraphicsPipeline.h>
 
 void RenderComponent::OnInitialise()
 {

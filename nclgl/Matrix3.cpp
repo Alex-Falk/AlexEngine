@@ -79,7 +79,7 @@ Matrix3 Matrix3::Rotation(float degrees, const Vector3 &inaxis)
 	Matrix3 m;
 
 	Vector3 axis = inaxis;
-	axis.Normalise();
+	axis.Normalize();
 
 	float c = cosf((float)DegToRad(degrees));
 	float s = sinf((float)DegToRad(degrees));
@@ -104,11 +104,11 @@ Matrix3 Matrix3::Rotation(const Vector3 &forward_direction, const Vector3& up_di
 	Vector3 f = forward_direction;
 	Vector3 u = up_direction;
 
-	f.Normalise();
-	u.Normalise();
+	f.Normalize();
+	u.Normalize();
 
-	Vector3 x = Vector3::Cross(f, u); x.Normalise();
-	Vector3 y = Vector3::Cross(x, f); y.Normalise();
+	Vector3 x = Vector3::Cross(f, u); x.Normalize();
+	Vector3 y = Vector3::Cross(x, f); y.Normalize();
 
 	Matrix3 m;
 

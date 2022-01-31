@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "PhysicsEngine/GraphicsPipeline.h"
+#include "nclgl/GraphicsPipeline.h"
 
 GameObject::GameObject()
 {
