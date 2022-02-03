@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PhysicsObject.h">
+    <ClInclude Include="PhysicsNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constraint.h">
@@ -41,7 +41,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhysicsObject.cpp">
+    <ClCompile Include="PhysicsNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Constraint.cpp">

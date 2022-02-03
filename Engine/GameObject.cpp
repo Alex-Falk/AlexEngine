@@ -24,7 +24,28 @@ void GameObject::OnInitialise()
 void GameObject::AddComponent(Component* component)
 {
 	if (component)
+	{
+		component->m_owner = this;
 		m_components.push_back(component);
+	}
+}
+
+void GameObject::SetTransform(const Matrix4 transform)
+{
+	m_transform = transform;
+}
+
+Matrix4 GameObject::GetTransform() const
+{
+	return m_transform;
+}
+
+void GameObject::OnUpdate(const float dt) const
+{
+	for (const auto comp : m_components)
+	{
+		comp->OnUpdate(dt);
+	}
 }
 
 template<class T>

@@ -38,6 +38,7 @@ namespace CommonUtils
 		const Vector3& pos,
 		float radius,
 		bool physics_enabled = false,
+		bool apply_gravity = true,			//requires physics_enabled = true
 		float inverse_mass = 0.0f,			//requires physics_enabled = true
 		bool collidable = true,				//requires physics_enabled = true
 		bool dragable = true,
@@ -49,6 +50,7 @@ namespace CommonUtils
 			const Vector3 & pos,
 			const Vector3 & halfdims,
 			bool physics_enabled = false,
+			bool apply_gravity = true,			//requires physics_enabled = true
 			float inverse_mass = 0.0f,			//requires physics_enabled = true
 			bool collidable = true,				//requires physics_enabled = true
 			bool dragable = true,
@@ -62,6 +64,7 @@ namespace CommonUtils
 			const Vector3& pos,
 			const Vector3& halfdims,
 			bool physics_enabled = false,
+			bool apply_gravity = true,			//requires physics_enabled = true
 			float inverse_mass = 0.0f,			//requires physics_enabled = true
 			bool collidable = true,				//requires physics_enabled = true
 			bool dragable = true,

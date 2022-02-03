@@ -51,6 +51,7 @@ GameObject* CommonUtils::BuildSphereObject(
 	const Vector3& pos,
 	float radius,
 	bool physics_enabled,
+	bool apply_gravity,
 	float inverse_mass,
 	bool collidable,
 	bool dragable,
@@ -74,8 +75,9 @@ GameObject* CommonUtils::BuildSphereObject(
 	if (physics_enabled)
 	{
 		pnode = new PhysicsComponent();
-		//pnode->SetPosition(pos);
-		//pnode->SetInverseMass(inverse_mass);
+		pnode->SetPosition(pos);
+		pnode->SetInverseMass(inverse_mass);
+		pnode->SetGravityEnabled(apply_gravity);
 		//pnode->SetBoundingRadius(radius);
 		//pnode->SetType(objectType);
 
@@ -112,6 +114,7 @@ GameObject* CommonUtils::BuildCuboidObject(
 	const Vector3& pos,
 	const Vector3& halfdims,
 	bool physics_enabled,
+	bool apply_gravity,
 	float inverse_mass,
 	bool collidable,
 	bool dragable,
@@ -143,8 +146,9 @@ GameObject* CommonUtils::BuildCuboidObject(
 	if (physics_enabled)
 	{
 		pnode = new PhysicsComponent();
-		//pnode->SetPosition(pos);
-		//pnode->SetInverseMass(inverse_mass);
+		pnode->SetPosition(pos);
+		pnode->SetInverseMass(inverse_mass);
+		pnode->SetGravityEnabled(apply_gravity);
 		//pnode->SetType(objectType);
 
 		float x = halfdims.x*2.0f;
@@ -189,6 +193,7 @@ GameObject* CommonUtils::BuildPlaneObject(
 	const Vector3& pos,
 	const Vector3& halfdims,
 	bool physics_enabled,
+	bool apply_gravity,
 	float inverse_mass,
 	bool collidable,
 	bool dragable,
@@ -213,8 +218,8 @@ GameObject* CommonUtils::BuildPlaneObject(
 	if (physics_enabled)
 	{
 		pnode = new PhysicsComponent();
-		//pnode->SetPosition(pos);
-		//pnode->SetInverseMass(inverse_mass);
+		pnode->SetPosition(pos);
+		pnode->SetInverseMass(inverse_mass);
 		//pnode->SetType(objectType);
 
 		float x = halfdims.x*2.0f;

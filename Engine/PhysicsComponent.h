@@ -1,9 +1,16 @@
 #pragma once
 #include "Component.h"
-#include <PhysicsEngine/PhysicsObject.h>
+#include <PhysicsEngine/PhysicsNode.h>
 
 class PhysicsComponent :
-    public Component, PhysicsObject
+    public Component, public PhysicsNode
 {
+public:
+    PhysicsComponent() {}
+
+private:
+    void OnInitialise() override;
+
+    void OnUpdate(float dt) override;
 };
 

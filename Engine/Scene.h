@@ -8,6 +8,7 @@
 class Scene
 {
 public:
+	Scene();
 	virtual ~Scene() = default;
 
 	void AddGameObject(GameObject* object);
@@ -24,14 +25,16 @@ public:
 	void Cleanup();
 
 	std::string GetName();
+
+	void UpdateScene(float dt) const;
 	
 		
 protected:
 
 	void RemoveALlGameObjects();
 
-private:
-
 	std::string m_name;
+
+private:
 	std::vector<GameObject*> m_gameObjects;
 };

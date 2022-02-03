@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PhysicsObject.h"
+#include "PhysicsNode.h"
 #include <nclgl/TSingleton.h>
 #include <vector>
 
@@ -10,16 +10,21 @@ class PhysicsEngine : public TSingleton<PhysicsEngine>
 
 public:
 
-	void AddPhysicsObject(PhysicsObject* obj);
-	void RemovePhysicsObject(PhysicsObject* obj);
+	void AddPhysicsObject(PhysicsNode* obj);
+	void RemovePhysicsObject(PhysicsNode* obj);
 
 	void ClearObjects();
+
+	Vector3 GetGravity();
+	float GetDampingFactor();
+
+	void UpdatePhysics(float dt);
 
 protected:
 	PhysicsEngine();
 	~PhysicsEngine();
 
-	void UpdatePhysics();
+
 
 	void UpdateBroadphase();
 	void UpdateNarrowphase();
@@ -27,7 +32,7 @@ protected:
 private:
 
 	float m_updateTimestep;
-	std::vector<PhysicsObject*> m_physicsObjects;
+	std::vector<PhysicsNode*> m_physicsObjects;
 	Vector3 m_gravity;
 };
 

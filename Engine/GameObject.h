@@ -3,7 +3,7 @@
 #include <rpc.h>
 
 #include "nclgl/RenderNode.h"
-#include "PhysicsEngine/PhysicsObject.h"
+#include "PhysicsEngine/PhysicsNode.h"
 #include <Engine/Component.h>
 
 class GameObject {
@@ -21,7 +21,13 @@ public:
 	template<class T>
 	T* GetComponentOfType();
 
+	void SetTransform(const Matrix4 transform);
+	Matrix4 GetTransform() const;
+
+	void OnUpdate(float dt) const;
 protected:
+
+	
 
 private:
 
@@ -29,5 +35,6 @@ private:
 
 	std::vector<Component*> m_components;
 
+	Matrix4 m_transform;
 };
 
