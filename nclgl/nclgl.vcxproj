@@ -26,6 +26,7 @@
     <ClCompile Include="CubeRobot.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="HeightMap.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Matrix3.cpp" />
@@ -41,17 +42,20 @@
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderNode.cpp" />
+    <ClCompile Include="ScreenPicker.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="NCLDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChildMeshInterface.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="CubeRobot.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="HeightMap.h" />
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="Keyboard.h" />
@@ -70,13 +74,16 @@
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderNode.h" />
+    <ClInclude Include="ScreenPicker.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TSingleton.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Vector4.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="NCLDebug.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maths\Maths.vcxproj">
+      <Project>{cb96bbc1-3425-4098-889c-96c1fe8bde77}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AF379717-A293-4899-9838-7A2C80C84405}</ProjectGuid>
@@ -162,7 +169,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>      
+      <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)ExternalLib\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

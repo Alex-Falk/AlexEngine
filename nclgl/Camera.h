@@ -14,8 +14,8 @@ _-_-_-_-_-_-_-""  ""
 #pragma once
 
 #include "Window.h"
-#include "Matrix4.h"
-#include "Vector3.h"
+#include <Maths/Vector3.h>
+#include <Maths/Vector4.h>
 
 class Camera {
 public:

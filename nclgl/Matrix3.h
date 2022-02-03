@@ -12,7 +12,7 @@ optimal however, so you should still be thinking about how it could be made bett
 
 #pragma once
 
-#include "Vector3.h"
+#include <Maths/Vector3.h>
 
 class Matrix4;
 

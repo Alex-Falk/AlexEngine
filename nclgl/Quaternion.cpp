@@ -276,14 +276,14 @@ Quaternion Quaternion::LookAt(const Vector3& from, const Vector3& to, const Vect
 {
 	const Vector3 resting_forward_vector = Vector3(0, 0, -1);
 
-	Vector3 forward = (from - to).Normalise();
+	Vector3 forward = (from - to).Normalized();
 	//Create look at rotation
 	Quaternion out = GetRotation(resting_forward_vector, forward);
 
 	//Correct rotation to use given up vector
 	Vector3 up_l = out.Transform(up);
-	Vector3 right = Vector3::Cross(forward, up).Normalise();
-	Vector3 up_w = Vector3::Cross(right, forward).Normalise();
+	Vector3 right = Vector3::Cross(forward, up).Normalized();
+	Vector3 up_w = Vector3::Cross(right, forward).Normalized();
 
 	Quaternion fix_spin = GetRotation(up_l, up_w);
 
@@ -312,7 +312,7 @@ Quaternion Quaternion::GetRotation(const Vector3& from_dir, const Vector3& to_di
 	
 	//Otherwise build a new rotation
 	float theta = acosf(costheta);
-	Vector3 rotAxis = Vector3::Cross(from_dir, to_dir).Normalise();
+	Vector3 rotAxis = Vector3::Cross(from_dir, to_dir).Normalized();
 
 	return Quaternion::AxisAngleToQuaterion(rotAxis, (float)RadToDeg(theta));
 }

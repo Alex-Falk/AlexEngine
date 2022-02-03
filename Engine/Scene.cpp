@@ -1,5 +1,10 @@
 #include "Scene.h"
 
+Scene::Scene()
+{
+	m_gameObjects = std::vector<GameObject*>();
+}
+
 void Scene::AddGameObject(GameObject* object)
 {
 	if (!object || std::find(m_gameObjects.begin(), m_gameObjects.end(), object) != m_gameObjects.end())
@@ -45,7 +50,15 @@ void Scene::Cleanup()
 
 std::string Scene::GetName()
 {
-	return "";
+	return m_name;
+}
+
+void Scene::UpdateScene(const float dt) const
+{
+	for (const auto object : m_gameObjects)
+	{
+		object->OnUpdate(dt);
+	}
 }
 
 void Scene::RemoveALlGameObjects()

@@ -14,8 +14,8 @@ with graphics frustum culling by using both AABB and bounding sphere's inside Sc
 *//////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include <nclgl\Matrix4.h>
-#include <nclgl\Vector3.h>
+#include <Maths/Vector3.h>
+#include <Maths/Vector4.h>
 #include <nclgl\common.h>
 #include <nclgl\NCLDebug.h>
 
@@ -116,7 +116,7 @@ struct BoundingBox
 		else { closestPt.z = p.z; }
 
 		Vector3 diff = p - closestPt;
-		float dsq = diff.LengthSQ();
+		float dsq = diff.LengthSqr();
 		
 		return dsq < r*r;
 	}

@@ -144,30 +144,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="CollisionShape.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Constraint.h" />
-    <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="PhysicsEngine.h" />
-    <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="PhysicsNode.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ScreenPicker.h" />
     <ClInclude Include="SphereObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="CollisionShape.cpp" />
     <ClCompile Include="Constraint.cpp" />
-    <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
-    <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="ScreenPicker.cpp" />
+    <ClCompile Include="PhysicsNode.cpp" />
     <ClCompile Include="SphereObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PhysicsEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maths\Maths.vcxproj">
+      <Project>{cb96bbc1-3425-4098-889c-96c1fe8bde77}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

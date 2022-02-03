@@ -17,8 +17,8 @@ _-_-_-_-_-_-_-""  ""
 
 #include <iostream>
 #include "common.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include <Maths/Vector3.h>
+#include <Maths/Vector4.h>
 
 class Vector3;
 

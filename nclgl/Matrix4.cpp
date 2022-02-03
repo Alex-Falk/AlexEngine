@@ -85,13 +85,13 @@ Matrix4 Matrix4::BuildViewMatrix(const Vector3 &from, const Vector3 &lookingAt, 
 	Matrix4 m;
 
 	Vector3 f = (lookingAt - from);
-	f.Normalise();
+	f.Normalize();
 
 	Vector3 s = Vector3::Cross(f,up);
 	Vector3 u = Vector3::Cross(s,f);
 
-	s.Normalise();
-	u.Normalise();
+	s.Normalize();
+	u.Normalize();
 
 	m.values[0] = s.x;
 	m.values[4] = s.y;
@@ -113,7 +113,7 @@ Matrix4 Matrix4::Rotation(float degrees, const Vector3 &inaxis)	 {
 
 	Vector3 axis = inaxis;
 
-	axis.Normalise();
+	axis.Normalize();
 
 	float c = cos((float)DegToRad(degrees));
 	float s = sin((float)DegToRad(degrees));

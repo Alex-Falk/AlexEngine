@@ -14,7 +14,7 @@ _-_-_-_-_-_-_-""  ""
 #pragma once
 
 #include "InputDevice.h"
-#include "Vector2.h"
+#include <Maths/Vector2.h>
 
 //Presumably RAW input does actually support those fancy mice with greater
 //than 5 buttons in some capacity, but I have a 5 button mouse so I don't

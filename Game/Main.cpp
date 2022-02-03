@@ -1,6 +1,6 @@
 
 #include <PhysicsEngine/PhysicsEngine.h>
-#include <PhysicsEngine/GraphicsPipeline.h>
+#include <nclgl/GraphicsPipeline.h>
 
 #include <Engine/SceneManager.h>
 
@@ -17,9 +17,8 @@ void Initialize()
 	GraphicsPipeline::Instance();
 	SceneManager::Instance();
 
-	Scene* scene = new TestScene();
+	Scene* scene = new TestScene("test");
 	SceneManager::Instance()->AddScene(scene);
-	scene->ActivateScene();
 }
 
 void Quit(bool error, const string& reason) {
@@ -40,12 +39,17 @@ void Quit(bool error, const string& reason) {
 
 int main() {
 	Initialize();
+	SceneManager::Instance()->GoToScene("test");
 
 	while (Window::GetWindow().UpdateWindow() && !Window::GetKeyboard()->KeyDown(KEYBOARD_ESCAPE)) {
 		//Start Timing
 		float dt = Window::GetWindow().GetTimer()->GetTimedMS() * 0.001f;	//How many milliseconds since last update?
-
 		auto scene = SceneManager::Instance()->GetActiveScene();
+
+		if (scene) 
+			scene->UpdateScene(dt);
+
+		PhysicsEngine::Instance()->UpdatePhysics(dt);
 
 		GraphicsPipeline::Instance()->UpdateScene(dt);
 		GraphicsPipeline::Instance()->RenderScene();

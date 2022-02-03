@@ -81,8 +81,8 @@ time lighting tutorial, uncomment both OBJ_USE_NORMALS and OBJ_USE_TANGENTS_BUMP
 #include <sstream>
 #include <map>
 
-#include "Vector3.h"
-#include "Vector2.h"
+#include <Maths/Vector3.h>
+#include <Maths/Vector2.h>
 #include "Mesh.h"
 #include "ChildMeshInterface.h"
 

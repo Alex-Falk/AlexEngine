@@ -87,7 +87,7 @@ void GraphicsPipeline::InitializeDefaults()
 
 	backgroundColor = Vector3(0.8f, 0.8f, 0.8f);
 	ambientColor = Vector3(0.2f, 0.2f, 0.2f);
-	lightDirection = Vector3(0.5f, -1.0f, -0.8f); lightDirection.Normalise();
+	lightDirection = Vector3(0.5f, -1.0f, -0.8f); lightDirection.Normalize();
 	specularFactor = 96.0f;
 
 	numSuperSamples = 4;
