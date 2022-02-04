@@ -1,9 +1,9 @@
 #pragma once
 #include "Component.h"
-#include <PhysicsEngine/PhysicsNode.h>
+#include <PhysicsEngine/Node.h>
 
 class PhysicsComponent :
-    public Component, public PhysicsNode
+    public Component, public Physics::Node
 {
 public:
     PhysicsComponent() {}

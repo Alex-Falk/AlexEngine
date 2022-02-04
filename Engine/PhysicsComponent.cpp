@@ -5,7 +5,7 @@
 
 void PhysicsComponent::OnInitialise()
 {
-	PhysicsEngine::Instance()->AddPhysicsObject(this);
+	Physics::PhysicsEngine::Instance()->AddPhysicsObject(this);
 
 	SetOnUpdateCallback([capture0 = GetOwner()](auto&& ph1)
 	{

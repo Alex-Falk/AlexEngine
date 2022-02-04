@@ -148,8 +148,10 @@
     <ClInclude Include="CollisionShape.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Constraint.h" />
+    <ClInclude Include="ContactPoint.h" />
+    <ClInclude Include="kDTree.h" />
     <ClInclude Include="PhysicsEngine.h" />
-    <ClInclude Include="PhysicsNode.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SphereObject.h" />
   </ItemGroup>
@@ -157,8 +159,9 @@
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="CollisionShape.cpp" />
     <ClCompile Include="Constraint.cpp" />
+    <ClCompile Include="kDTree.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
-    <ClCompile Include="PhysicsNode.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="SphereObject.cpp" />
   </ItemGroup>
   <ItemGroup>

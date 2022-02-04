@@ -3,7 +3,7 @@
 #include <rpc.h>
 
 #include "nclgl/RenderNode.h"
-#include "PhysicsEngine/PhysicsNode.h"
+#include "PhysicsEngine/Node.h"
 #include <Engine/Component.h>
 
 class GameObject {

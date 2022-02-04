@@ -13,7 +13,7 @@ void Initialize()
 	if (!Window::Initialise("Game Technologies - Collision Resolution", 1280, 800, false))
 		Quit(true, "Window failed to initialise!");
 
-	PhysicsEngine::Instance();
+	Physics::PhysicsEngine::Instance();
 	GraphicsPipeline::Instance();
 	SceneManager::Instance();
 
@@ -25,7 +25,7 @@ void Quit(bool error, const string& reason) {
 	//Release Singletons
 	SceneManager::Release();
 	GraphicsPipeline::Release();
-	PhysicsEngine::Release();
+	Physics::PhysicsEngine::Release();
 	Window::Destroy();
 
 	//Show console reason before exit
@@ -49,7 +49,7 @@ int main() {
 		if (scene) 
 			scene->UpdateScene(dt);
 
-		PhysicsEngine::Instance()->UpdatePhysics(dt);
+		Physics::PhysicsEngine::Instance()->UpdatePhysics(dt);
 
 		GraphicsPipeline::Instance()->UpdateScene(dt);
 		GraphicsPipeline::Instance()->RenderScene();

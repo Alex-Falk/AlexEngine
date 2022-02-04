@@ -1,38 +1,41 @@
 #pragma once
 
-#include "PhysicsNode.h"
+#include "Node.h"
 #include <nclgl/TSingleton.h>
 #include <vector>
 
-class PhysicsEngine : public TSingleton<PhysicsEngine>
+namespace Physics
 {
-	friend class TSingleton<PhysicsEngine>;
+	class PhysicsEngine : public TSingleton<PhysicsEngine>
+	{
+		friend class TSingleton<PhysicsEngine>;
 
-public:
+	public:
 
-	void AddPhysicsObject(PhysicsNode* obj);
-	void RemovePhysicsObject(PhysicsNode* obj);
+		void AddPhysicsObject(Node* obj);
+		void RemovePhysicsObject(Node* obj);
 
-	void ClearObjects();
+		void ClearObjects();
 
-	Vector3 GetGravity();
-	float GetDampingFactor();
+		Vector3 GetGravity();
+		float GetDampingFactor();
 
-	void UpdatePhysics(float dt);
+		void UpdatePhysics(float dt);
 
-protected:
-	PhysicsEngine();
-	~PhysicsEngine();
+	protected:
+		PhysicsEngine();
+		~PhysicsEngine();
 
 
 
-	void UpdateBroadphase();
-	void UpdateNarrowphase();
+		void UpdateBroadphase();
+		void UpdateNarrowphase();
 
-private:
+	private:
 
-	float m_updateTimestep;
-	std::vector<PhysicsNode*> m_physicsObjects;
-	Vector3 m_gravity;
-};
+		float m_updateTimestep;
+		std::vector<Node*> m_physicsObjects;
+		Vector3 m_gravity;
+	};
+}
 

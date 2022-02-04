@@ -2,22 +2,22 @@
 
 #include "nclgl/NCLDebug.h"
 
-void PhysicsEngine::AddPhysicsObject(PhysicsNode* obj)
+void Physics::PhysicsEngine::AddPhysicsObject(Node* obj)
 {
 	if (!obj)
 	{
-		NCLERROR("Tried to add a nullptr PhysicsNode");
+		NCLERROR("Tried to add a nullptr Node");
 	}
 
 	m_physicsObjects.push_back(obj);
 }
 
-void PhysicsEngine::RemovePhysicsObject(PhysicsNode* obj)
+void Physics::PhysicsEngine::RemovePhysicsObject(Node* obj)
 {
 	m_physicsObjects.erase(std::remove(m_physicsObjects.begin(), m_physicsObjects.end(), obj), m_physicsObjects.end());
 }
 
-void PhysicsEngine::ClearObjects()
+void Physics::PhysicsEngine::ClearObjects()
 {
 	for(auto obj : m_physicsObjects)
 	{
@@ -27,38 +27,51 @@ void PhysicsEngine::ClearObjects()
 	m_physicsObjects.clear();
 }
 
-Vector3 PhysicsEngine::GetGravity()
+Vector3 Physics::PhysicsEngine::GetGravity()
 {
 	return m_gravity;
 }
 
-float PhysicsEngine::GetDampingFactor()
+float Physics::PhysicsEngine::GetDampingFactor()
 {
 	return 0.1f;
 }
 
-PhysicsEngine::PhysicsEngine()
+Physics::PhysicsEngine::PhysicsEngine()
 {
 	m_gravity = Vector3(0.f, -9.81f, 0.f);
 }
 
-PhysicsEngine::~PhysicsEngine()
+Physics::PhysicsEngine::~PhysicsEngine()
 {
 	ClearObjects();
 }
 
-void PhysicsEngine::UpdatePhysics(float dt)
+void Physics::PhysicsEngine::UpdatePhysics(float dt)
 {
 	for (auto obj : m_physicsObjects)
 	{
 		obj->Integrate(dt);
 	}
+
+
+	// Broadphase
+
+	// Narrowphase
+
+	// Initialize Contraints
+
+	// Update Velocities
+
+	// Solve Constraints
+
+	// Update Positions
 }
 
-void PhysicsEngine::UpdateBroadphase()
+void Physics::PhysicsEngine::UpdateBroadphase()
 {
 }
 
-void PhysicsEngine::UpdateNarrowphase()
+void Physics::PhysicsEngine::UpdateNarrowphase()
 {
 }
