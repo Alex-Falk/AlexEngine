@@ -68,6 +68,11 @@ void Physics::PhysicsEngine::UpdatePhysics(float dt)
 	// Update Positions
 }
 
+std::vector<Physics::Node*> Physics::PhysicsEngine::GetPhysicsNodes()
+{
+	return m_physicsObjects;
+}
+
 void Physics::PhysicsEngine::UpdateBroadphase()
 {
 }

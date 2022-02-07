@@ -27,11 +27,11 @@ namespace Physics
 
 		void TerminateTree(Node** node);
 
-		void SplitNode(Node* node);
+		void SplitNode(Node* node, vector<Physics::Node*> physicsNodesToAssign);
 
 	private:
 		std::vector<Physics::CollisionPair> CreateCollisionPairsForNode(Node* node);
-		std::vector<Physics::Node*> GetPhysicsNodesInNode(Node* node, std::vector<Physics::Node*> parentPhysicsNode);
+		static std::vector<Physics::Node*> GetPhysicsNodesInNode(const Node* node, const std::vector<Physics::Node*>& elementsInParent);
 		void UpdateTree();
 		void CheckPhysicsNodesToUpdate(Node * node);
 		void CombineChildren(Node* node);

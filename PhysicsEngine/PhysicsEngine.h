@@ -22,6 +22,9 @@ namespace Physics
 
 		void UpdatePhysics(float dt);
 
+		std::vector<Node*> GetPhysicsNodes();
+
+
 	protected:
 		PhysicsEngine();
 		~PhysicsEngine();

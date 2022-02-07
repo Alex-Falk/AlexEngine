@@ -86,3 +86,8 @@ void Physics::Node::FireOnUpdateCallback()
 		m_onUpdateCallback(m_worldTransform);
 	}
 }
+
+Vector3 Physics::Node::GetLinearVelocity()
+{
+	return m_linearVelocity;
+}

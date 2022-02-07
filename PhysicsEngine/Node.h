@@ -30,6 +30,8 @@ namespace  Physics
 		void FireOnUpdateCallback();
 
 		Vector3 GetPosition() const { return m_position; }
+		float GetBoundingRadius() const { return m_boundingRadius; }
+		Vector3 GetLinearVelocity();
 
 	protected:
 
@@ -48,6 +50,7 @@ namespace  Physics
 
 		float m_elasticity;
 		float m_friction;
+		float m_boundingRadius;
 
 		bool m_applyGravity;
 
