@@ -120,4 +120,66 @@ struct BoundingBox
 		
 		return dsq < r*r;
 	}
+
+	static BoundingBox** SplitIntoEight(const BoundingBox& bb)
+	{
+		// BOTTOM
+		//	b3 --- b34 --- b4
+		//	|	    | 	   |
+		//	b13--- bm --- b24	
+		//	|	    | 	   |
+		//	min --- b12 --- b2
+		//
+		// TOP
+		//	t3 --- t34 --- t4
+		//	|	    | 	   |
+		//	t13--- mt --- t23	
+		//	|	    | 	   |
+		//	t1 --- t12 --- t2
+		//	
+		// Middle
+		//	m3 --- m34 --- m4
+		//	|	    | 	   |
+		//	m13 --- mm --- m24	
+		//	|	    | 	   |
+		//	m1 --- m12 --- m2
+
+		// min-mm, b12-m24, b13-m34, bm-m4, m1-mt, m12-t23, m13-t34, mm-max
+
+		const auto boxes = new BoundingBox*[8];
+
+		const Vector3 min = bb._min;
+		const Vector3 max = bb._max;
+		const Vector3 mm = (min + max) * .5f;
+		
+		Vector3 dims[16]  
+		{
+			min,
+			mm,
+			Vector3(mm.x, min.y, min.z),
+			Vector3(max.x, mm.y, mm.z),
+			Vector3(min.x, min.y, mm.z),
+			Vector3(mm.x, min.y, max.z),
+			Vector3(mm.x, min.y, mm.z),
+			Vector3(max.x, mm.y, max.z),
+			Vector3(min.x, mm.y, min.z),
+			Vector3(mm.x, max.y, mm.z),
+			Vector3(mm.x, mm.y, min.z),
+			Vector3(max.x, max.y, mm.z),
+			Vector3(min.x, mm.y, mm.z),
+			Vector3(mm.x, max.y, max.z),
+			mm,
+			max
+		};
+
+		for (ptrdiff_t i = 0; i < 8; i++)
+		{
+			const auto box = new BoundingBox();
+			box->ExpandToFit(dims[i * 2]);
+			box->ExpandToFit(dims[i * 2 + 1]);
+			boxes[i] = box;
+		}
+
+		return boxes;
+	}
 };

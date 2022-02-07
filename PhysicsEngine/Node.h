@@ -29,6 +29,8 @@ namespace  Physics
 		void SetOnUpdateCallback(UpdateCallback callback) { m_onUpdateCallback = callback; }
 		void FireOnUpdateCallback();
 
+		Vector3 GetPosition() const { return m_position; }
+
 	protected:
 
 	private:

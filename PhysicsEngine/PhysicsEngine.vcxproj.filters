@@ -42,7 +42,7 @@
     <ClInclude Include="ContactPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="kDTree.h">
+    <ClInclude Include="OcTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClCompile Include="PhysicsEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="kDTree.cpp">
+    <ClCompile Include="OcTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
