@@ -1,8 +1,8 @@
-#include "Node.h"
+#include "PhysicsNode.h"
 
 #include "PhysicsEngine.h"
 
-void Physics::Node::Integrate(const float dt)
+void Physics::PhysicsNode::Integrate(const float dt)
 {
 	if (m_inverseMass > 0.f && m_applyGravity)
 	{
@@ -36,47 +36,47 @@ void Physics::Node::Integrate(const float dt)
 	FireOnUpdateCallback();
 }
 
-void Physics::Node::ApplyForce(Vector3 force)
+void Physics::PhysicsNode::ApplyForce(Vector3 force)
 {
 	m_force += force;
 }
 
-void Physics::Node::ApplyLinearVelocity(Vector3 velocity)
+void Physics::PhysicsNode::ApplyLinearVelocity(Vector3 velocity)
 {
 	m_linearVelocity += velocity;
 }
 
-void Physics::Node::SetPosition(Vector3 position)
+void Physics::PhysicsNode::SetPosition(Vector3 position)
 {
 	m_position = position;
 }
 
-void Physics::Node::ApplyTorque(Vector3 torque)
+void Physics::PhysicsNode::ApplyTorque(Vector3 torque)
 {
 	m_torque += torque;
 }
 
-void Physics::Node::ApplyAngularVelocity(Vector3 angularVelocity)
+void Physics::PhysicsNode::ApplyAngularVelocity(Vector3 angularVelocity)
 {
 	m_angularVelocity += angularVelocity;
 }
 
-void Physics::Node::SetRotation(Quaternion rotation)
+void Physics::PhysicsNode::SetRotation(Quaternion rotation)
 {
 	m_orientation = rotation;
 }
 
-void Physics::Node::SetInverseMass(float inverseMass)
+void Physics::PhysicsNode::SetInverseMass(float inverseMass)
 {
 	m_inverseMass = inverseMass;
 }
 
-void Physics::Node::SetGravityEnabled(bool enabled)
+void Physics::PhysicsNode::SetGravityEnabled(bool enabled)
 {
 	m_applyGravity = enabled;
 }
 
-void Physics::Node::FireOnUpdateCallback()
+void Physics::PhysicsNode::FireOnUpdateCallback()
 {
 	m_worldTransform = m_orientation.ToMatrix4();
 	m_worldTransform.SetPositionVector(m_position);
@@ -87,7 +87,7 @@ void Physics::Node::FireOnUpdateCallback()
 	}
 }
 
-Vector3 Physics::Node::GetLinearVelocity()
+Vector3 Physics::PhysicsNode::GetLinearVelocity()
 {
 	return m_linearVelocity;
 }

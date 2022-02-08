@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Node.h"
+#include "PhysicsNode.h"
 #include <nclgl/TSingleton.h>
 #include <vector>
 
@@ -12,8 +12,8 @@ namespace Physics
 
 	public:
 
-		void AddPhysicsObject(Node* obj);
-		void RemovePhysicsObject(Node* obj);
+		void AddPhysicsObject(PhysicsNode* obj);
+		void RemovePhysicsObject(PhysicsNode* obj);
 
 		void ClearObjects();
 
@@ -22,7 +22,7 @@ namespace Physics
 
 		void UpdatePhysics(float dt);
 
-		std::vector<Node*> GetPhysicsNodes();
+		std::vector<PhysicsNode*> GetPhysicsNodes();
 
 
 	protected:
@@ -37,7 +37,7 @@ namespace Physics
 	private:
 
 		float m_updateTimestep;
-		std::vector<Node*> m_physicsObjects;
+		std::vector<PhysicsNode*> m_physicsObjects;
 		Vector3 m_gravity;
 	};
 }

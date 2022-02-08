@@ -2,17 +2,17 @@
 
 #include "nclgl/NCLDebug.h"
 
-void Physics::PhysicsEngine::AddPhysicsObject(Node* obj)
+void Physics::PhysicsEngine::AddPhysicsObject(PhysicsNode* obj)
 {
 	if (!obj)
 	{
-		NCLERROR("Tried to add a nullptr Node");
+		NCLERROR("Tried to add a nullptr PhysicsNode");
 	}
 
 	m_physicsObjects.push_back(obj);
 }
 
-void Physics::PhysicsEngine::RemovePhysicsObject(Node* obj)
+void Physics::PhysicsEngine::RemovePhysicsObject(PhysicsNode* obj)
 {
 	m_physicsObjects.erase(std::remove(m_physicsObjects.begin(), m_physicsObjects.end(), obj), m_physicsObjects.end());
 }
@@ -68,7 +68,7 @@ void Physics::PhysicsEngine::UpdatePhysics(float dt)
 	// Update Positions
 }
 
-std::vector<Physics::Node*> Physics::PhysicsEngine::GetPhysicsNodes()
+std::vector<Physics::PhysicsNode*> Physics::PhysicsEngine::GetPhysicsNodes()
 {
 	return m_physicsObjects;
 }

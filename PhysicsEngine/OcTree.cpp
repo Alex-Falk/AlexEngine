@@ -1,16 +1,55 @@
 #include "OcTree.h"
 #include <algorithm>
 
-#include "Node.h"
+#include "PhysicsNode.h"
 #include "PhysicsEngine.h"
 
+Physics::OcTree::Node::Node()
+{
+	PhysicsNodes.reserve(8);
+}
+
+vector<Physics::PhysicsNode*> Physics::OcTree::Node::GetAllPhysicsNodesInChildren()
+{
+	if (!Children)
+	{
+		return PhysicsNodes;
+	}
+
+	vector<PhysicsNode*> physicsNodes;
+
+	for (int i = 0; i < 8; ++i)
+	{
+		auto childrenNodes = Children[i]->GetAllPhysicsNodesInChildren();
+		physicsNodes.insert(physicsNodes.end(), childrenNodes.begin(), childrenNodes.end());
+	}
+
+	return physicsNodes;
+}
+
+size_t Physics::OcTree::Node::GetNumberOfPhysicsNodes() const
+{
+	if (!Children)
+	{
+		return PhysicsNodes.size();
+	}
+
+	size_t totalNumber = PhysicsNodes.size();
+	for (int i = 0; i < 8; ++i)
+	{
+		totalNumber += Children[i]->GetNumberOfPhysicsNodes();
+	}
+
+	return totalNumber;
+}
+
 Physics::OcTree::OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax,
-                        std::vector<Physics::Node*>* physicsNodes)
+                        std::vector<Physics::PhysicsNode*> physicsNodes)
 {
 	OcTree(Vector3(xMin, yMin, zMin), Vector3(xMax, yMax, zMax), physicsNodes);
 }
 
-Physics::OcTree::OcTree(Vector3 min, Vector3 max, std::vector<Physics::Node*>* physicsNodes) : m_root(new Node())
+Physics::OcTree::OcTree(Vector3 min, Vector3 max, std::vector<Physics::PhysicsNode*> physicsNodes) : m_root(new Node())
 {
 	m_root->AABB = new BoundingBox();
 	m_root->AABB->ExpandToFit(min);
@@ -19,9 +58,9 @@ Physics::OcTree::OcTree(Vector3 min, Vector3 max, std::vector<Physics::Node*>* p
 
 	m_physicsNodes = physicsNodes;
 
-	if (m_physicsNodes->size() > Physics::OcTreeMaxNumber)
+	if (m_physicsNodes.size() > Physics::OcTreeMaxNumber)
 	{
-		SplitNode(m_root, *m_physicsNodes);
+		SplitNode(m_root, m_physicsNodes);
 	}
 }
 
@@ -45,7 +84,7 @@ void Physics::OcTree::TerminateTree(Node** node)
 	}
 }
 
-void Physics::OcTree::SplitNode(Node* node, vector<Physics::Node*> physicsNodesToAssign)
+void Physics::OcTree::SplitNode(Node* node, vector<Physics::PhysicsNode*> physicsNodesToAssign)
 {
 	if (physicsNodesToAssign.size() > Physics::OcTreeMaxNumber)
 	{
@@ -75,12 +114,50 @@ void Physics::OcTree::SplitNode(Node* node, vector<Physics::Node*> physicsNodesT
 
 std::vector<Physics::CollisionPair> Physics::OcTree::CreateCollisionPairsForNode(Node* node)
 {
+	vector<CollisionPair> collisionPairs;
+
+	if (node)
+	{
+		if (node->Children)
+		{
+			for (int i = 0; i < 8; ++i)
+			{
+				if (node->Children[i])
+				{
+					auto pairs = CreateCollisionPairsForNode(node->Children[i]);
+					collisionPairs.insert(collisionPairs.end(), pairs.begin(), pairs.end());
+				}
+			}
+		}
+		else
+		{
+			for (size_t i = 0; i < node->PhysicsNodes.size() - 1; ++i)
+			{
+				for (size_t j = 0; i < node->PhysicsNodes.size(); ++j)
+				{
+					// TODO: Objects that shouldn't collide with each other?
+
+					if (node->PhysicsNodes[i]->HasCollision() && node->PhysicsNodes[j]->HasCollision())
+					{
+						if (PhysicsNodeSpheresOverlap(node->PhysicsNodes[i],node->PhysicsNodes[j]))
+						{
+							collisionPairs.push_back({
+								node->PhysicsNodes[i],
+								node->PhysicsNodes[j]
+								});
+						}
+					}
+				}
+			}
+		}
+	}
+	return collisionPairs;
 }
 
-std::vector<Physics::Node*> Physics::OcTree::GetPhysicsNodesInNode(const Node* node,
-                                                                   const std::vector<Physics::Node*>& elementsInParent)
+std::vector<Physics::PhysicsNode*> Physics::OcTree::GetPhysicsNodesInNode(const Node* node,
+                                                                   const std::vector<Physics::PhysicsNode*>& elementsInParent)
 {
-	std::vector<Physics::Node*> newNodes;
+	std::vector<Physics::PhysicsNode*> newNodes;
 
 	if (!node || elementsInParent.empty())
 		return newNodes;
@@ -97,14 +174,16 @@ std::vector<Physics::Node*> Physics::OcTree::GetPhysicsNodesInNode(const Node* n
 
 void Physics::OcTree::UpdateTree()
 {
-	const auto physicsNodes = PhysicsEngine::Instance()->GetPhysicsNodes();
-	if (physicsNodes.empty()) return;
 
-	for(auto& physicsNode : physicsNodes)
+
+
+	if (m_physicsNodes.empty()) return;
+
+	for(auto& physicsNode : m_physicsNodes)
 	{
-		if (physicsNode->GetLinearVelocity().LengthSqr() > 0.f && !(std::find(m_nodesToUpdate.begin(), m_nodesToUpdate.end(), physicsNodes) != m_nodesToUpdate.end()))
+		if (physicsNode->GetLinearVelocity().LengthSqr() > 0.f && !(std::find(m_movedNodes.begin(), m_movedNodes.end(), m_physicsNodes) != m_movedNodes.end()))
 		{
-			m_nodesToUpdate.push_back(physicsNode);
+			m_movedNodes.push_back(physicsNode);
 		}
 	}
 }
@@ -112,6 +191,46 @@ void Physics::OcTree::UpdateTree()
 void Physics::OcTree::UpdatePhysicsNodes()
 {
 	CheckPhysicsNodesToUpdate(m_root);
+}
+
+void Physics::OcTree::AdjustNodesPostUpdate()
+{
+	CheckAdjustNode(m_root);
+}
+
+void Physics::OcTree::TryAddPhysicsNode(Node* node, PhysicsNode* physNode)
+{
+	if (IsPhysicsNodeInNode(node, physNode))
+	{
+		if (node->Children)
+		{
+			for(size_t i = 0; i < 8; ++i)
+			{
+				TryAddPhysicsNode(node->Children[i], physNode);
+			}
+		}
+		else
+		{
+			node->PhysicsNodes.push_back(physNode);
+		}
+	}
+}
+
+void Physics::OcTree::TryRemovePhysicsNode(Node* node, PhysicsNode* physNode)
+{
+	if (node->Children)
+	{
+		for (size_t i = 0; i < 8; ++i)
+		{
+			TryAddPhysicsNode(node->Children[i], physNode);
+		}
+	}
+
+	// TODO is this needed?
+	if (std::find(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode) != node->PhysicsNodes.end())
+	{
+		node->PhysicsNodes.erase(std::remove(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode), node->PhysicsNodes.end());
+	}
 }
 
 
@@ -128,29 +247,48 @@ void Physics::OcTree::CheckPhysicsNodesToUpdate(Node* node)
 	}
 	else
 	{
-		for (auto& physicsNode : m_nodesToUpdate)
+		for (auto& physicsNode : m_movedNodes)
 		{
 			auto itr = std::find(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physicsNode);
-			if (itr != node->PhysicsNodes.end() && )
+			if (itr != node->PhysicsNodes.end() && !IsPhysicsNodeInNode(node, physicsNode))
 			{
-				
+				node->PhysicsNodes.erase(std::remove(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physicsNode), node->PhysicsNodes.end());
 			}
+			else if (itr == node->PhysicsNodes.end() && IsPhysicsNodeInNode(node, physicsNode))
+			{
+				node->PhysicsNodes.push_back(physicsNode);
+			}
+		}
+	}
+
+	m_movedNodes.clear();
+}
+
+void Physics::OcTree::CollapseNode(Node* node)
+{
+
+}
+
+void Physics::OcTree::CheckAdjustNode(Node* node)
+{
+	if (node->Children && node->GetNumberOfPhysicsNodes() < OcTreeMaxNumber)
+	{
+		CollapseNode(node);
+	}
+	else
+	{
+		for (int i = 0; i < 8; ++i) {
+			if (node->Children)
+				CheckAdjustNode(node->Children[i]);
 		}
 	}
 }
 
-
-
-
-void Physics::OcTree::CombineChildren(Node* node)
+bool Physics::OcTree::IsPhysicsNodeInNode(Node* node, PhysicsNode* physicsNode)
 {
-}
-
-bool Physics::OcTree::IsPhysicsNodeInLeaf(Node* leaf, Physics::Node physicsNode)
-{
-	if (leaf && leaf->AABB)
+	if (node && node->AABB)
 	{
-		return leaf->AABB->CollidingWithSphere(physicsNode.GetPosition(), physicsNode.GetBoundingRadius());
+		return node->AABB->CollidingWithSphere(physicsNode->GetPosition(), physicsNode->GetBoundingRadius());
 	}
 
 	return false;

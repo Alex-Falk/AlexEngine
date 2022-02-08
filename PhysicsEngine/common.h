@@ -3,7 +3,7 @@
 
 namespace Physics {
 
-	class Node;
+	class PhysicsNode;
 
 	enum class Integrator {
 		ZERO,			// No simulation
@@ -14,8 +14,8 @@ namespace Physics {
 
 	struct CollisionPair
 	{
-		Node* NodeA;
-		Node* NodeB;
+		PhysicsNode* NodeA;
+		PhysicsNode* NodeB;
 	};
 
 	// TODO: this could come from a config file?
@@ -23,4 +23,5 @@ namespace Physics {
 	static constexpr float OcTreeMinSize = 2.f;
 	static constexpr uint32_t OcTreeMaxNumber = 8;
 
+	static bool PhysicsNodeSpheresOverlap(PhysicsNode* nodeA, PhysicsNode* nodeB);
 }

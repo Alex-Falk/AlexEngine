@@ -5,11 +5,13 @@
 #include <nclgl/Quaternion.h>
 #include "common.h"
 
+class CollisionShape;
+
 namespace  Physics
 {
 	typedef std::function<void(const Matrix4& transform)> UpdateCallback;
 
-	class Node
+	class PhysicsNode
 	{
 	public:
 		void Integrate(float dt);
@@ -33,6 +35,9 @@ namespace  Physics
 		float GetBoundingRadius() const { return m_boundingRadius; }
 		Vector3 GetLinearVelocity();
 
+		CollisionShape* GetCollisionShape();
+		bool HasCollision();
+	
 	protected:
 
 	private:

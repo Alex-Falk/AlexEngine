@@ -151,17 +151,18 @@
     <ClInclude Include="ContactPoint.h" />
     <ClInclude Include="OcTree.h" />
     <ClInclude Include="PhysicsEngine.h" />
-    <ClInclude Include="Node.h" />
+    <ClInclude Include="PhysicsNode.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SphereObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="CollisionShape.cpp" />
+    <ClCompile Include="common.cpp" />
     <ClCompile Include="Constraint.cpp" />
     <ClCompile Include="OcTree.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
-    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PhysicsNode.cpp" />
     <ClCompile Include="SphereObject.cpp" />
   </ItemGroup>
   <ItemGroup>
