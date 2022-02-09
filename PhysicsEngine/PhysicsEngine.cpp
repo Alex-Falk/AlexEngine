@@ -1,5 +1,6 @@
 #include "PhysicsEngine.h"
 
+#include "OcTree.h"
 #include "nclgl/NCLDebug.h"
 
 void Physics::PhysicsEngine::AddPhysicsObject(PhysicsNode* obj)
@@ -40,6 +41,8 @@ float Physics::PhysicsEngine::GetDampingFactor()
 Physics::PhysicsEngine::PhysicsEngine()
 {
 	m_gravity = Vector3(0.f, -9.81f, 0.f);
+
+	m_ocTree;
 }
 
 Physics::PhysicsEngine::~PhysicsEngine()

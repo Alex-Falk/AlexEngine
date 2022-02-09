@@ -1,22 +1,23 @@
 #pragma once
-#include "common.h"
+
 #include "nclgl/BoundingBox.h"
 #include "nclgl/TSingleton.h"
 
 namespace Physics
 {
 	class PhysicsNode;
+	class CollisionPair;
 
-	class OcTree : TSingleton<OcTree>
+	class OcTree
 	{
 		struct Node
 		{
 			Node();
 
 			Node* Parent = nullptr;
-			Node** Children{};
+			Node** Children;
 
-			BoundingBox* AABB{};
+			BoundingBox* AABB;
 
 			vector<PhysicsNode*> PhysicsNodes;
 			vector<Physics::PhysicsNode*> GetAllPhysicsNodesInChildren();
@@ -30,24 +31,25 @@ namespace Physics
 		OcTree(Vector3 min, Vector3 max, std::vector<Physics::PhysicsNode*> physicsNodes);
 		~OcTree();
 
-		void TerminateTree(Node** node);
-
+		
 		static void SplitNode(Node* node, vector<PhysicsNode*> physicsNodesToAssign);
 
-		void AddPhysicsNode(PhysicsNode* physicsNode);
-		void RemovePhysicsNode(PhysicsNode* physicsNode);
+		void AddPhysicsNode(PhysicsNode* physicsNode) const;
+		void RemovePhysicsNode(PhysicsNode* physicsNode) const;
 	private:
-		static std::vector<Physics::CollisionPair> CreateCollisionPairsForNode(Node* node);
-		static std::vector<Physics::PhysicsNode*> GetPhysicsNodesInNode(const Node* node, const std::vector<PhysicsNode*>& elementsInParent);
 		void UpdateTree();
 		void UpdatePhysicsNodes();
-		void AdjustNodesPostUpdate();
+		void AdjustNodesPostUpdate() const;
 
-		void CheckPhysicsNodesToUpdate(Node * node);
+		static void TerminateTree(Node* node);
 		static void TryAddPhysicsNode(Node* node, PhysicsNode* physNode);
 		static void TryRemovePhysicsNode(Node* node, PhysicsNode* physNode);
-		void CollapseNode(Node* node);
-		void CheckAdjustNode(Node* node);
+		static void CollapseNode(Node* node);
+		static void CheckAdjustNode(Node* node);
+		void CheckPhysicsNodesToUpdate(Node* node);
+
+		static vector<CollisionPair> CreateCollisionPairs(Node* node);
+		static vector<PhysicsNode*> GetPhysicsNodes(const Node* node, const vector<PhysicsNode*>& elementsInParent);
 
 		static bool IsPhysicsNodeInNode(Node* node, PhysicsNode* physicsNode);
 
@@ -55,6 +57,6 @@ namespace Physics
 		std::vector<PhysicsNode*> m_addedNodes;
 		std::vector<PhysicsNode*> m_removedNodes;
 		std::vector<PhysicsNode*> m_physicsNodes;
-		Node* m_root{};
+		Node* m_root;
 	};
 }

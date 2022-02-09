@@ -6,6 +6,8 @@
 
 namespace Physics
 {
+	class OcTree;
+
 	class PhysicsEngine : public TSingleton<PhysicsEngine>
 	{
 		friend class TSingleton<PhysicsEngine>;
@@ -28,9 +30,7 @@ namespace Physics
 	protected:
 		PhysicsEngine();
 		~PhysicsEngine();
-
-
-
+		
 		void UpdateBroadphase();
 		void UpdateNarrowphase();
 
@@ -39,6 +39,8 @@ namespace Physics
 		float m_updateTimestep;
 		std::vector<PhysicsNode*> m_physicsObjects;
 		Vector3 m_gravity;
+
+		OcTree* m_ocTree;
 	};
 }
 
