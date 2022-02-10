@@ -113,6 +113,13 @@ namespace Physics
 
 	void PhysicsEngine::HandleNarrowphaseCollisions(vector<CollisionPair>& collisionPairs)
 	{
+		if (collisionPairs.empty())
+		{
+			return;
+		}
+
+
+
 	}
 
 

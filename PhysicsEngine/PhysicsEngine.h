@@ -4,6 +4,7 @@
 #include <nclgl/TSingleton.h>
 #include <vector>
 
+#include "CollisionDetection.h"
 #include "OcTree.h"
 
 namespace Physics
@@ -57,7 +58,7 @@ namespace Physics
 
 		OcTree* m_ocTree;
 
-		CollisionDection m_collisionDetection;
+		CollisionDetection m_collisionDetection;
 	};
 }
 
