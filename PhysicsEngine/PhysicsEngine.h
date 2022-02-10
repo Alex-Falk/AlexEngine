@@ -45,8 +45,8 @@ namespace Physics
 		PhysicsEngine();
 		~PhysicsEngine();
 		
-		void UpdateBroadphase();
-		void UpdateNarrowphase();
+		vector<CollisionPair> GetBroadphaseCollisionPairs() const;
+		void HandleNarrowphaseCollisions(vector<CollisionPair>& collisionPairs);
 
 	private:
 
@@ -56,6 +56,8 @@ namespace Physics
 		WorldLimits m_worldLimits;
 
 		OcTree* m_ocTree;
+
+		CollisionDection m_collisionDetection;
 	};
 }
 
