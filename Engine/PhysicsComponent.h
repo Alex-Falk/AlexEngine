@@ -6,7 +6,10 @@ class PhysicsComponent :
     public Component, public Physics::PhysicsNode
 {
 public:
-    PhysicsComponent() {}
+	PhysicsComponent(const Vector3& initialPos, float inverseMass, float boundingRadius, bool applyGravity)
+		: PhysicsNode(initialPos, inverseMass, boundingRadius, applyGravity)
+	{
+	}
 
 private:
     void OnInitialise() override;

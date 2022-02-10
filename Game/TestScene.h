@@ -30,7 +30,7 @@ public:
 			Vector3(0.0f, 4.f, 0.f),
 			2.f,
 			true,
-			true,
+			false,
 			1,
 			false,
 			false,
@@ -38,8 +38,22 @@ public:
 
 		this->AddGameObject(sphere);
 
+		GameObject* sphere2 = CommonUtils::BuildSphereObject(
+			"sphery2",
+			Vector3(0.0f, 5.f, 0.f),
+			2.f,
+			true,
+			false,
+			1,
+			false,
+			false,
+			Vector4(1.f, 0.f, 0.f, 1.f));
+
+		this->AddGameObject(sphere2);
+
 		ground->OnInitialise();
 		sphere->OnInitialise();
+		sphere2->OnInitialise();
 	}
 };
 

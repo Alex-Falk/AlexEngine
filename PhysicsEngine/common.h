@@ -12,16 +12,8 @@ namespace Physics {
 		RK4				// 4th Order Runge-Kutta
 	};
 
-	struct CollisionPair
-	{
-		PhysicsNode* NodeA;
-		PhysicsNode* NodeB;
-	};
-
 	// TODO: this could come from a config file?
 
 	static constexpr float OcTreeMinSize = 2.f;
 	static constexpr uint32_t OcTreeMaxNumber = 8;
-
-	static bool PhysicsNodeSpheresOverlap(PhysicsNode* nodeA, PhysicsNode* nodeB);
 }

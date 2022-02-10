@@ -1,6 +1,13 @@
 #include "PhysicsNode.h"
 
+#include "CollisionShape.h"
 #include "PhysicsEngine.h"
+
+Physics::PhysicsNode::PhysicsNode(const Vector3 initialPos, const float inverseMass, const float boundingRadius, const bool applyGravity)
+	: m_position(initialPos), m_inverseMass(inverseMass), m_boundingRadius(boundingRadius),
+	  m_applyGravity(applyGravity), m_integrator(Integrator::RK4)
+{
+}
 
 void Physics::PhysicsNode::Integrate(const float dt)
 {
@@ -90,4 +97,14 @@ void Physics::PhysicsNode::FireOnUpdateCallback()
 Vector3 Physics::PhysicsNode::GetLinearVelocity()
 {
 	return m_linearVelocity;
+}
+
+CollisionShape* Physics::PhysicsNode::GetCollisionShape()
+{
+	return new CollisionShape();
+}
+
+bool Physics::PhysicsNode::HasCollision()
+{
+	return false;
 }

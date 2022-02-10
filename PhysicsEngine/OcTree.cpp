@@ -69,7 +69,7 @@ namespace Physics
 
 	OcTree::~OcTree()
 	{
-		TerminateTree(&root);
+		TerminateTree(m_root);
 	}
 
 	void OcTree::TerminateTree(Node* node)
@@ -87,7 +87,7 @@ namespace Physics
 		}
 	}
 
-	void OcTree::SplitNode(Node* node, vector<PhysicsNode*> physicsNodesToAssign)
+	void OcTree::SplitNode(Node* node, const vector<PhysicsNode*>& physicsNodesToAssign)
 	{
 		if (physicsNodesToAssign.size() > OcTreeMaxNumber)
 		{
@@ -125,10 +125,15 @@ namespace Physics
 		TryRemovePhysicsNode(m_root, physicsNode);
 	}
 
+	vector<CollisionPair> OcTree::GetCollisionPairs() const
+	{
+		return CreateCollisionPairs(m_root);
+	}
+
 	std::vector<CollisionPair> OcTree::CreateCollisionPairs(Node* node)
 	{
 		vector<CollisionPair> collisionPairs;
-
+		
 		if (node)
 		{
 			if (node->Children)
@@ -142,17 +147,17 @@ namespace Physics
 					}
 				}
 			}
-			else
+			else if (node->PhysicsNodes.size() > 0)
 			{
 				for (size_t i = 0; i < node->PhysicsNodes.size() - 1; ++i)
 				{
-					for (size_t j = 0; i < node->PhysicsNodes.size(); ++j)
+					for (size_t j = 0; j < node->PhysicsNodes.size(); ++j)
 					{
 						// TODO: Objects that shouldn't collide with each other?
 
 						if (node->PhysicsNodes[i]->HasCollision() && node->PhysicsNodes[j]->HasCollision())
 						{
-							if (PhysicsNodeSpheresOverlap(node->PhysicsNodes[i], node->PhysicsNodes[j]))
+							if (PhysicsEngine::PhysicsNodeSpheresOverlap(node->PhysicsNodes[i], node->PhysicsNodes[j]))
 							{
 								collisionPairs.push_back({
 									node->PhysicsNodes[i],
@@ -186,18 +191,18 @@ namespace Physics
 
 	void OcTree::UpdateTree()
 	{
-
-
-
 		if (m_physicsNodes.empty()) return;
 
 		for (auto& physicsNode : m_physicsNodes)
 		{
-			if (physicsNode->GetLinearVelocity().LengthSqr() > 0.f && !(std::find(m_movedNodes.begin(), m_movedNodes.end(), m_physicsNodes) != m_movedNodes.end()))
+			if (physicsNode->GetLinearVelocity().LengthSqr() > 0.f && !(std::find(m_movedNodes.begin(), m_movedNodes.end(), physicsNode) != m_movedNodes.end()))
 			{
 				m_movedNodes.push_back(physicsNode);
 			}
 		}
+
+		UpdatePhysicsNodes();
+		AdjustNodesPostUpdate();
 	}
 
 	void OcTree::UpdatePhysicsNodes()
@@ -295,7 +300,7 @@ namespace Physics
 		}
 	}
 
-	bool OcTree::IsPhysicsNodeInNode(Node* node, PhysicsNode* physicsNode)
+	bool OcTree::IsPhysicsNodeInNode(Node* node, const PhysicsNode* physicsNode)
 	{
 		if (node && node->AABB)
 		{

@@ -4,11 +4,24 @@
 #include <nclgl/TSingleton.h>
 #include <vector>
 
+#include "OcTree.h"
+
 namespace Physics
 {
-	class OcTree;
+	struct WorldLimits
+	{
+		Vector3 Min;
+		Vector3 Max;
+	};
 
-	class PhysicsEngine : public TSingleton<PhysicsEngine>
+	struct CollisionPair
+	{
+		PhysicsNode* NodeA;
+		PhysicsNode* NodeB;
+	};
+
+
+	class PhysicsEngine final : public TSingleton<PhysicsEngine>
 	{
 		friend class TSingleton<PhysicsEngine>;
 
@@ -26,6 +39,7 @@ namespace Physics
 
 		std::vector<PhysicsNode*> GetPhysicsNodes();
 
+		static bool PhysicsNodeSpheresOverlap(PhysicsNode* nodeA, PhysicsNode* nodeB);
 
 	protected:
 		PhysicsEngine();
@@ -39,6 +53,7 @@ namespace Physics
 		float m_updateTimestep;
 		std::vector<PhysicsNode*> m_physicsObjects;
 		Vector3 m_gravity;
+		WorldLimits m_worldLimits;
 
 		OcTree* m_ocTree;
 	};

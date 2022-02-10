@@ -74,11 +74,7 @@ GameObject* CommonUtils::BuildSphereObject(
 	PhysicsComponent* pnode = NULL;	
 	if (physics_enabled)
 	{
-		pnode = new PhysicsComponent();
-		pnode->SetPosition(pos);
-		pnode->SetInverseMass(inverse_mass);
-		pnode->SetGravityEnabled(apply_gravity);
-		//pnode->SetBoundingRadius(radius);
+		pnode = new PhysicsComponent(pos, inverse_mass, radius, apply_gravity);
 		//pnode->SetType(objectType);
 
 		if (!collidable)
@@ -145,11 +141,7 @@ GameObject* CommonUtils::BuildCuboidObject(
 	PhysicsComponent* pnode = NULL;
 	if (physics_enabled)
 	{
-		pnode = new PhysicsComponent();
-		pnode->SetPosition(pos);
-		pnode->SetInverseMass(inverse_mass);
-		pnode->SetGravityEnabled(apply_gravity);
-		//pnode->SetType(objectType);
+		pnode = new PhysicsComponent(pos, inverse_mass, 0, apply_gravity);
 
 		float x = halfdims.x*2.0f;
 		float y = halfdims.y*2.0f;
@@ -217,10 +209,7 @@ GameObject* CommonUtils::BuildPlaneObject(
 	PhysicsComponent* pnode = NULL;
 	if (physics_enabled)
 	{
-		pnode = new PhysicsComponent();
-		pnode->SetPosition(pos);
-		pnode->SetInverseMass(inverse_mass);
-		//pnode->SetType(objectType);
+		pnode = new PhysicsComponent(pos, inverse_mass, 0.f, apply_gravity);
 
 		float x = halfdims.x*2.0f;
 		float y = halfdims.y*2.0f;
@@ -266,10 +255,7 @@ GameObject* CommonUtils::InvisibleWall(
 {
 	PhysicsComponent* pnode = NULL;
 
-	pnode = new PhysicsComponent();
-	//pnode->SetPosition(pos);
-	//pnode->SetInverseMass(0);
-	//pnode->SetType(INVISIBLE_WALL);
+	pnode = new PhysicsComponent(pos, 0, 0.f, false);
 
 	float x = halfdims.x*2.0f;
 	float y = halfdims.y*2.0f;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "nclgl/BoundingBox.h"
-#include "nclgl/TSingleton.h"
 
 namespace Physics
 {
@@ -25,19 +24,18 @@ namespace Physics
 		};
 
 	public:
-		Node* root = nullptr;
-
 		OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax, std::vector<PhysicsNode*> physicsNodes);
-		OcTree(Vector3 min, Vector3 max, std::vector<Physics::PhysicsNode*> physicsNodes);
+		OcTree(Vector3 min, Vector3 max, std::vector<PhysicsNode*> physicsNodes);
 		~OcTree();
-
-		
-		static void SplitNode(Node* node, vector<PhysicsNode*> physicsNodesToAssign);
+				
 
 		void AddPhysicsNode(PhysicsNode* physicsNode) const;
 		void RemovePhysicsNode(PhysicsNode* physicsNode) const;
-	private:
+		vector<CollisionPair> GetCollisionPairs() const;
+
 		void UpdateTree();
+	private:
+		
 		void UpdatePhysicsNodes();
 		void AdjustNodesPostUpdate() const;
 
@@ -46,12 +44,13 @@ namespace Physics
 		static void TryRemovePhysicsNode(Node* node, PhysicsNode* physNode);
 		static void CollapseNode(Node* node);
 		static void CheckAdjustNode(Node* node);
+		static void SplitNode(Node* node, const vector<PhysicsNode*>& physicsNodesToAssign);
 		void CheckPhysicsNodesToUpdate(Node* node);
 
 		static vector<CollisionPair> CreateCollisionPairs(Node* node);
 		static vector<PhysicsNode*> GetPhysicsNodes(const Node* node, const vector<PhysicsNode*>& elementsInParent);
 
-		static bool IsPhysicsNodeInNode(Node* node, PhysicsNode* physicsNode);
+		static bool IsPhysicsNodeInNode(Node* node, const PhysicsNode* physicsNode);
 
 		std::vector<PhysicsNode*> m_movedNodes;
 		std::vector<PhysicsNode*> m_addedNodes;

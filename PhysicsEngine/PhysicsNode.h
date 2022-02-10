@@ -14,6 +14,8 @@ namespace  Physics
 	class PhysicsNode
 	{
 	public:
+		PhysicsNode(Vector3 initialPos, float inverseMass, float boundingRadius, bool applyGravity);
+
 		void Integrate(float dt);
 
 		void ApplyForce(Vector3 force);
@@ -53,8 +55,8 @@ namespace  Physics
 		Vector3 m_torque;
 		Matrix3 m_inverseInertia;
 
-		float m_elasticity;
-		float m_friction;
+		float m_elasticity{};
+		float m_friction{};
 		float m_boundingRadius;
 
 		bool m_applyGravity;

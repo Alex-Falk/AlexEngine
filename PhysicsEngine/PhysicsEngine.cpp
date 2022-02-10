@@ -2,6 +2,8 @@
 
 #include "OcTree.h"
 #include "nclgl/NCLDebug.h"
+#include "Maths/Math.h"
+#include "OcTree.h"
 
 void Physics::PhysicsEngine::AddPhysicsObject(PhysicsNode* obj)
 {
@@ -11,17 +13,28 @@ void Physics::PhysicsEngine::AddPhysicsObject(PhysicsNode* obj)
 	}
 
 	m_physicsObjects.push_back(obj);
+
+	if (m_ocTree)
+	{
+		m_ocTree->AddPhysicsNode(obj);
+	}
 }
 
 void Physics::PhysicsEngine::RemovePhysicsObject(PhysicsNode* obj)
 {
 	m_physicsObjects.erase(std::remove(m_physicsObjects.begin(), m_physicsObjects.end(), obj), m_physicsObjects.end());
+
+	if (m_ocTree)
+	{
+		m_ocTree->RemovePhysicsNode(obj);
+	}
 }
 
 void Physics::PhysicsEngine::ClearObjects()
 {
 	for(auto obj : m_physicsObjects)
 	{
+		m_ocTree->RemovePhysicsNode(obj);
 		SAFE_DELETE(obj);
 	}
 
@@ -42,7 +55,9 @@ Physics::PhysicsEngine::PhysicsEngine()
 {
 	m_gravity = Vector3(0.f, -9.81f, 0.f);
 
-	m_ocTree;
+	m_worldLimits.Min = { -100.f, -100.f, -100.f };
+	m_worldLimits.Max = { 100.f, 100.f, 100.f };
+	m_ocTree = new OcTree(m_worldLimits.Min, m_worldLimits.Max, m_physicsObjects);
 }
 
 Physics::PhysicsEngine::~PhysicsEngine()
@@ -59,6 +74,7 @@ void Physics::PhysicsEngine::UpdatePhysics(float dt)
 
 
 	// Broadphase
+	UpdateBroadphase();
 
 	// Narrowphase
 
@@ -76,8 +92,23 @@ std::vector<Physics::PhysicsNode*> Physics::PhysicsEngine::GetPhysicsNodes()
 	return m_physicsObjects;
 }
 
+bool Physics::PhysicsEngine::PhysicsNodeSpheresOverlap(PhysicsNode* nodeA, PhysicsNode* nodeB)
+{
+	if (!nodeA || !nodeB)
+	{
+		NCLERROR("One or both PhysicsNodes in PhysicsNodeSpheresOverlap is null");
+		return false;
+	}
+
+	return nodeA->GetPosition().DistSqr(nodeB->GetPosition()) < Math::Squared(nodeA->GetBoundingRadius() + nodeB->GetBoundingRadius());
+}
+
 void Physics::PhysicsEngine::UpdateBroadphase()
 {
+	m_ocTree->UpdateTree();
+	auto collisionPairs = m_ocTree->GetCollisionPairs();
+
+	int i = 0;
 }
 
 void Physics::PhysicsEngine::UpdateNarrowphase()
