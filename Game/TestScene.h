@@ -27,12 +27,12 @@ public:
 
 		GameObject* sphere = CommonUtils::BuildSphereObject(
 			"sphery",
-			Vector3(0.0f, 4.f, 0.f),
+			Vector3(0.0f, 10.f, 0.f),
 			2.f,
 			true,
-			false,
-			1,
-			false,
+			true,
+			2.f,
+			true,
 			false,
 			Vector4(1.f, 0.f, 0.f, 1.f));
 
@@ -40,12 +40,12 @@ public:
 
 		GameObject* sphere2 = CommonUtils::BuildSphereObject(
 			"sphery2",
-			Vector3(0.0f, 5.f, 0.f),
+			Vector3(0.0f, 0.f, 0.f),
 			2.f,
 			true,
 			false,
-			1,
-			false,
+			0.f,
+			true,
 			false,
 			Vector4(1.f, 0.f, 0.f, 1.f));
 

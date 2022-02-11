@@ -74,6 +74,7 @@ GameObject* CommonUtils::BuildSphereObject(
 	PhysicsComponent* pnode = NULL;	
 	if (physics_enabled)
 	{
+		
 		pnode = new PhysicsComponent(pos, inverse_mass, radius, apply_gravity);
 		//pnode->SetType(objectType);
 
@@ -84,6 +85,8 @@ GameObject* CommonUtils::BuildSphereObject(
 		}
 		else
 		{
+			Physics::CollisionShape* collisionShape = new Physics::SphereCollisionShape(radius);
+			pnode->SetCollisionShape(collisionShape);
 			//CollisionShape* pColshape = new SphereCollisionShape(radius);
 			//pnode->SetCollisionShape(pColshape);
 			//pnode->SetInverseInertia(pColshape->BuildInverseInertia(inverse_mass));

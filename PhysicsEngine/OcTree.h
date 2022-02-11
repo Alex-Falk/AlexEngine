@@ -5,7 +5,7 @@
 namespace Physics
 {
 	class PhysicsNode;
-	class CollisionPair;
+	struct CollisionPair;
 
 	class OcTree
 	{

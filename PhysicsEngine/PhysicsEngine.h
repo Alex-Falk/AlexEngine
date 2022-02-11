@@ -19,6 +19,8 @@ namespace Physics
 	{
 		PhysicsNode* NodeA;
 		PhysicsNode* NodeB;
+
+		bool IsValid() const { return NodeA != nullptr && NodeB != nullptr && NodeA != NodeB; }
 	};
 
 
@@ -47,18 +49,24 @@ namespace Physics
 		~PhysicsEngine();
 		
 		vector<CollisionPair> GetBroadphaseCollisionPairs() const;
-		void HandleNarrowphaseCollisions(vector<CollisionPair>& collisionPairs);
+		void GetNarrowphaseCollisions(vector<CollisionPair>& collisionPairs);
+		void ResolveCollisions();
+
+		static void ResolveCollision(Collision& collision);
 
 	private:
 
-		float m_updateTimestep;
+		float m_dtOffset;
 		std::vector<PhysicsNode*> m_physicsObjects;
+		std::vector<Collision> m_collisions;
 		Vector3 m_gravity;
 		WorldLimits m_worldLimits;
 
 		OcTree* m_ocTree;
 
 		CollisionDetection m_collisionDetection;
+
+		const uint m_numCollisionFrames = 5;
 	};
 }
 

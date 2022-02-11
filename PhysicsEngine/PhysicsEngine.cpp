@@ -1,5 +1,6 @@
 #include "PhysicsEngine.h"
 
+#include "Manifold.h"
 #include "OcTree.h"
 #include "nclgl/NCLDebug.h"
 #include "Maths/Math.h"
@@ -69,24 +70,36 @@ namespace Physics
 
 	void PhysicsEngine::UpdatePhysics(float dt)
 	{
-		for (auto obj : m_physicsObjects)
-		{
-			obj->Integrate(dt);
-		}
+		const float itrDt = 1.f / 120.f;
+		m_dtOffset += dt;
 
+		int itrCount = static_cast<int>(m_dtOffset / itrDt);
 		
 		// Broadphase
 		auto collisionPairs = GetBroadphaseCollisionPairs();
 
 		// Narrowphase
+		GetNarrowphaseCollisions(collisionPairs);
+
+		ResolveCollisions();
 
 		// Initialize Contraints
 
 		// Update Velocities
+		for (auto obj : m_physicsObjects)
+		{
+			obj->IntegrateAcceleration(dt);
+		}
+
 
 		// Solve Constraints
 
 		// Update Positions
+		for (auto obj : m_physicsObjects)
+		{
+			obj->IntegrateVelocity(dt);
+		}
+
 	}
 
 	std::vector<PhysicsNode*> PhysicsEngine::GetPhysicsNodes()
@@ -111,16 +124,56 @@ namespace Physics
 		return m_ocTree->GetCollisionPairs();
 	}
 
-	void PhysicsEngine::HandleNarrowphaseCollisions(vector<CollisionPair>& collisionPairs)
+	void PhysicsEngine::GetNarrowphaseCollisions(vector<CollisionPair>& collisionPairs)
 	{
 		if (collisionPairs.empty())
 		{
 			return;
 		}
 
+		for(auto pair : collisionPairs)
+		{
+			Collision collision = Collision();
+			if (CollisionDetection::ObjectsIntersecting(pair, collision))
+			{
+				collision.FramesLeft = m_numCollisionFrames;
+				m_collisions.push_back(collision);
+			}
+		}
 
 
 	}
 
+	void PhysicsEngine::ResolveCollisions()
+	{
+		for(auto collision : m_collisions)
+		{
+			ResolveCollision(collision);
+		}
 
+		m_collisions.clear();
+	}
+
+	void PhysicsEngine::ResolveCollision(Collision& collision)
+	{
+		PhysicsNode* nodeA = collision.NodeA;
+		PhysicsNode* nodeB = collision.NodeB;
+		float collidingMass = nodeA->GetInverseMass() + nodeB->GetInverseMass();
+
+		// Step 1: Set Position so that they no longer overlap
+		nodeA->SetPosition(nodeA->GetPosition() - collision.Point.Normal * collision.Point.Penetration * (nodeA->GetInverseMass() / collidingMass));
+		nodeB->SetPosition(nodeB->GetPosition() - collision.Point.Normal * collision.Point.Penetration * (nodeB->GetInverseMass() / collidingMass));
+
+		// Step 2: calculate velocities
+		Vector3 contactVelocity = nodeB->GetLinearVelocity() - nodeA->GetLinearVelocity();
+
+		// Step 3: Apply Force
+		float forceMagnitude = Vector3::Dot(contactVelocity, collision.Point.Normal);
+		Vector3 force = collision.Point.Normal * forceMagnitude;
+
+		nodeA->ApplyForce(-force);
+		nodeB->ApplyForce(force);
+
+		//TODO: Take into account rotational velocities etc.
+	}
 }

@@ -1,40 +1,53 @@
 #pragma once
 #include <vector>
 
-#include "PhysicsEngine.h"
 #include "Maths/Vector3.h"
+#include "nclgl/common.h"
+#include "nclgl/Matrix4.h"
+
+
+// This is created with help from my University course
+// https://research.ncl.ac.uk/game/mastersdegree/gametechnologies/physicstutorials/4collisiondetection/Physics%20-%20Collision%20Detection.pdf
 
 namespace Physics
 {
-	class Manifold;
+	class PhysicsNode;
+	class SphereCollisionShape;
 	struct CollisionPair;
 
-	struct CollisionData
+	struct ContactPoint
 	{
-		Vector3 CollisionNormal;
-		float PenetrationDepth;
-		Vector3 OverlapPoint;
+		Vector3 PosRelToA;
+		Vector3 PosRelToB;
+		Vector3 Normal;
+		float Penetration;
 	};
 
 	struct Collision
 	{
-		CollisionPair Pair;
-		Manifold* Manifold;
-		CollisionData Data;
+		PhysicsNode* NodeA{};
+		PhysicsNode* NodeB{};
 
-		std::vector<Vector3> PossibleAxes;
-		bool Colliding;
+		ContactPoint Point;
+
+		void SetContactPoint(const Vector3& posRelToA, const Vector3& posRelToB, const Vector3& normal, float penetration)
+		{
+			Point.PosRelToA = posRelToA;
+			Point.PosRelToB = posRelToB;
+			Point.Normal = normal;
+			Point.Penetration = penetration;
+		}
+
+		uint FramesLeft{};
 	};
 
 	class CollisionDetection
 	{
-		static Collision BeginNewPair(CollisionPair pair);
-		static bool IsColliding(Collision& collision);
-		static void GenContactPoints(Collision& collision);
+	public:
+		static bool ObjectsIntersecting(const CollisionPair& pair, Collision& outCollision);
 
-	protected:
-		static bool AddPossibleCollisionAxis(Collision& collision, Vector3 axis);
-		static bool CheckCollisionAxis(Collision& collision, const Vector3& axis);
+	private:
+		static bool SphereSphereIntersection(const SphereCollisionShape& sphereA, const Matrix4& worldTransformA , const SphereCollisionShape& sphereB, const Matrix4& worldTransformB, Collision& outCollision);
 	};
 
 }

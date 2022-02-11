@@ -154,6 +154,10 @@ namespace Physics
 					for (size_t j = 0; j < node->PhysicsNodes.size(); ++j)
 					{
 						// TODO: Objects that shouldn't collide with each other?
+						if (node->PhysicsNodes[i] == node->PhysicsNodes[j])
+						{
+							continue;
+						}
 
 						if (node->PhysicsNodes[i]->HasCollision() && node->PhysicsNodes[j]->HasCollision())
 						{
@@ -228,7 +232,10 @@ namespace Physics
 			}
 			else
 			{
-				node->PhysicsNodes.push_back(physNode);
+				if (std::find(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode) == node->PhysicsNodes.end()) 
+				{
+					node->PhysicsNodes.push_back(physNode);
+				}
 			}
 		}
 	}
