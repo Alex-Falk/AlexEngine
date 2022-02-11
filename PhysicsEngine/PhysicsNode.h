@@ -5,10 +5,10 @@
 #include <nclgl/Quaternion.h>
 #include "common.h"
 
-class CollisionShape;
-
 namespace  Physics
 {
+	class CollisionShape;
+
 	typedef std::function<void(const Matrix4& transform)> UpdateCallback;
 
 	class PhysicsNode

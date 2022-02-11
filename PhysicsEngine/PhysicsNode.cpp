@@ -99,10 +99,9 @@ Vector3 Physics::PhysicsNode::GetLinearVelocity()
 	return m_linearVelocity;
 }
 
-CollisionShape* Physics::PhysicsNode::GetCollisionShape()
+Physics::CollisionShape* Physics::PhysicsNode::GetCollisionShape()
 {
-	return new CollisionShape();
-}
+	return new CollisionShape;
 
 bool Physics::PhysicsNode::HasCollision()
 {

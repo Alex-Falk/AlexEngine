@@ -149,6 +149,7 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="Constraint.h" />
     <ClInclude Include="ContactPoint.h" />
+    <ClInclude Include="Manifold.h" />
     <ClInclude Include="OcTree.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PhysicsNode.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="CollisionShape.cpp" />
     <ClCompile Include="common.cpp" />
     <ClCompile Include="Constraint.cpp" />
+    <ClCompile Include="Manifold.cpp" />
     <ClCompile Include="OcTree.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PhysicsNode.cpp" />
