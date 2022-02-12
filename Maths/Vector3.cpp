@@ -101,6 +101,10 @@ float Vector3::LengthSqr() const
 void Vector3::Normalize()
 {
 	const float length = Length();
+
+	if (length <= 0.0001f)
+		return;
+
 	x /= length;
 	y /= length;
 	z /= length;
@@ -109,6 +113,10 @@ void Vector3::Normalize()
 Vector3 Vector3::Normalized() const
 {
 	const float length = Length();
+
+	if (length <= 0.0001f)
+		return Vector3::Zero();
+
 	return { x / length, y / length, z / length};
 }
 

@@ -145,7 +145,6 @@
     <ClInclude Include="CommonUtils.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GridSystem.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Scene.h" />
@@ -156,7 +155,6 @@
     <ClCompile Include="CommonUtils.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GridSystem.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
