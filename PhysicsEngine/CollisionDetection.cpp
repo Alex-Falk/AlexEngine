@@ -63,3 +63,74 @@ bool Physics::CollisionDetection::SphereSphereIntersection(const SphereCollision
 
 	return false;
 }
+
+bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape& aabbA, const Matrix4& worldTransformA,
+	const AABBCollisionShape& aabbB, const Matrix4& worldTransformB, Collision& outCollision)
+{
+	if (aabbA.BoundingBox.CollidingWithBoundingBox(aabbB.BoundingBox))
+	{
+		Vector3 maxA = aabbA.BoundingBox._max;
+		Vector3 minA = aabbA.BoundingBox._min;
+
+		Vector3 maxB = aabbB.BoundingBox._max;
+		Vector3 minB = aabbB.BoundingBox._min;
+
+		// we need to find which faces overlap
+		static const Vector3 faces[6] =
+		{
+			-Vector3::Right(), Vector3::Right(), -Vector3::Up(), Vector3::Up(), -Vector3::Forward(), Vector3::Forward()
+		};
+
+		float distances[6] =
+		{
+			(maxB.x - minA.x),
+			(maxA.x - minB.x),
+			(maxB.y - minA.y),
+			(maxA.y - minB.y),
+			(maxB.z - minA.z),
+			(maxA.z - minB.z)
+		};
+
+		float penetration = FLT_MAX;
+		Vector3 bestAxis;
+
+		for (int i = 0; i < 6; ++i)
+		{
+			if (distances[i] < penetration)
+			{
+				penetration = distances[i];
+				bestAxis = faces[i];
+			}
+		}
+
+		outCollision.SetContactPoint(Vector3::Zero(), Vector3::Zero(), bestAxis, penetration);
+		return true;
+	}
+
+	return false;
+}
+
+bool Physics::CollisionDetection::SphereAABBIntersection(const SphereCollisionShape& sphere,
+	const Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Matrix4& aabbTransform,
+	Collision& outCollision)
+{
+	// Find closet point on the box to the sphere center
+	Vector3 delta = aabbTransform.GetPositionVector() - sphereTransform.GetPositionVector();
+
+	Vector3 closest = Vector3::Clamp(delta, -aabb.BoundingBox.GetHalfSize(), aabb.BoundingBox.GetHalfSize());
+	
+	// If the point is closer than the sphere radius then we have a collision
+	Vector3 local = delta - closest;
+	float dist = local.Length();
+
+	if (dist < sphere.GetRadius())
+	{
+		Vector3 normal = local.Normalized();
+		float penetration = (sphere.GetRadius() - dist);
+
+		outCollision.SetContactPoint(Vector3::Zero(), -normal * sphere.GetRadius(), normal, penetration);
+		return true;
+	}
+
+	return false;
+}

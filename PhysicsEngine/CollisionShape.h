@@ -2,6 +2,8 @@
 #include <list>
 #include <vector>
 
+#include "nclgl/BoundingBox.h"
+
 class Plane;
 class Vector3;
 
@@ -61,6 +63,9 @@ namespace Physics
 
 	class AABBCollisionShape : public CollisionShape
 	{
+	public:
 		Type GetType() override { return AABB; }
+
+		BoundingBox BoundingBox;
 	};
 }

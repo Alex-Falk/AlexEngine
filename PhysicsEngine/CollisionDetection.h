@@ -11,6 +11,7 @@
 
 namespace Physics
 {
+	class AABBCollisionShape;
 	class PhysicsNode;
 	class SphereCollisionShape;
 	struct CollisionPair;
@@ -48,6 +49,8 @@ namespace Physics
 
 	private:
 		static bool SphereSphereIntersection(const SphereCollisionShape& sphereA, const Matrix4& worldTransformA , const SphereCollisionShape& sphereB, const Matrix4& worldTransformB, Collision& outCollision);
+		static bool AABBAABBIntersection(const AABBCollisionShape& aabbA, const Matrix4& worldTransformA, const AABBCollisionShape& sphereB, const Matrix4& worldTransformB, Collision& outCollision);
+		static bool SphereAABBIntersection(const SphereCollisionShape& sphere, const Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Matrix4& aabbTransform, Collision& outCollision);
 	};
 
 }
