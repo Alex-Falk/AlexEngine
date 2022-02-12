@@ -1,12 +1,15 @@
 #pragma once
 #include "Component.h"
-#include <PhysicsEngine/Node.h>
+#include <PhysicsEngine/PhysicsNode.h>
 
 class PhysicsComponent :
-    public Component, public Physics::Node
+    public Component, public Physics::PhysicsNode
 {
 public:
-    PhysicsComponent() {}
+	PhysicsComponent(const Vector3& initialPos, float inverseMass, float boundingRadius, bool applyGravity)
+		: PhysicsNode(initialPos, inverseMass, boundingRadius, applyGravity)
+	{
+	}
 
 private:
     void OnInitialise() override;

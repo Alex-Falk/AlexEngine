@@ -1,8 +1,9 @@
 #pragma once
+#include <cstdint>
 
 namespace Physics {
 
-	class Node;
+	class PhysicsNode;
 
 	enum class Integrator {
 		ZERO,			// No simulation
@@ -11,15 +12,8 @@ namespace Physics {
 		RK4				// 4th Order Runge-Kutta
 	};
 
-	struct CollisionPair
-	{
-		Node* NodeA;
-		Node* NodeB;
-	};
-
 	// TODO: this could come from a config file?
 
-	static constexpr float KDTreeMinSize = 2.f;
-	static constexpr uint32_t KDTreeMaxNumber = 8;
-
+	static constexpr float OcTreeMinSize = 2.f;
+	static constexpr uint32_t OcTreeMaxNumber = 8;
 }

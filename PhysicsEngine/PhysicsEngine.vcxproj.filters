@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Node.h">
+    <ClInclude Include="PhysicsNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constraint.h">
@@ -45,9 +45,12 @@
     <ClInclude Include="OcTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Manifold.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Node.cpp">
+    <ClCompile Include="PhysicsNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Constraint.cpp">
@@ -66,6 +69,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OcTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Manifold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

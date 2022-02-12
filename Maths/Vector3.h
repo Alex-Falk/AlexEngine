@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+#include "Math.h"
+
 class Vector3
 {
 public:
@@ -43,6 +45,20 @@ public:
 	float x;
 	float y;
 	float z;
+
+	static Vector3 Up() { return { 0, 1, 0 }; }
+	static Vector3 Right() { return { 1, 0, 0 }; }
+	static Vector3 Forward() { return { 0, 0, 1 }; }
+
+
+	static Vector3 Clamp(const Vector3& vec, const Vector3& min, const Vector3& max)
+	{
+		return {
+			Math::Clamp(vec.x, min.x, max.x),
+			Math::Clamp(vec.y, min.y, max.y),
+			Math::Clamp(vec.z, min.z, max.z)
+		};
+	}
 
 };
 

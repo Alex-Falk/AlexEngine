@@ -43,6 +43,16 @@ struct BoundingBox
 		_max.z = max(_max.z, point.z);
 	}
 
+	Vector3 GetHalfSize() const
+	{
+		return _max - GetPosition();
+	}
+	Vector3 GetPosition() const
+	{
+		return (_max + _min) / 2.f;
+	}
+
+
 	//Transform the given AABB (Axis Aligned Bounding Box) and returns a new AABB that encapsulates the new rotated bounding box.
 	BoundingBox Transform(const Matrix4& mtx)
 	{
@@ -119,6 +129,16 @@ struct BoundingBox
 		float dsq = diff.LengthSqr();
 		
 		return dsq < r*r;
+	}
+
+	bool CollidingWithBoundingBox(const BoundingBox& other) const 
+	{
+		const Vector3 delta = GetPosition() - other.GetPosition();
+		const Vector3 totalSize = GetHalfSize() + other.GetHalfSize();
+
+		return abs(delta.x) < totalSize.x &&
+		       abs(delta.y) < totalSize.y &&
+		       abs(delta.z) < totalSize.z;
 	}
 
 	static BoundingBox** SplitIntoEight(const BoundingBox& bb)

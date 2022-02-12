@@ -3,16 +3,23 @@
 #include <functional>
 #include <nclgl/Matrix4.h>
 #include <nclgl/Quaternion.h>
+
+#include "CollisionShape.h"
 #include "common.h"
 
 namespace  Physics
 {
+	class CollisionShape;
+
 	typedef std::function<void(const Matrix4& transform)> UpdateCallback;
 
-	class Node
+	class PhysicsNode
 	{
 	public:
-		void Integrate(float dt);
+		PhysicsNode(Vector3 initialPos, float inverseMass, float boundingRadius, bool applyGravity);
+
+		void IntegrateAcceleration(float dt);
+		void IntegrateVelocity(float dt);
 
 		void ApplyForce(Vector3 force);
 		void ApplyLinearVelocity(Vector3 velocity);
@@ -23,14 +30,22 @@ namespace  Physics
 		void SetRotation(Quaternion rotation);
 
 		void SetInverseMass(float inverseMass);
+		void SetCollisionShape(CollisionShape* collisionShape);
 
 		void SetGravityEnabled(bool enabled);
 
 		void SetOnUpdateCallback(UpdateCallback callback) { m_onUpdateCallback = callback; }
 		void FireOnUpdateCallback();
 
-		Vector3 GetPosition() const { return m_position; }
+		inline Vector3 GetPosition() const { return m_position; }
+		float GetBoundingRadius() const { return m_boundingRadius; }
+		float GetInverseMass() const { return m_inverseMass; }
+		Vector3 GetLinearVelocity();
+		CollisionShape* GetCollisionShape() { return m_collisionShape; }
+		bool HasCollision() const;
 
+		Matrix4& GetWorldTransform() { return m_worldTransform; }
+	
 	protected:
 
 	private:
@@ -46,13 +61,19 @@ namespace  Physics
 		Vector3 m_torque;
 		Matrix3 m_inverseInertia;
 
-		float m_elasticity;
-		float m_friction;
+		float m_elasticity{};
+		float m_friction{};
+		float m_boundingRadius;
 
 		bool m_applyGravity;
 
 		Physics::Integrator m_integrator;
 		UpdateCallback m_onUpdateCallback;
+
+		CollisionShape* m_collisionShape;
+
+		Vector3 m_linearHalfVelocity;
+		Vector3 m_angularHalfVelocity;
 
 	};
 }
