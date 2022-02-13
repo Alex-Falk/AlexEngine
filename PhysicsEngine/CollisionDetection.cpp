@@ -47,7 +47,7 @@ bool Physics::CollisionDetection::ObjectsIntersecting(const CollisionPair& pair,
 	{
 		const auto aabb = dynamic_cast<AABBCollisionShape*>(shapeA);
 		const auto sphere = dynamic_cast<SphereCollisionShape*>(shapeB);
-		return SphereAABBIntersection(*sphere, pair.NodeA->GetWorldTransform(), *aabb, pair.NodeB->GetWorldTransform(), outCollision);
+		return SphereAABBIntersection(*sphere, pair.NodeB->GetWorldTransform(), *aabb, pair.NodeA->GetWorldTransform(), outCollision);
 	}
 	else if (shapeA->GetType() == CollisionShape::Sphere && shapeB->GetType() == CollisionShape::AABB)
 	{
@@ -142,9 +142,9 @@ bool Physics::CollisionDetection::SphereAABBIntersection(const SphereCollisionSh
 	if (dist < sphere.GetRadius())
 	{
 		Vector3 normal = local.Normalized();
-		float penetration = -(sphere.GetRadius() - dist);
+		float penetration = (sphere.GetRadius() - dist);
 
-		outCollision.SetContactPoint(Vector3::Zero(), -normal * sphere.GetRadius(), normal, penetration);
+		outCollision.SetContactPoint(normal * sphere.GetRadius(), -normal * sphere.GetRadius(), normal, penetration);
 		return true;
 	}
 

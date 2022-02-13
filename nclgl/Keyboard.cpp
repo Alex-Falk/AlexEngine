@@ -59,6 +59,17 @@ bool Keyboard::KeyTriggered(KeyboardKeys key)	 {
 	return (KeyDown(key) && !KeyHeld(key));
 }
 
+void Keyboard::AddOnKeyDown(KeyboardKeys key, std::string name, std::function<void()> fn)
+{
+	keyDownMappings[key][name] = fn;
+}
+
+void Keyboard::AddOnKeyUp(KeyboardKeys key, std::string name, std::function<void()> fn)
+{
+	keyUpMappings[key][name] = fn;
+}
+
+
 /*
 Updates the keyboard state with data received from the OS.
 */
@@ -72,6 +83,24 @@ void Keyboard::Update(RAWINPUT* raw)	{
 		}
 
 		//First bit of the flags tag determines whether the key is down or up
+		const auto keyboardKey = static_cast<KeyboardKeys>(key);
+		bool wasDown = KeyDown(keyboardKey);
 		keyStates[key] = !(raw->data.keyboard.Flags & RI_KEY_BREAK);
+
+		if (wasDown && !KeyDown(keyboardKey))
+		{
+			for (const auto& itr : keyUpMappings[keyboardKey])
+			{
+				itr.second();
+			}
+		}
+
+		if(KeyTriggered(keyboardKey))
+		{
+			for (const auto& itr : keyDownMappings[keyboardKey])
+			{
+				itr.second();
+			}
+		}
 	}
 }
