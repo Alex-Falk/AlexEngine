@@ -33,7 +33,7 @@ public:
 		RegisterKeys();
 	}
 
-	~Camera(void) {};
+	~Camera();
 
 	void HandleMouse(float dt);
 	void HandleKeyboard(float dt);

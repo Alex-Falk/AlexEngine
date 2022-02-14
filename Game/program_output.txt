@@ -1,48 +1,48 @@
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexBasic.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechFragSuperSample.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexShadow.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/Common/EmptyFragment.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechGeomShadow.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexFull.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechFragForwardRender.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/PointVertex.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/PointFragment.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/PointGeometry.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/Vertex.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/Fragment.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/LineGeometry.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/VertexColOnly.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/Fragment.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/TextVertex.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/TextFragment.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/DebugShaders/TextGeometry.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Shader:
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexPicker.glsl
-[18:24:44]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechFragScreenPicker_nsightfix.glsl
-[18:24:44]     -> Linking Shader: Success!
-[18:24:44] 
-[18:24:44] Loading Mesh: ../Data/Meshes/cube.obj
-[18:24:44] 
-[18:24:44] Loading Mesh: ../Data/Meshes/sphere.obj
-[18:24:44] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexBasic.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechFragSuperSample.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexShadow.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/Common/EmptyFragment.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechGeomShadow.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexFull.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechFragForwardRender.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/PointVertex.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/PointFragment.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/PointGeometry.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/Vertex.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/Fragment.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/LineGeometry.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/VertexColOnly.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/Fragment.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/TextVertex.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/TextFragment.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/DebugShaders/TextGeometry.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Shader:
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechVertexPicker.glsl
+[17:29:35]     -> Compiling Shader: ../Data/Shaders/SceneRenderer/TechFragScreenPicker_nsightfix.glsl
+[17:29:35]     -> Linking Shader: Success!
+[17:29:35] 
+[17:29:35] Loading Mesh: ../Data/Meshes/cube.obj
+[17:29:36] 
+[17:29:36] Loading Mesh: ../Data/Meshes/sphere.obj
+[17:29:36] 

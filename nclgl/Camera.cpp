@@ -1,5 +1,18 @@
 #include "Camera.h"
 
+Camera::~Camera()
+{
+	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_W, "CameraForward");
+	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_S, "CameraBackward");
+	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_A, "CameraLeft");
+	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_D, "CameraRight");
+
+	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_W, "CameraForward");
+	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_S, "CameraBackward");
+	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_A, "CameraLeft");
+	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_D, "CameraRight");
+}
+
 /*
 Polls the camera for keyboard / mouse movement.
 Should be done once per frame! Pass it the msec since
