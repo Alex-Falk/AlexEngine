@@ -62,6 +62,7 @@ void Camera::HandleKeyboard(float dt)
 	if (m_moveForward) 
 	{
 		position += Matrix4::Rotation(yaw, Vector3(0, 1, 0)) * Vector3(0, 0, -1) * speed;
+		
 	}
 	if (m_moveBack) 
 	{

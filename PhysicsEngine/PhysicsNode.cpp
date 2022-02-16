@@ -12,9 +12,14 @@ Physics::PhysicsNode::PhysicsNode(const Vector3 initialPos, const float inverseM
 
 void Physics::PhysicsNode::IntegrateAcceleration(float dt)
 {
+	if (m_inverseMass > 0.f && m_impulse.LengthSqr() > 0.f)
+	{
+		m_linearVelocity += m_impulse * m_inverseMass;
+		m_impulse.ToZero();
+	}
 	if (m_inverseMass > 0.f && m_applyGravity)
 	{
-		m_linearVelocity = PhysicsEngine::Instance()->GetGravity() * m_inverseMass * dt;
+		m_linearVelocity += PhysicsEngine::Instance()->GetGravity() * dt;
 	}
 
 	Vector3 v1 = m_linearVelocity;
@@ -25,7 +30,7 @@ void Physics::PhysicsNode::IntegrateAcceleration(float dt)
 	m_linearHalfVelocity = m_linearVelocity + (v1 + (v2 + v3) * 2.f + v4) * (1.f / 6.f) * dt *
 		PhysicsEngine::Instance()->GetDampingFactor();
 	m_linearVelocity += m_force * m_inverseMass * dt;
-	m_linearVelocity = m_linearVelocity * PhysicsEngine::Instance()->GetDampingFactor();
+	m_linearVelocity = m_linearVelocity * (1.f - PhysicsEngine::Instance()->GetDampingFactor());
 
 
 	v1 = m_angularVelocity * PhysicsEngine::Instance()->GetDampingFactor();
@@ -39,7 +44,7 @@ void Physics::PhysicsNode::IntegrateAcceleration(float dt)
 	m_angularVelocity += m_inverseInertia * m_torque * dt;
 	m_angularVelocity = m_angularVelocity * PhysicsEngine::Instance()->GetDampingFactor();
 
-
+	m_force.ToZero();
 }
 
 void Physics::PhysicsNode::IntegrateVelocity(float dt)
@@ -66,6 +71,16 @@ void Physics::PhysicsNode::ApplyLinearVelocity(Vector3 velocity)
 void Physics::PhysicsNode::SetPosition(Vector3 position)
 {
 	m_position = position;
+}
+
+void Physics::PhysicsNode::ApplyImpulse(Vector3 impulse)
+{
+	m_impulse = impulse;
+}
+
+void Physics::PhysicsNode::SetLinearVelocity(Vector3 velocity)
+{
+	m_linearVelocity = velocity;
 }
 
 void Physics::PhysicsNode::ApplyTorque(Vector3 torque)

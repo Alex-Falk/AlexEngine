@@ -65,8 +65,8 @@ protected:
 	float	pitch;
 	Vector3 position;
 
-	bool m_moveForward;
-	bool m_moveLeft;
-	bool m_moveRight;
-	bool m_moveBack;
+	bool m_moveForward = false;
+	bool m_moveLeft = false;
+	bool m_moveRight = false;
+	bool m_moveBack = false;
 };
