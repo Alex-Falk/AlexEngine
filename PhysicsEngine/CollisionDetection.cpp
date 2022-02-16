@@ -13,7 +13,7 @@ bool Physics::CollisionDetection::ObjectsIntersecting(const CollisionPair& pair,
 	}
 
 	const auto shapeA = pair.NodeA->GetCollisionShape();
-	const auto shapeB = pair.NodeA->GetCollisionShape();
+	const auto shapeB = pair.NodeB->GetCollisionShape();
 
 	if (!shapeA || !shapeB)
 	{
@@ -25,19 +25,35 @@ bool Physics::CollisionDetection::ObjectsIntersecting(const CollisionPair& pair,
 
 	if (shapeA->GetType() == shapeB->GetType())
 	{
-		switch(shapeA->GetType())
+		switch (shapeA->GetType())
 		{
 		case CollisionShape::Sphere:
-			{
-				const auto sphereA = dynamic_cast<SphereCollisionShape*>(shapeA);
-				const auto sphereB = dynamic_cast<SphereCollisionShape*>(shapeB);
-				return SphereSphereIntersection(*sphereA, pair.NodeA->GetWorldTransform(), *sphereB, pair.NodeB->GetWorldTransform(), outCollision);
-			}
-		case CollisionShape::None:
-		case CollisionShape::AABB: 
-		case CollisionShape::Max:
+		{
+			const auto sphereA = dynamic_cast<SphereCollisionShape*>(shapeA);
+			const auto sphereB = dynamic_cast<SphereCollisionShape*>(shapeB);
+			return SphereSphereIntersection(*sphereA, pair.NodeA->GetWorldTransform(), *sphereB, pair.NodeB->GetWorldTransform(), outCollision);
+		}
+		case CollisionShape::AABB:
+		{
+				const auto aabbA = dynamic_cast<AABBCollisionShape*>(shapeA);
+				const auto aabbB = dynamic_cast<AABBCollisionShape*>(shapeB);
+				return AABBAABBIntersection(*aabbA, pair.NodeA->GetWorldTransform(), *aabbB, pair.NodeB->GetWorldTransform(), outCollision);
+		}
+		default:
 			NCLERROR("Collision Detection for types other than spheres is not implemented yet")
 		}
+	}
+	else if (shapeA->GetType() == CollisionShape::AABB && shapeB->GetType() == CollisionShape::Sphere)
+	{
+		const auto aabb = dynamic_cast<AABBCollisionShape*>(shapeA);
+		const auto sphere = dynamic_cast<SphereCollisionShape*>(shapeB);
+		return SphereAABBIntersection(*sphere, pair.NodeB->GetWorldTransform(), *aabb, pair.NodeA->GetWorldTransform(), outCollision);
+	}
+	else if (shapeA->GetType() == CollisionShape::Sphere && shapeB->GetType() == CollisionShape::AABB)
+	{
+		const auto aabb = dynamic_cast<AABBCollisionShape*>(shapeB);
+		const auto sphere = dynamic_cast<SphereCollisionShape*>(shapeA);
+		return SphereAABBIntersection(*sphere, pair.NodeA->GetWorldTransform(), *aabb, pair.NodeB->GetWorldTransform(), outCollision);
 	}
 
 	return false;
@@ -69,11 +85,11 @@ bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape&
 {
 	if (aabbA.BoundingBox.CollidingWithBoundingBox(aabbB.BoundingBox))
 	{
-		Vector3 maxA = aabbA.BoundingBox._max;
-		Vector3 minA = aabbA.BoundingBox._min;
+		Vector3 maxA = aabbA.BoundingBox._max + worldTransformA.GetPositionVector();
+		Vector3 minA = aabbA.BoundingBox._min + worldTransformA.GetPositionVector();
 
-		Vector3 maxB = aabbB.BoundingBox._max;
-		Vector3 minB = aabbB.BoundingBox._min;
+		Vector3 maxB = aabbB.BoundingBox._max + worldTransformB.GetPositionVector();
+		Vector3 minB = aabbB.BoundingBox._min + worldTransformB.GetPositionVector();
 
 		// we need to find which faces overlap
 		static const Vector3 faces[6] =
@@ -128,7 +144,7 @@ bool Physics::CollisionDetection::SphereAABBIntersection(const SphereCollisionSh
 		Vector3 normal = local.Normalized();
 		float penetration = (sphere.GetRadius() - dist);
 
-		outCollision.SetContactPoint(Vector3::Zero(), -normal * sphere.GetRadius(), normal, penetration);
+		outCollision.SetContactPoint(normal * sphere.GetRadius(), -normal * sphere.GetRadius(), normal, penetration);
 		return true;
 	}
 

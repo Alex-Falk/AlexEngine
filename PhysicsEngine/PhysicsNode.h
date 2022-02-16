@@ -24,6 +24,8 @@ namespace  Physics
 		void ApplyForce(Vector3 force);
 		void ApplyLinearVelocity(Vector3 velocity);
 		void SetPosition(Vector3 position);
+		void ApplyImpulse(Vector3 impulse);
+		void SetLinearVelocity(Vector3 velocity);
 
 		void ApplyTorque(Vector3 torque);
 		void ApplyAngularVelocity(Vector3 angularVelocity);
@@ -54,6 +56,7 @@ namespace  Physics
 		Vector3 m_position;
 		Vector3 m_linearVelocity;
 		Vector3 m_force;
+		Vector3 m_impulse;
 		float m_inverseMass;
 
 		Quaternion m_orientation;

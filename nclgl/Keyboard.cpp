@@ -36,7 +36,8 @@ void Keyboard::Sleep()	{
 Returns if the key is down. Doesn't need bounds checking - 
 a KeyboardKeys enum is always in range
 */
-bool Keyboard::KeyDown(KeyboardKeys key)	{
+bool Keyboard::KeyDown(const KeyboardKeys key) const
+{
 	return keyStates[key];
 }
 
@@ -44,7 +45,7 @@ bool Keyboard::KeyDown(KeyboardKeys key)	{
 Returns if the key is down, and has been held down for multiple updates. 
 Doesn't need bounds checking - a KeyboardKeys enum is always in range
 */
-bool Keyboard::KeyHeld(KeyboardKeys key)	{
+bool Keyboard::KeyHeld(const KeyboardKeys key)	{
 	if(KeyDown(key) && holdStates[key]) {
 		return true;
 	}
@@ -55,9 +56,32 @@ bool Keyboard::KeyHeld(KeyboardKeys key)	{
 Returns true only if the key is down, but WASN't down last update.
 Doesn't need bounds checking - a KeyboardKeys enum is always in range
 */
-bool Keyboard::KeyTriggered(KeyboardKeys key)	 {
+bool Keyboard::KeyTriggered(const KeyboardKeys key)	 {
 	return (KeyDown(key) && !KeyHeld(key));
 }
+
+void Keyboard::AddOnKeyDown(const KeyboardKeys key, const std::string& name, const std::function<void()> fn)
+{
+	keyDownMappings[key][name] = fn;
+}
+
+void Keyboard::AddOnKeyUp(const KeyboardKeys key, const std::string& name, const std::function<void()> fn)
+{
+	keyUpMappings[key][name] = fn;
+}
+
+void Keyboard::RemoveOnKeyDown(const KeyboardKeys key, const std::string& name)
+{
+	const auto itr = keyDownMappings[key].find(name);
+	keyDownMappings[key].erase(itr);
+}
+
+void Keyboard::RemoveOnKeyUp(const KeyboardKeys key, const std::string& name)
+{
+	const auto itr = keyUpMappings[key].find(name);
+	keyUpMappings[key].erase(itr);
+}
+
 
 /*
 Updates the keyboard state with data received from the OS.
@@ -72,6 +96,24 @@ void Keyboard::Update(RAWINPUT* raw)	{
 		}
 
 		//First bit of the flags tag determines whether the key is down or up
+		const auto keyboardKey = static_cast<KeyboardKeys>(key);
+		bool wasDown = KeyDown(keyboardKey);
 		keyStates[key] = !(raw->data.keyboard.Flags & RI_KEY_BREAK);
+
+		if (wasDown && !KeyDown(keyboardKey))
+		{
+			for (const auto& itr : keyUpMappings[keyboardKey])
+			{
+				itr.second();
+			}
+		}
+
+		if(KeyTriggered(keyboardKey))
+		{
+			for (const auto& itr : keyDownMappings[keyboardKey])
+			{
+				itr.second();
+			}
+		}
 	}
 }

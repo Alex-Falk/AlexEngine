@@ -144,17 +144,15 @@ GameObject* CommonUtils::BuildCuboidObject(
 	PhysicsComponent* pnode = NULL;
 	if (physics_enabled)
 	{
-		pnode = new PhysicsComponent(pos, inverse_mass, 0, apply_gravity);
-
-		float x = halfdims.x*2.0f;
-		float y = halfdims.y*2.0f;
-		float z = halfdims.z*2.0f;
+		float x = halfdims.x * 2.0f;
+		float y = halfdims.y * 2.0f;
+		float z = halfdims.z * 2.0f;
 		float a;
 		if (x >= y && x >= z) { a = x; }
 		else if (y > x && y >= z) { a = y; }
 		else { a = z; }
 
-		//pnode->SetBoundingRadius(a * sqrt(3.0f) / 2.0f);
+		pnode = new PhysicsComponent(pos, inverse_mass, a * sqrt(3.0f) / 2.0f, apply_gravity);
 
 		if (!collidable)
 		{
@@ -163,6 +161,8 @@ GameObject* CommonUtils::BuildCuboidObject(
 		}
 		else
 		{
+			Physics::CollisionShape* collisionShape = new Physics::AABBCollisionShape(halfdims);
+			pnode->SetCollisionShape(collisionShape);
 			//CollisionShape* pColshape = new CuboidCollisionShape(halfdims);
 			//pnode->SetCollisionShape(pColshape);
 			//pnode->SetInverseInertia(pColshape->BuildInverseInertia(inverse_mass));
@@ -231,7 +231,8 @@ GameObject* CommonUtils::BuildPlaneObject(
 		}
 		else
 		{
-			//CollisionShape* pColshape = new CuboidCollisionShape(halfdims);
+			Physics::CollisionShape* collisionShape = new Physics::AABBCollisionShape(halfdims);
+			pnode->SetCollisionShape(collisionShape);
 			//pnode->SetCollisionShape(pColshape);
 			//pnode->SetInverseInertia(pColshape->BuildInverseInertia(inverse_mass));
 		}

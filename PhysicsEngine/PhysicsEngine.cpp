@@ -51,7 +51,7 @@ namespace Physics
 
 	float PhysicsEngine::GetDampingFactor()
 	{
-		return 0.1f;
+		return 0.01f;
 	}
 
 	PhysicsEngine::PhysicsEngine()
@@ -171,8 +171,10 @@ namespace Physics
 		float forceMagnitude = Vector3::Dot(contactVelocity, collision.Point.Normal);
 		Vector3 force = collision.Point.Normal * forceMagnitude;
 
-		nodeA->ApplyForce(-force);
-		nodeB->ApplyForce(force);
+		nodeA->SetLinearVelocity(Vector3::Zero());
+		nodeA->ApplyImpulse(force);
+		nodeB->SetLinearVelocity(Vector3::Zero());
+		nodeB->ApplyImpulse(-force);
 
 		//TODO: Take into account rotational velocities etc.
 	}

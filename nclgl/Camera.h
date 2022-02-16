@@ -23,18 +23,22 @@ public:
 		position = Vector3(0.0f, 0.0f, 0.0f);
 		yaw = 0.0f;
 		pitch = 0.0f;
+		RegisterKeys();
 	};
 
 	Camera(float pitch, float yaw, Vector3 position) {
 		this->pitch = pitch;
 		this->yaw = yaw;
 		this->position = position;
+		RegisterKeys();
 	}
 
-	~Camera(void) {};
+	~Camera();
 
 	void HandleMouse(float dt);
 	void HandleKeyboard(float dt);
+
+	void RegisterKeys();
 
 	//Builds a view matrix for the current camera variables, suitable for sending straight
 	//to a vertex shader (i.e it's already an 'inverse camera matrix').
@@ -60,4 +64,9 @@ protected:
 	float	yaw;
 	float	pitch;
 	Vector3 position;
+
+	bool m_moveForward = false;
+	bool m_moveLeft = false;
+	bool m_moveRight = false;
+	bool m_moveBack = false;
 };

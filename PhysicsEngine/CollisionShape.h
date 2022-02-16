@@ -64,7 +64,13 @@ namespace Physics
 	class AABBCollisionShape : public CollisionShape
 	{
 	public:
+		AABBCollisionShape(Vector3 halfDimensions);
+
 		Type GetType() override { return AABB; }
+		void GetCollisionAxes(const PhysicsNode* otherObject, std::vector<Vector3>& out_axes) const override;
+		void GetMinMaxVertexOnAxis(const Vector3& axis, Vector3& out_min, Vector3& out_max) const override;
+		void GetIncidentReferencePolygon(const Vector3& axis, std::list<Vector3>& out_face, Vector3& out_normal,
+			std::vector<Plane>& out_adjacent_planes) const override;
 
 		BoundingBox BoundingBox;
 	};

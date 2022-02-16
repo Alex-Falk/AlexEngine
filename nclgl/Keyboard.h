@@ -19,6 +19,10 @@ _-_-_-_-_-_-_-""  ""
 
 *//////////////////////////////////////////////////////////////////////////////
 #pragma once
+#include <functional>
+#include <map>
+#include <string>
+
 #include "InputDevice.h"
 
 //http://msdn.microsoft.com/en-us/library/ms645540(VS.85).aspx
@@ -169,29 +173,39 @@ enum KeyboardKeys {
 		KEYBOARD_MAX				= 0xFF
 };
 
+
 class Keyboard : public InputDevice	{
 public:
 	friend class Window;
 
 	//Is this key currently pressed down?
-	bool KeyDown(KeyboardKeys key);
+	bool KeyDown(KeyboardKeys key) const;
 	//Has this key been held down for multiple frames?
 	bool KeyHeld(KeyboardKeys key);
 	//Is this the first update the key has been pressed for?
 	bool KeyTriggered(KeyboardKeys key);
+
+	void AddOnKeyDown(KeyboardKeys key, const std::string& name, std::function<void()> fn);
+	void AddOnKeyUp(KeyboardKeys key, const std::string& name, std::function<void()> fn);
+
+	void RemoveOnKeyDown(KeyboardKeys key, const std::string& name);
+	void RemoveOnKeyUp(KeyboardKeys key, const std::string& name);
 
 protected:
 	Keyboard(HWND &hwnd);
 	~Keyboard(void){}
 	//Update the holdStates array...call this each frame!
 	virtual void UpdateHolds();	
-	//Update the keyStates array etc...call this each frame!
+	//Update the keyStates array etc...call this each frame!S
 	virtual void Update(RAWINPUT* raw);
 	//Sends the keyboard to sleep
 	virtual void Sleep();
 
 	bool keyStates[KEYBOARD_MAX];		//Is the key down?
 	bool holdStates[KEYBOARD_MAX];		//Has the key been down for multiple updates?
+
+	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyDownMappings;
+	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyUpMappings;
 };
 
 
