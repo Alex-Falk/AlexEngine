@@ -10,4 +10,5 @@ namespace Math
 
 	inline float Clamp(float val, float min, float max) { return Math::Max(Math::Min(val, max), min); }
 
+	inline float Rand(float min, float max) { ((max - min) * (rand()) / static_cast<float>(RAND_MAX)) + min; }
 }
