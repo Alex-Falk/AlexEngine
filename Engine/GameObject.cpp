@@ -16,17 +16,23 @@ UUID GameObject::GetId()
 
 void GameObject::OnInitialise()
 {
-	for (auto comp : m_components) {
-		comp->OnInitialise();
+	for (const auto& comp : m_components) {
+		comp.second->OnInitialise();
 	}
 }
 
 void GameObject::AddComponent(Component* component)
-{
+{	
 	if (component)
 	{
+		auto type = component->GetType();
+		if (m_components.find(type) != m_components.end())
+		{
+			return;
+		}
+		
 		component->m_owner = this;
-		m_components.push_back(component);
+		m_components[type] = component;
 	}
 }
 
@@ -42,16 +48,25 @@ Matrix4 GameObject::GetTransform() const
 
 void GameObject::OnUpdate(const float dt) const
 {
-	for (const auto comp : m_components)
+	for (const auto& comp : m_components)
 	{
-		comp->OnUpdate(dt);
+		comp.second->OnUpdate(dt);
 	}
 }
 
 template<class T>
 inline T* GameObject::GetComponentOfType()
 {
-	//bool is_type = [](Component* c) {return dynamic_cast<T*>(c) != nullptr; }
+	if (!std::is_base_of<Component, T>::value)
+	{
+		return nullptr;
+	}
 
-	//return std::find_if(m_components.begin(), m_components.end(), is_type);
+	auto comp = m_components.find(typeid(T).name());
+	if ( comp != m_components.end())
+	{
+		return comp;
+	}
+
+	return nullptr;
 }

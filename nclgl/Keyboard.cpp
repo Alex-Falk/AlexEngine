@@ -19,6 +19,17 @@ held for multiple frames.
 */
 void Keyboard::UpdateHolds()	{
 	memcpy(holdStates,keyStates,KEYBOARD_MAX * sizeof(bool));
+	
+	for (const auto& itr : keyHeldMappings)
+	{
+		if (KeyHeld(itr.first))
+		{
+			for (const auto& otherItr : itr.second)
+			{
+				otherItr.second();
+			}
+		}
+	}
 }
 
 /*
@@ -65,6 +76,11 @@ void Keyboard::AddOnKeyDown(const KeyboardKeys key, const std::string& name, con
 	keyDownMappings[key][name] = fn;
 }
 
+void Keyboard::AddOnKeyHeld(KeyboardKeys key, const std::string& name, std::function<void()> fn)
+{
+	keyHeldMappings[key][name] = fn;
+}
+
 void Keyboard::AddOnKeyUp(const KeyboardKeys key, const std::string& name, const std::function<void()> fn)
 {
 	keyUpMappings[key][name] = fn;
@@ -74,6 +90,12 @@ void Keyboard::RemoveOnKeyDown(const KeyboardKeys key, const std::string& name)
 {
 	const auto itr = keyDownMappings[key].find(name);
 	keyDownMappings[key].erase(itr);
+}
+
+void Keyboard::RemoveOnKeyHeld(KeyboardKeys key, const std::string& name)
+{
+	const auto itr = keyHeldMappings[key].find(name);
+	keyHeldMappings[key].erase(itr);
 }
 
 void Keyboard::RemoveOnKeyUp(const KeyboardKeys key, const std::string& name)

@@ -106,7 +106,7 @@ enum KeyboardKeys {
 		KEYBOARD_X					= 0x58,  // X key  
 		KEYBOARD_Y					= 0x59,  // Y key  
 		KEYBOARD_Z					= 0x5A,  // Z key  
-		KEYBOARD_LWIN				= 0x5B,  // Left Windows key (Microsoft® Natural® keyboard)  
+		KEYBOARD_LWIN				= 0x5B,  // Left Windows key (Microsoftï¿½ Naturalï¿½ keyboard)  
 		KEYBOARD_RWIN				= 0x5C,  // Right Windows key (Natural keyboard)  
 		KEYBOARD_APPS				= 0x5D,  //Applications key (Natural keyboard)  
 		KEYBOARD_SLEEP				= 0x5F,  // Computer Sleep key 
@@ -186,9 +186,11 @@ public:
 	bool KeyTriggered(KeyboardKeys key);
 
 	void AddOnKeyDown(KeyboardKeys key, const std::string& name, std::function<void()> fn);
+	void AddOnKeyHeld(KeyboardKeys key, const std::string& name, std::function<void()> fn);
 	void AddOnKeyUp(KeyboardKeys key, const std::string& name, std::function<void()> fn);
 
 	void RemoveOnKeyDown(KeyboardKeys key, const std::string& name);
+	void RemoveOnKeyHeld(KeyboardKeys key, const std::string& name);
 	void RemoveOnKeyUp(KeyboardKeys key, const std::string& name);
 
 protected:
@@ -205,6 +207,7 @@ protected:
 	bool holdStates[KEYBOARD_MAX];		//Has the key been down for multiple updates?
 
 	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyDownMappings;
+	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyHeldMappings;
 	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyUpMappings;
 };
 

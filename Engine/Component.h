@@ -1,4 +1,5 @@
 #pragma once
+#include <vcruntime_typeinfo.h>
 
 class GameObject;
 
@@ -15,8 +16,12 @@ public:
 
 	inline GameObject* GetOwner() const { return m_owner; }
 
+	const char* GetType() { return typeid(this).name(); }
+
 protected:
 	GameObject* m_owner;
+
+	
 
 };
 

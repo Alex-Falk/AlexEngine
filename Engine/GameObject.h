@@ -1,6 +1,7 @@
 #pragma once
 
 #include <rpc.h>
+#include <unordered_map>
 
 #include "nclgl/RenderNode.h"
 #include "PhysicsEngine/PhysicsNode.h"
@@ -10,7 +11,7 @@ class GameObject {
 
 public:
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 
 	UUID GetId();
 
@@ -33,7 +34,7 @@ private:
 
 	UUID m_id;
 
-	std::vector<Component*> m_components;
+	unordered_map<const char*, Component*> m_components;
 
 	Matrix4 m_transform;
 };

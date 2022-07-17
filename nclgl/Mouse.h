@@ -61,7 +61,7 @@ public:
 
 protected:
 	Mouse(HWND &hwnd);
-	~Mouse(void){}
+	~Mouse(void) = default;
 
 	//Internal function that updates the mouse variables from a 
 	//raw input 'packet'
