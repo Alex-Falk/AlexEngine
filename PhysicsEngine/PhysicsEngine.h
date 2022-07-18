@@ -62,7 +62,7 @@ namespace Physics
 		Vector3 m_gravity;
 		WorldLimits m_worldLimits;
 
-		OcTree* m_ocTree;
+		std::unique_ptr<WorldPartitioning> m_partioning;
 
 		CollisionDetection m_collisionDetection;
 

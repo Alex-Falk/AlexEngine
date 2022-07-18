@@ -17,9 +17,9 @@ namespace Physics
 
 		m_physicsObjects.push_back(obj);
 
-		if (m_ocTree)
+		if (m_partioning)
 		{
-			m_ocTree->AddPhysicsNode(obj);
+			m_partioning->AddPhysicsNode(obj);
 		}
 	}
 
@@ -27,9 +27,9 @@ namespace Physics
 	{
 		m_physicsObjects.erase(std::remove(m_physicsObjects.begin(), m_physicsObjects.end(), obj), m_physicsObjects.end());
 
-		if (m_ocTree)
+		if (m_partioning)
 		{
-			m_ocTree->RemovePhysicsNode(obj);
+			m_partioning->RemovePhysicsNode(obj);
 		}
 	}
 
@@ -37,7 +37,7 @@ namespace Physics
 	{
 		for(auto obj : m_physicsObjects)
 		{
-			m_ocTree->RemovePhysicsNode(obj);
+			m_partioning->RemovePhysicsNode(obj);
 			SAFE_DELETE(obj);
 		}
 
@@ -54,13 +54,14 @@ namespace Physics
 		return 0.01f;
 	}
 
-	PhysicsEngine::PhysicsEngine()
+	PhysicsEngine::PhysicsEngine(): m_dtOffset(0)
 	{
 		m_gravity = Vector3(0.f, -9.81f, 0.f);
 
-		m_worldLimits.Min = { -100.f, -100.f, -100.f };
-		m_worldLimits.Max = { 100.f, 100.f, 100.f };
-		m_ocTree = new OcTree(m_worldLimits.Min, m_worldLimits.Max, m_physicsObjects);
+		m_worldLimits.Min = {-100.f, -100.f, -100.f};
+		m_worldLimits.Max = {100.f, 100.f, 100.f};
+		WorldPartitioning* tree = nullptr;// new OcTree(m_worldLimits.Min, m_worldLimits.Max, m_physicsObjects);
+		m_partioning = std::unique_ptr<WorldPartitioning>(tree);
 	}
 
 	PhysicsEngine::~PhysicsEngine()
@@ -120,8 +121,8 @@ namespace Physics
 
 	vector<CollisionPair> PhysicsEngine::GetBroadphaseCollisionPairs() const
 	{
-		m_ocTree->UpdateTree();
-		return m_ocTree->GetCollisionPairs();
+		m_partioning->Update();
+		return m_partioning->GetCollisionPairs();
 	}
 
 	void PhysicsEngine::GetNarrowphaseCollisions(vector<CollisionPair>& collisionPairs)

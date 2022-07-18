@@ -1,5 +1,6 @@
 #pragma once
 
+#include "WorldPartitioning.h"
 #include "nclgl/BoundingBox.h"
 
 namespace Physics
@@ -7,7 +8,7 @@ namespace Physics
 	class PhysicsNode;
 	struct CollisionPair;
 
-	class OcTree
+	class OcTree : public WorldPartitioning
 	{
 		struct Node
 		{
@@ -26,14 +27,14 @@ namespace Physics
 	public:
 		OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax, std::vector<PhysicsNode*> physicsNodes);
 		OcTree(Vector3 min, Vector3 max, std::vector<PhysicsNode*> physicsNodes);
-		~OcTree();
+		~OcTree() override = default;
 				
 
-		void AddPhysicsNode(PhysicsNode* physicsNode) const;
-		void RemovePhysicsNode(PhysicsNode* physicsNode) const;
-		vector<CollisionPair> GetCollisionPairs() const;
+		void AddPhysicsNode(PhysicsNode* physicsNode) const override;
+		void RemovePhysicsNode(PhysicsNode* physicsNode) const override;
+		vector<CollisionPair> GetCollisionPairs() const override;
 
-		void UpdateTree();
+		void Update() override;
 	private:
 		
 		void UpdatePhysicsNodes();

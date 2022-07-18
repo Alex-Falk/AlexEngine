@@ -193,7 +193,7 @@ namespace Physics
 		return newNodes;
 	}
 
-	void OcTree::UpdateTree()
+	void OcTree::Update()
 	{
 		if (m_physicsNodes.empty()) return;
 
