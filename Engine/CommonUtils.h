@@ -74,4 +74,9 @@ namespace CommonUtils
 		const std::string& name,
 		const Vector3& pos,
 		const Vector3& halfdims);
+
+	GameObject* BuildCameraObject(
+		const std::string& name,
+		const Vector3& pos
+	);
 };

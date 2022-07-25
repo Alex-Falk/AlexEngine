@@ -25,7 +25,7 @@ void GameObject::AddComponent(Component* component)
 {	
 	if (component)
 	{
-		auto type = component->GetType();
+		auto type = component->GetName();
 		if (m_components.find(type) != m_components.end())
 		{
 			return;
@@ -44,6 +44,23 @@ void GameObject::SetTransform(const Matrix4 transform)
 Matrix4 GameObject::GetTransform() const
 {
 	return m_transform;
+}
+
+void GameObject::TranslatePosition(const Vector3& by)
+{
+	m_transform.Translate(by);
+}
+
+void GameObject::SetPosition(const Vector3& position)
+{
+	m_transform.SetPositionVector(position);
+}
+
+void GameObject::SetRotation(const Quaternion& rotation)
+{
+	const auto& pos = m_transform.GetPositionVector();
+	m_transform = rotation.ToMatrix4();
+	m_transform.SetPositionVector(pos);
 }
 
 void GameObject::OnUpdate(const float dt) const

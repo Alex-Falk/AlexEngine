@@ -6,6 +6,7 @@
 #include <Engine/RenderComponent.h>
 #include <Engine/PhysicsComponent.h>
 
+#include "CameraComponent.h"
 #include "PhysicsEngine/CollisionShape.h"
 #include "nclgl/ScreenPicker.h"
 
@@ -283,3 +284,13 @@ GameObject* CommonUtils::InvisibleWall(
 
 	return obj;
 }
+
+GameObject* CommonUtils::BuildCameraObject(const std::string& name, const Vector3& pos)
+{
+	GameObject* go = new GameObject();
+	go->SetPosition(pos);
+	go->AddComponent(new CameraComponent());
+
+	return go;
+}
+

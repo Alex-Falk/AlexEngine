@@ -8,7 +8,7 @@ class RenderComponent :
 {
 public:
 	RenderComponent(Mesh* m = nullptr, const Vector4& colour = Vector4(1, 1, 1, 1))
-		: RenderNode(m, colour)
+		: Component("RenderComponent"), RenderNode(m, colour)
 	{
 	}
 

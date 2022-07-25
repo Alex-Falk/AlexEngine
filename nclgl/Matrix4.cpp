@@ -36,6 +36,13 @@ void	Matrix4::SetPositionVector(const Vector3 in) {
 	values[14] = in.z;		
 }
 
+void Matrix4::Translate(const Vector3& by)
+{
+	values[12] += by.x;
+	values[13] += by.y;
+	values[14] += by.z;	
+}
+
 Vector3 Matrix4::GetScalingVector() const{
 	return Vector3(values[0],values[5],values[10]);
 }
@@ -44,6 +51,11 @@ void	Matrix4::SetScalingVector(const Vector3 &in) {
 	values[0]  = in.x;
 	values[5]  = in.y;
 	values[10] = in.z;		
+}
+
+Vector3 Matrix4::GetForwardVector() const
+{
+	return {values[8], values[9], values[10]};
 }
 
 Matrix4 Matrix4::Perspective(float znear, float zfar, float aspect, float fov) {

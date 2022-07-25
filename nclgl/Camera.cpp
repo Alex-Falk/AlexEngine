@@ -2,15 +2,6 @@
 
 Camera::~Camera()
 {
-	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_W, "CameraForward");
-	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_S, "CameraBackward");
-	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_A, "CameraLeft");
-	Window::GetKeyboard()->RemoveOnKeyDown(KEYBOARD_D, "CameraRight");
-
-	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_W, "CameraForward");
-	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_S, "CameraBackward");
-	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_A, "CameraLeft");
-	Window::GetKeyboard()->RemoveOnKeyUp(KEYBOARD_D, "CameraRight");
 }
 
 /*
@@ -58,44 +49,12 @@ void Camera::HandleKeyboard(float dt)
 		yaw -= 360.0f;
 	}
 
-
-	if (m_moveForward) 
-	{
-		position += Matrix4::Rotation(yaw, Vector3(0, 1, 0)) * Vector3(0, 0, -1) * speed;
-		m_moveForward = false;
-		
-	}
-	if (m_moveBack) 
-	{
-		position -= Matrix4::Rotation(yaw, Vector3(0, 1, 0)) * Vector3(0, 0, -1) * speed;
-		m_moveBack = false;
-	}
-
-	if (m_moveLeft) 
-	{
-		position += Matrix4::Rotation(yaw, Vector3(0, 1, 0)) * Vector3(-1, 0, 0) * speed;
-		m_moveLeft = false;
-	}
-	if (m_moveRight) 
-	{
-		position -= Matrix4::Rotation(yaw, Vector3(0, 1, 0)) * Vector3(-1, 0, 0) * speed;
-		m_moveRight = false;
-	}
-
 	if (Window::GetKeyboard()->KeyDown(KEYBOARD_SHIFT)) {
 		position.y += speed;
 	}
 	if (Window::GetKeyboard()->KeyDown(KEYBOARD_SPACE)) {
 		position.y -= speed;
 	}
-}
-
-void Camera::RegisterKeys()
-{
-	Window::GetKeyboard()->AddOnKeyHeld(KEYBOARD_W, "CameraForward", [=] { m_moveForward = true; });
-	Window::GetKeyboard()->AddOnKeyHeld(KEYBOARD_S, "CameraBackward", [=] { m_moveBack = true; });
-	Window::GetKeyboard()->AddOnKeyHeld(KEYBOARD_A, "CameraLeft", [=] { m_moveLeft = true; });
-	Window::GetKeyboard()->AddOnKeyHeld(KEYBOARD_D, "CameraRight", [=] { m_moveRight = true; });
 }
 
 /*

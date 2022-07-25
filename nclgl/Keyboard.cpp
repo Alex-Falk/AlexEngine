@@ -19,17 +19,6 @@ held for multiple frames.
 */
 void Keyboard::UpdateHolds()	{
 	memcpy(holdStates,keyStates,KEYBOARD_MAX * sizeof(bool));
-	
-	for (const auto& itr : keyHeldMappings)
-	{
-		if (KeyHeld(itr.first))
-		{
-			for (const auto& otherItr : itr.second)
-			{
-				otherItr.second();
-			}
-		}
-	}
 }
 
 /*
@@ -71,39 +60,52 @@ bool Keyboard::KeyTriggered(const KeyboardKeys key)	 {
 	return (KeyDown(key) && !KeyHeld(key));
 }
 
-void Keyboard::AddOnKeyDown(const KeyboardKeys key, const std::string& name, const std::function<void()> fn)
+void Keyboard::AddKeyMapping(const std::string& mappingName, KeyboardKeys key)
 {
-	keyDownMappings[key][name] = fn;
+	m_keyMappings[mappingName] = key;
 }
 
-void Keyboard::AddOnKeyHeld(KeyboardKeys key, const std::string& name, std::function<void()> fn)
+void Keyboard::RemoveKeyMapping(const std::string& mappingName)
 {
-	keyHeldMappings[key][name] = fn;
+	const auto itr = m_keyMappings.find(mappingName);
+	if (itr != m_keyMappings.end())
+	{
+		m_keyMappings.erase(itr);
+	}
 }
 
-void Keyboard::AddOnKeyUp(const KeyboardKeys key, const std::string& name, const std::function<void()> fn)
+bool Keyboard::KeyDown(const std::string& mappingName)
 {
-	keyUpMappings[key][name] = fn;
+	const auto itr = m_keyMappings.find(mappingName);
+	if (itr == m_keyMappings.end())
+	{
+		return false;
+	}
+
+	return KeyDown(itr->second);
 }
 
-void Keyboard::RemoveOnKeyDown(const KeyboardKeys key, const std::string& name)
+bool Keyboard::KeyHeld(const std::string& mappingName)
 {
-	const auto itr = keyDownMappings[key].find(name);
-	keyDownMappings[key].erase(itr);
+	const auto itr = m_keyMappings.find(mappingName);
+	if (itr == m_keyMappings.end())
+	{
+		return false;
+	}
+
+	return KeyHeld(itr->second);
 }
 
-void Keyboard::RemoveOnKeyHeld(KeyboardKeys key, const std::string& name)
+bool Keyboard::KeyTriggered(const std::string& mappingName)
 {
-	const auto itr = keyHeldMappings[key].find(name);
-	keyHeldMappings[key].erase(itr);
-}
+	const auto itr = m_keyMappings.find(mappingName);
+	if (itr == m_keyMappings.end())
+	{
+		return false;
+	}
 
-void Keyboard::RemoveOnKeyUp(const KeyboardKeys key, const std::string& name)
-{
-	const auto itr = keyUpMappings[key].find(name);
-	keyUpMappings[key].erase(itr);
+	return KeyTriggered(itr->second);
 }
-
 
 /*
 Updates the keyboard state with data received from the OS.
@@ -121,21 +123,5 @@ void Keyboard::Update(RAWINPUT* raw)	{
 		const auto keyboardKey = static_cast<KeyboardKeys>(key);
 		bool wasDown = KeyDown(keyboardKey);
 		keyStates[key] = !(raw->data.keyboard.Flags & RI_KEY_BREAK);
-
-		if (wasDown && !KeyDown(keyboardKey))
-		{
-			for (const auto& itr : keyUpMappings[keyboardKey])
-			{
-				itr.second();
-			}
-		}
-
-		if(KeyTriggered(keyboardKey))
-		{
-			for (const auto& itr : keyDownMappings[keyboardKey])
-			{
-				itr.second();
-			}
-		}
 	}
 }

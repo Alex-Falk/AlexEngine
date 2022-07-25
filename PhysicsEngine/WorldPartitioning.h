@@ -11,7 +11,7 @@ namespace Physics
     class WorldPartitioning
     {
     public:
-        WorldPartitioning(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax, std::vector<PhysicsNode*> physicsNodes);
+        WorldPartitioning();
         WorldPartitioning(Vector3 min, Vector3 max, std::vector<PhysicsNode*> physicsNodes);
         virtual ~WorldPartitioning();
         

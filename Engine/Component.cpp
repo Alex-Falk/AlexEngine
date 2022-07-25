@@ -6,7 +6,8 @@ Component::~Component()
 {
 }
 
-Component::Component()
+Component::Component(std::string name)
 {
+    
 }
 

@@ -24,6 +24,12 @@ public:
 
 	void SetTransform(const Matrix4 transform);
 	Matrix4 GetTransform() const;
+	void TranslatePosition(const Vector3& by);
+
+	void SetPosition(const Vector3& position);
+	void SetRotation(const Quaternion& rotation);
+
+	
 
 	void OnUpdate(float dt) const;
 protected:
@@ -34,7 +40,7 @@ private:
 
 	UUID m_id;
 
-	unordered_map<const char*, Component*> m_components;
+	unordered_map<std::string, Component*> m_components;
 
 	Matrix4 m_transform;
 };

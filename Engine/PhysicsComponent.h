@@ -7,7 +7,7 @@ class PhysicsComponent :
 {
 public:
 	PhysicsComponent(const Vector3& initialPos, float inverseMass, float boundingRadius, bool applyGravity)
-		: PhysicsNode(initialPos, inverseMass, boundingRadius, applyGravity)
+		: Component("PhysicsComponent"), PhysicsNode(initialPos, inverseMass, boundingRadius, applyGravity)
 	{
 	}
 

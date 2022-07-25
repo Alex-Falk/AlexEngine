@@ -17,7 +17,7 @@ public:
 
 protected:
 	SceneManager();
-	~SceneManager() override = default;
+	~SceneManager() override;
 
 private:
 	Scene* m_scene;

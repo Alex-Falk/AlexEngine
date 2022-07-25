@@ -16,8 +16,8 @@ namespace  Physics
 	class PhysicsNode
 	{
 	public:
-		PhysicsNode(Vector3 initialPos, float inverseMass, float boundingRadius, bool applyGravity);
-
+		PhysicsNode(const Vector3& initialPos, float inverseMass, float boundingRadius, bool applyGravity);
+		
 		void IntegrateAcceleration(float dt);
 		void IntegrateVelocity(float dt);
 

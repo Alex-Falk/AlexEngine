@@ -185,13 +185,12 @@ public:
 	//Is this the first update the key has been pressed for?
 	bool KeyTriggered(KeyboardKeys key);
 
-	void AddOnKeyDown(KeyboardKeys key, const std::string& name, std::function<void()> fn);
-	void AddOnKeyHeld(KeyboardKeys key, const std::string& name, std::function<void()> fn);
-	void AddOnKeyUp(KeyboardKeys key, const std::string& name, std::function<void()> fn);
+	void AddKeyMapping(const std::string& mappingName, KeyboardKeys key);
+	void RemoveKeyMapping(const std::string& mappingName);
 
-	void RemoveOnKeyDown(KeyboardKeys key, const std::string& name);
-	void RemoveOnKeyHeld(KeyboardKeys key, const std::string& name);
-	void RemoveOnKeyUp(KeyboardKeys key, const std::string& name);
+	bool KeyDown(const std::string& mappingName);
+	bool KeyHeld(const std::string& mappingName);
+	bool KeyTriggered(const std::string& mappingName);
 
 protected:
 	Keyboard(HWND &hwnd);
@@ -206,9 +205,7 @@ protected:
 	bool keyStates[KEYBOARD_MAX];		//Is the key down?
 	bool holdStates[KEYBOARD_MAX];		//Has the key been down for multiple updates?
 
-	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyDownMappings;
-	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyHeldMappings;
-	std::map<KeyboardKeys, std::map<std::string, std::function<void()>>> keyUpMappings;
+	std::map<std::string, KeyboardKeys> m_keyMappings;
 };
 
 

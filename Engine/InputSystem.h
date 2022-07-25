@@ -22,7 +22,6 @@ public:
 	void UnbindKeyboardDown(KeyboardKeys key);
 	void UnbindKeyboardUp(KeyboardKeys key);
 
-
 	void BindMouseDown(MouseButtons button, std::string name, std::function<void> fn);
 	void BindMouseUp(MouseButtons button, std::string name, std::function<void> fn);
 

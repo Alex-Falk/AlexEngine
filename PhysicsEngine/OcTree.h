@@ -27,7 +27,7 @@ namespace Physics
 	public:
 		OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax, std::vector<PhysicsNode*> physicsNodes);
 		OcTree(Vector3 min, Vector3 max, std::vector<PhysicsNode*> physicsNodes);
-		~OcTree() override = default;
+		~OcTree() override;
 				
 
 		void AddPhysicsNode(PhysicsNode* physicsNode) const override;

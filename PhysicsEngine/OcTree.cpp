@@ -47,12 +47,13 @@ namespace Physics
 	}
 
 	OcTree::OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax,
-		std::vector<PhysicsNode*> physicsNodes)
+		std::vector<PhysicsNode*> physicsNodes): WorldPartitioning()
 	{
 		OcTree(Vector3(xMin, yMin, zMin), Vector3(xMax, yMax, zMax), physicsNodes);
 	}
 
-	OcTree::OcTree(Vector3 min, Vector3 max, std::vector<PhysicsNode*> physicsNodes) : m_root(new Node())
+	OcTree::OcTree(Vector3 min, Vector3 max, std::vector<PhysicsNode*> physicsNodes) : WorldPartitioning(),
+		m_root(new Node())
 	{
 		m_root->AABB = new BoundingBox();
 		m_root->AABB->ExpandToFit(min);

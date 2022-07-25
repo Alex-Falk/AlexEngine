@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CommonMeshes.h" />
     <ClInclude Include="CommonUtils.h" />
     <ClInclude Include="Component.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CommonMeshes.cpp" />
     <ClCompile Include="CommonUtils.cpp" />
     <ClCompile Include="Component.cpp" />

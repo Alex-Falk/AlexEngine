@@ -1,4 +1,5 @@
 #pragma once
+#include "Engine/CameraComponent.h"
 #include "Engine/Scene.h"
 #include "Engine/CommonUtils.h"
 
@@ -38,6 +39,9 @@ public:
 
 		this->AddGameObject(sphere);
 
+		auto cam = CommonUtils::BuildCameraObject("cam", Vector3(5, 5, 5));
+		this->AddGameObject(cam);
+
 		//GameObject* sphere2 = CommonUtils::BuildSphereObject(
 		//	"sphery2",
 		//	Vector3(5.f, 5.f, 5.f),
@@ -53,6 +57,7 @@ public:
 
 		ground->OnInitialise();
 		sphere->OnInitialise();
+		cam->OnInitialise();
 		//sphere2->OnInitialise();
 	}
 };
