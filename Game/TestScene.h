@@ -32,7 +32,7 @@ public:
 			2.f,
 			true,
 			true,
-			.5f,
+			0.1f,
 			true,
 			false,
 			Vector4(1.f, 0.f, 0.f, 1.f));

@@ -43,7 +43,9 @@ public:
 		
 		while(_running)
 		{
-			GraphicsPipeline::Instance()->UpdateScene(timer.GetTimedMS() * 0.001f);
+			Physics::PhysicsEngine::Instance()->UpdatePhysics(timer.GetTimedMS() * 0.001f);
+			//GraphicsPipeline::Instance()->UpdateScene(timer.GetTimedMS() * 0.001f);
+			//GraphicsPipeline::Instance()->RenderScene();
 		}
 	}
 
@@ -56,7 +58,7 @@ public:
 
 		Physics::PhysicsEngine::Instance();
 		GraphicsPipeline::Instance();
-		//_renderThread = std::thread(&Game::RenderThread, this);
+		_renderThread = std::thread(&Game::RenderThread, this);
 		SceneManager::Instance();
 
 		Scene* scene = new TestScene("test");

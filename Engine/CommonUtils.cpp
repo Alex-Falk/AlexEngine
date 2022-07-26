@@ -97,7 +97,7 @@ GameObject* CommonUtils::BuildSphereObject(
 	GameObject* obj = new GameObject();
 	obj->AddComponent(rnode);
 	obj->AddComponent(pnode);
-
+	obj->SetPosition(pos);
 
 	if (dragable)
 	{
@@ -173,6 +173,7 @@ GameObject* CommonUtils::BuildCuboidObject(
 	GameObject* obj = new GameObject();
 	obj->AddComponent(rnode);
 	obj->AddComponent(pnode);
+	obj->SetPosition(pos);
 
 	if (dragable)
 	{

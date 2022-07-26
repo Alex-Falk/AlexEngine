@@ -71,10 +71,13 @@ namespace Physics
 
 	void PhysicsEngine::UpdatePhysics(float dt)
 	{
-		const float itrDt = 1.f / 120.f;
+		const float timestep = 1.f / 120.f;
 		m_dtOffset += dt;
 
-		int itrCount = static_cast<int>(m_dtOffset / itrDt);
+		if (m_dtOffset < timestep)
+			return;
+
+		m_dtOffset = 0;
 		
 		// Broadphase
 		auto collisionPairs = GetBroadphaseCollisionPairs();
@@ -89,7 +92,7 @@ namespace Physics
 		// Update Velocities
 		for (auto obj : m_physicsObjects)
 		{
-			obj->IntegrateAcceleration(dt);
+			obj->IntegrateAcceleration(timestep);
 		}
 
 
@@ -98,7 +101,7 @@ namespace Physics
 		// Update Positions
 		for (auto obj : m_physicsObjects)
 		{
-			obj->IntegrateVelocity(dt);
+				obj->IntegrateVelocity(timestep);
 		}
 
 	}
@@ -121,6 +124,19 @@ namespace Physics
 
 	vector<CollisionPair> PhysicsEngine::GetBroadphaseCollisionPairs() const
 	{
+		if (!m_partioning)
+		{
+			vector<CollisionPair> result = {};
+			for(size_t i = 0; i < m_physicsObjects.size() - 1; ++i)
+			{
+				for (size_t j = i + 1; j < m_physicsObjects.size(); ++j)
+				{
+					result.push_back(CollisionPair { m_physicsObjects[i], m_physicsObjects[j]});
+				}
+			}
+			return result;
+		}
+		
 		m_partioning->Update();
 		return m_partioning->GetCollisionPairs();
 	}

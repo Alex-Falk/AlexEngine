@@ -45,7 +45,6 @@ namespace  Physics
 		Vector3 GetLinearVelocity();
 		CollisionShape* GetCollisionShape() { return m_collisionShape; }
 		bool HasCollision() const;
-
 		Matrix4& GetWorldTransform() { return m_worldTransform; }
 	
 	protected:
@@ -69,7 +68,7 @@ namespace  Physics
 		float m_boundingRadius;
 
 		bool m_applyGravity;
-
+		
 		Physics::Integrator m_integrator;
 		UpdateCallback m_onUpdateCallback;
 
