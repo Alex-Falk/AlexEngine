@@ -40,6 +40,7 @@ public:
 	//Sets the OpenGL position vector (floats 12,13, and 14)
 	void	SetPositionVector(const Vector3 in);
 	void	Translate(const Vector3& by);
+	void	TranslateLocal(const Vector3& by);
 
 	//Gets the scale vector (floats 1,5, and 10)
 	Vector3 GetScalingVector() const;

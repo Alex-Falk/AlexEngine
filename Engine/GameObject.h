@@ -25,6 +25,7 @@ public:
 	void SetTransform(const Matrix4 transform);
 	Matrix4 GetTransform() const;
 	void TranslatePosition(const Vector3& by);
+	void TranslateLocalPosition(const Vector3& by);
 
 	void SetPosition(const Vector3& position);
 	void SetRotation(const Quaternion& rotation);

@@ -1,5 +1,7 @@
 #include "Matrix4.h"
 
+#include "Quaternion.h"
+
 Matrix4::Matrix4(void)	{
 	ToIdentity();
 }
@@ -40,7 +42,13 @@ void Matrix4::Translate(const Vector3& by)
 {
 	values[12] += by.x;
 	values[13] += by.y;
-	values[14] += by.z;	
+	values[14] += by.z;
+}
+
+void Matrix4::TranslateLocal(const Vector3& by)
+{
+	const auto rotated = Quaternion::GetRotation(Vector3::Forward(), GetForwardVector()).Transform(by);
+	Translate(rotated);
 }
 
 Vector3 Matrix4::GetScalingVector() const{

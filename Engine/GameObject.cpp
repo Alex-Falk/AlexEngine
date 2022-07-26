@@ -51,6 +51,11 @@ void GameObject::TranslatePosition(const Vector3& by)
 	m_transform.Translate(by);
 }
 
+void GameObject::TranslateLocalPosition(const Vector3& by)
+{
+	m_transform.TranslateLocal(by);
+}
+
 void GameObject::SetPosition(const Vector3& position)
 {
 	m_transform.SetPositionVector(position);

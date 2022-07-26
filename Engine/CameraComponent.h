@@ -16,7 +16,7 @@ public:
 
 private:
  void RegisterInput() const;
- void HandleInput(float dt);
+ void HandleInput(float dt) const;
 
  std::string m_forwardBinding = GetName() + "_Forward" ;
  std::string m_backBinding = GetName() + "_Back" ;

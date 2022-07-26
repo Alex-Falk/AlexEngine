@@ -27,10 +27,25 @@ void CameraComponent::RegisterInput() const
     Window::GetKeyboard()->AddKeyMapping(m_rightBinding, KEYBOARD_D);
 }
 
-void CameraComponent::HandleInput(float dt)
+void CameraComponent::HandleInput(float dt) const
 {
     if (Window::GetKeyboard()->KeyDown(m_forwardBinding))
     {
-        m_owner->TranslatePosition(Quaternion::FromMatrix(m_owner->GetTransform()).Transform(Vector3::Forward()));
+        m_owner->TranslateLocalPosition(-Vector3::Forward());
+    }
+
+    if (Window::GetKeyboard()->KeyDown(m_leftBinding))
+    {
+        m_owner->TranslateLocalPosition(-Vector3::Right());
+    }
+
+    if (Window::GetKeyboard()->KeyDown(m_rightBinding))
+    {
+        m_owner->TranslateLocalPosition(Vector3::Right());
+    }
+
+    if (Window::GetKeyboard()->KeyDown(m_backBinding))
+    {
+        m_owner->TranslateLocalPosition(Vector3::Forward());
     }
 }
