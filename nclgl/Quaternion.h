@@ -27,10 +27,9 @@ _-_-_-_-_-_-_-""  ""
 #pragma once
 
 #include <iostream>
-#include "common.h"
 #include <Maths/Vector3.h>
-#include "Matrix4.h"
-#include "Matrix3.h"
+#include <Maths/Matrix4.h>
+#include <Maths/Matrix3.h>
 
 class Matrix4;
 

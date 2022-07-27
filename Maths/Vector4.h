@@ -9,6 +9,7 @@ public:
 
 	Vector4() = default;
 	Vector4(const float x, const float y, const float z, const float w);
+	Vector4(const Vector3& xyz, const float w);
 	Vector4(const Vector4& other) = default;
 	~Vector4() = default;
 

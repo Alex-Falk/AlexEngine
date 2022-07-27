@@ -6,6 +6,10 @@ Vector4::Vector4(const float x, const float y, const float z, const float w) : x
 {
 }
 
+Vector4::Vector4(const Vector3& xyz, const float w) : x(xyz.x), y(xyz.y), z(xyz.z), w(w)
+{
+}
+
 float Vector4::Length() const
 {
 	return sqrtf((x * x) + (y * y) + (z * z) + (w * w));
