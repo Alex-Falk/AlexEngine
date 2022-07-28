@@ -3,7 +3,7 @@
 
 #include "Maths/Vector3.h"
 #include "nclgl/common.h"
-#include "nclgl/Matrix4.h"
+#include "Maths/Matrix4.h"
 
 
 // This is created with help from my University course
@@ -48,9 +48,9 @@ namespace Physics
 		static bool ObjectsIntersecting(const CollisionPair& pair, Collision& outCollision);
 
 	private:
-		static bool SphereSphereIntersection(const SphereCollisionShape& sphereA, const Matrix4& worldTransformA , const SphereCollisionShape& sphereB, const Matrix4& worldTransformB, Collision& outCollision);
-		static bool AABBAABBIntersection(const AABBCollisionShape& aabbA, const Matrix4& worldTransformA, const AABBCollisionShape& sphereB, const Matrix4& worldTransformB, Collision& outCollision);
-		static bool SphereAABBIntersection(const SphereCollisionShape& sphere, const Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Matrix4& aabbTransform, Collision& outCollision);
+		static bool SphereSphereIntersection(const SphereCollisionShape& sphereA, const Maths::Matrix4& worldTransformA , const SphereCollisionShape& sphereB, const Maths::Matrix4& worldTransformB, Collision& outCollision);
+		static bool AABBAABBIntersection(const AABBCollisionShape& aabbA, const Maths::Matrix4& worldTransformA, const AABBCollisionShape& sphereB, const Maths::Matrix4& worldTransformB, Collision& outCollision);
+		static bool SphereAABBIntersection(const SphereCollisionShape& sphere, const Maths::Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Maths::Matrix4& aabbTransform, Collision& outCollision);
 	};
 
 }

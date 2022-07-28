@@ -99,7 +99,7 @@ void	MD5Node::Draw(const OGLRenderer &r) {
 }
 
 
-bool	MD5Node::GetJointWorldTransform(const string&name, Matrix4 &t) {
+bool	MD5Node::GetJointWorldTransform(const string&name, Maths::Matrix4 &t) {
 	int index = sourceData.GetIndexForJointName(name);
 	if (index < 0) {
 		return false;
@@ -110,7 +110,7 @@ bool	MD5Node::GetJointWorldTransform(const string&name, Matrix4 &t) {
 	return true;
 }
 
-bool	MD5Node::GetJointLocalTransform(const string&name, Matrix4 &t) {
+bool	MD5Node::GetJointLocalTransform(const string&name, Maths::Matrix4 &t) {
 	int index = sourceData.GetIndexForJointName(name);
 	if (index < 0) {
 		return false;
@@ -122,7 +122,7 @@ bool	MD5Node::GetJointLocalTransform(const string&name, Matrix4 &t) {
 }
 
 
-bool	MD5Node::GetParentLocalOrientation(const string&name, Quaternion &t) {
+bool	MD5Node::GetParentLocalOrientation(const string&name, Maths::Quaternion &t) {
 	int index = sourceData.GetIndexForJointName(name);
 	if (index < 0) {
 		return false;
@@ -137,12 +137,12 @@ bool	MD5Node::GetParentLocalOrientation(const string&name, Quaternion &t) {
 	return true;
 }
 
-bool	MD5Node::GetParentWorldOrientation(const string&name, Quaternion &t) {
+bool	MD5Node::GetParentWorldOrientation(const string&name, Maths::Quaternion &t) {
 	return false;
 }
 
 
-bool	MD5Node::GetParentLocalTransform(const string&name, Matrix4 &t) {
+bool	MD5Node::GetParentLocalTransform(const string&name, Maths::Matrix4 &t) {
 	int index = sourceData.GetIndexForJointName(name);
 	if (index < 0) {
 		return false;
@@ -156,7 +156,7 @@ bool	MD5Node::GetParentLocalTransform(const string&name, Matrix4 &t) {
 
 	return true;
 }
-bool	MD5Node::GetParentWorldTransform(const string&name, Matrix4 &t) {
+bool	MD5Node::GetParentWorldTransform(const string&name, Maths::Matrix4 &t) {
 	int index = sourceData.GetIndexForJointName(name);
 	if (index < 0) {
 		return false;
@@ -173,7 +173,7 @@ bool	MD5Node::GetParentWorldTransform(const string&name, Matrix4 &t) {
 
 
 
-bool	MD5Node::SetJointLocalTransform(const string &name, Matrix4 &t) {
+bool	MD5Node::SetJointLocalTransform(const string &name, Maths::Matrix4 &t) {
 	int index = sourceData.GetIndexForJointName(name);
 	if (index < 0) {
 		return false;
@@ -184,7 +184,7 @@ bool	MD5Node::SetJointLocalTransform(const string &name, Matrix4 &t) {
 	return true;
 }
 
-bool	MD5Node::SetJointWorldTransform(const string &name, Matrix4 &t) {
+bool	MD5Node::SetJointWorldTransform(const string &name, Maths::Matrix4 &t) {
 	int index = sourceData.GetIndexForJointName(name);
 	if (index < 0) {
 		return false;
@@ -297,7 +297,7 @@ void	MD5Node::DebugDrawJointTransforms(float size, bool worldSpace) {
 
 
 	for (int i = 0; i < currentSkeleton.numJoints; ++i) {
-		Matrix4 transform = (worldSpace ? currentSkeleton.joints[i].transform : currentSkeleton.joints[i].localTransform);
+		Maths::Matrix4 transform = (worldSpace ? currentSkeleton.joints[i].transform : currentSkeleton.joints[i].localTransform);
 
 		Vector3 start = transform.GetPositionVector();
 		transform.SetPositionVector(Vector3(0, 0, 0));

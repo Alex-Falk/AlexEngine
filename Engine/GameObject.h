@@ -6,6 +6,7 @@
 #include "nclgl/RenderNode.h"
 #include "PhysicsEngine/PhysicsNode.h"
 #include <Engine/Component.h>
+#include <Maths/Matrix4.h>
 
 class GameObject {
 
@@ -22,13 +23,13 @@ public:
 	template<class T>
 	T* GetComponentOfType();
 
-	void SetTransform(const Matrix4 transform);
-	Matrix4 GetTransform() const;
+	void SetTransform(const Maths::Matrix4 transform);
+	Maths::Matrix4 GetTransform() const;
 	void TranslatePosition(const Vector3& by);
 	void TranslateLocalPosition(const Vector3& by);
 
 	void SetPosition(const Vector3& position);
-	void SetRotation(const Quaternion& rotation);
+	void SetRotation(const Maths::Quaternion& rotation);
 
 	
 
@@ -43,6 +44,6 @@ private:
 
 	unordered_map<std::string, Component*> m_components;
 
-	Matrix4 m_transform;
+	Maths::Matrix4 m_transform;
 };
 

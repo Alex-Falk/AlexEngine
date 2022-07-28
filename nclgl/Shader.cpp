@@ -1,4 +1,8 @@
 #include "Shader.h"
+
+#include <fstream>
+
+#include "Mesh.h"
 #include "NCLDebug.h"
 
 Shader::Shader(string vFile, string fFile, string gFile) {

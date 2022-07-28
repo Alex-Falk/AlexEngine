@@ -25,7 +25,7 @@ _-_-_-_-_-_-_-""  ""
 #include <fstream>
 #include <string>
 
-#include "quaternion.h"
+#include <Maths/Quaternion.h>
 #include <Maths/Vector3.h>
 
 #include "MD5Mesh.h"
@@ -92,7 +92,7 @@ Every MD5Anim has an MD5BaseFrame, consisting of the orientations and positions
 of every MD5AnimJoint
 */
 struct MD5BaseFrame {
-	Quaternion* orientations;	//Orientations for every base frame joint
+	Maths::Quaternion* orientations;	//Orientations for every base frame joint
 	Vector3*	positions;		//Positions for every base frame joint
 
 	MD5BaseFrame::MD5BaseFrame() {

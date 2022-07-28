@@ -51,7 +51,7 @@ void Physics::PhysicsNode::IntegrateVelocity(float dt)
 {
 	m_position += m_linearHalfVelocity * dt;
 
-	m_orientation = m_orientation + Quaternion(m_angularHalfVelocity * dt * .5f, 0.f) * m_orientation;
+	m_orientation = m_orientation + Maths::Quaternion(m_angularHalfVelocity * dt * .5f, 0.f) * m_orientation;
 	m_orientation.Normalise();
 
 	FireOnUpdateCallback();
@@ -93,7 +93,7 @@ void Physics::PhysicsNode::ApplyAngularVelocity(Vector3 angularVelocity)
 	m_angularVelocity += angularVelocity;
 }
 
-void Physics::PhysicsNode::SetRotation(Quaternion rotation)
+void Physics::PhysicsNode::SetRotation(Maths::Quaternion rotation)
 {
 	m_orientation = rotation;
 }

@@ -1,12 +1,12 @@
 #include "Quaternion.h"
 
-Quaternion::Quaternion(void)
+Maths::Quaternion::Quaternion(void)
 {
 	x = y = z = 0.0f;
 	w = 1.0f;
 }
 
-Quaternion::Quaternion(const Vector3& vec, float w)
+Maths::Quaternion::Quaternion(const Vector3& vec, float w)
 {
 	this->x = vec.x;
 	this->y = vec.y;
@@ -14,7 +14,7 @@ Quaternion::Quaternion(const Vector3& vec, float w)
 	this->w = w;
 }
 
-Quaternion::Quaternion(float x, float y, float z, float w)
+Maths::Quaternion::Quaternion(float x, float y, float z, float w)
 {
 	this->x = x;
 	this->y = y;
@@ -22,15 +22,15 @@ Quaternion::Quaternion(float x, float y, float z, float w)
 	this->w = w;
 }
 
-Quaternion::~Quaternion(void)
+Maths::Quaternion::~Quaternion(void)
 {
 }
 
-float Quaternion::Dot(const Quaternion &a, const Quaternion &b) {
+float Maths::Quaternion::Dot(const Quaternion &a, const Quaternion &b) {
 	return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
 }
 
-void Quaternion::Normalise() {
+void Maths::Quaternion::Normalise() {
 	float magnitude = sqrt(Dot(*this, *this));
 
 	if (magnitude > 0.0f) {
@@ -52,7 +52,7 @@ void Quaternion::Normalise() {
 }
 
 
-Quaternion Quaternion::operator *(const Quaternion &b) const {
+Maths::Quaternion Maths::Quaternion::operator *(const Quaternion &b) const {
 	Quaternion ans;
 	ans.w = w * b.w - x * b.x - y * b.y - z * b.z;
 	ans.x = w * b.x + x * b.w + y * b.z - z * b.y;
@@ -62,7 +62,7 @@ Quaternion Quaternion::operator *(const Quaternion &b) const {
 	return ans;
 }
 
-Quaternion Quaternion::operator *(const Vector3 &b) const {
+Maths::Quaternion Maths::Quaternion::operator *(const Vector3 &b) const {
 	Quaternion ans;
 
 	ans.w = -(x * b.x) - (y * b.y) - (z * b.z);
@@ -74,7 +74,7 @@ Quaternion Quaternion::operator *(const Vector3 &b) const {
 	return ans;
 }
 
-Vector3 Quaternion::Transform(const Vector3& point)
+Vector3 Maths::Quaternion::Transform(const Vector3& point)
 {
 	//More optimal solution taken from:
 	//  https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
@@ -84,12 +84,12 @@ Vector3 Quaternion::Transform(const Vector3& point)
 	
 }
 
-Quaternion Quaternion::operator*(const float &a) const
+Maths::Quaternion Maths::Quaternion::operator*(const float &a) const
 {
 	return Quaternion(x * a, y * a, z * a, w * a);
 }
 
-Matrix4 Quaternion::ToMatrix4() const {
+Maths::Matrix4 Maths::Quaternion::ToMatrix4() const {
 	Matrix4 mat;
 
 	float yy = y*y;
@@ -102,22 +102,22 @@ Matrix4 Quaternion::ToMatrix4() const {
 	float yz = y*z;
 	float xw = x*w;
 
-	mat.values[0] = 1.0f - 2.0f * (yy + zz);
-	mat.values[1] = 2.0f * (xy + zw);
-	mat.values[2] = 2.0f * (xz - yw);
+	mat[0][0] = 1.0f - 2.0f * (yy + zz);
+	mat[0][1] = 2.0f * (xy + zw);
+	mat[0][2] = 2.0f * (xz - yw);
 
-	mat.values[4] = 2.0f * (xy - zw);
-	mat.values[5] = 1.0f - 2.0f * (xx + zz);
-	mat.values[6] = 2.0f * (yz + xw);
+	mat[1][0] = 2.0f * (xy - zw);
+	mat[1][1] = 1.0f - 2.0f * (xx + zz);
+	mat[1][2] = 2.0f * (yz + xw);
 
-	mat.values[8] = 2.0f * (xz + yw);
-	mat.values[9] = 2.0f * (yz - xw);
-	mat.values[10] = 1.0f - 2.0f * (xx + yy);
+	mat[2][0] = 2.0f * (xz + yw);
+	mat[2][1] = 2.0f * (yz - xw);
+	mat[2][2] = 1.0f - 2.0f * (xx + yy);
 
 	return mat;
 }
 
-Matrix3 Quaternion::ToMatrix3() const {
+Maths::Matrix3 Maths::Quaternion::ToMatrix3() const {
 	Matrix3 mat;
 
 	float yy = y*y;
@@ -145,23 +145,21 @@ Matrix3 Quaternion::ToMatrix3() const {
 	return mat;
 }
 
-Quaternion Quaternion::EulerAnglesToQuaternion(float pitch, float yaw, float roll) {
-	float y2 = (float)DegToRad(yaw / 2.0f);
-	float p2 = (float)DegToRad(pitch / 2.0f);
-	float r2 = (float)DegToRad(roll / 2.0f);
+Maths::Quaternion Maths::Quaternion::EulerAnglesToQuaternion(float pitch, float yaw, float roll) {
+	float y2 = Math::DegToRad(yaw / 2.0f);
+	float p2 = Math::DegToRad(pitch / 2.0f);
+	float r2 = Math::DegToRad(roll / 2.0f);
 
 
-	float cosy = (float)cos(y2);
-	float cosp = (float)cos(p2);
-	float cosr = (float)cos(r2);
+	float cosy = cos(y2);
+	float cosp = cos(p2);
+	float cosr = cos(r2);
 
-	float siny = (float)sin(y2);
-	float sinp = (float)sin(p2);
-	float sinr = (float)sin(r2);
+	float siny = sin(y2);
+	float sinp = sin(p2);
+	float sinr = sin(r2);
 
 	Quaternion q;
-
-
 	q.x = cosr * sinp * cosy + sinr * cosp * siny;
 	q.y = cosr * cosp * siny - sinr * sinp * cosy;
 	q.z = sinr * cosp * cosy - cosr * sinp * siny;
@@ -170,16 +168,16 @@ Quaternion Quaternion::EulerAnglesToQuaternion(float pitch, float yaw, float rol
 	return q;
 };
 
-Quaternion Quaternion::AxisAngleToQuaterion(const Vector3& vector, float degrees) {
-	float half_theta = (float)DegToRad(degrees) * 0.5f;
-	float sin_theta = (float)sin(half_theta);
+Maths::Quaternion Maths::Quaternion::AxisAngleToQuaterion(const Vector3& vector, float degrees) {
+	const float halfTheta = Math::DegToRad(degrees) * 0.5f;
+	const float sinTheta = sin(halfTheta);
 
-	Quaternion q = Quaternion(vector * sin_theta, cos(half_theta));
+	Quaternion q = Quaternion(vector * sinTheta, cos(halfTheta));
 	//q.Normalise();
 	return q;
 }
 
-void Quaternion::GenerateW() {
+void Maths::Quaternion::GenerateW() {
 	w = 1.0f - (x*x) - (y*y) - (z*z);
 	if (w < 0.0f) {
 		w = 0.0f;
@@ -189,27 +187,27 @@ void Quaternion::GenerateW() {
 	}
 }
 
-Quaternion Quaternion::Conjugate() const
+Maths::Quaternion Maths::Quaternion::Conjugate() const
 {
 	return Quaternion(-x, -y, -z, w);
 }
 
-Quaternion Quaternion::FromMatrix(const Matrix4 &m) {
+Maths::Quaternion Maths::Quaternion::FromMatrix(const Matrix4 &m) {
 	Quaternion q;
 
-	q.w = sqrt(max(0.0f, (1.0f + m.values[0] + m.values[5] + m.values[10]))) / 2;
-	q.x = sqrt(max(0.0f, (1.0f + m.values[0] - m.values[5] - m.values[10]))) / 2;
-	q.y = sqrt(max(0.0f, (1.0f - m.values[0] + m.values[5] - m.values[10]))) / 2;
-	q.z = sqrt(max(0.0f, (1.0f - m.values[0] - m.values[5] + m.values[10]))) / 2;
+	q.w = sqrt(std::max(0.0f, (1.0f + m[0][0] + m[1][1] + m[2][2]))) / 2;
+	q.x = sqrt(std::max(0.0f, (1.0f + m[0][0] - m[1][1] - m[2][2]))) / 2;
+	q.y = sqrt(std::max(0.0f, (1.0f - m[0][0] + m[1][1] - m[2][2]))) / 2;
+	q.z = sqrt(std::max(0.0f, (1.0f - m[0][0] - m[1][1] + m[2][2]))) / 2;
 
-	q.x = (float)_copysign(q.x, m.values[9] - m.values[6]);
-	q.y = (float)_copysign(q.y, m.values[2] - m.values[8]);
-	q.z = (float)_copysign(q.z, m.values[4] - m.values[1]);
+	q.x = (float)_copysign(q.x, m[2][1] - m[1][2]);
+	q.y = (float)_copysign(q.y, m[0][2] - m[2][0]);
+	q.z = (float)_copysign(q.z, m[1][0] - m[0][1]);
 
 	return q;
 }
 
-Quaternion Quaternion::Lerp(const Quaternion& start, const Quaternion& end, float factor)
+Maths::Quaternion Maths::Quaternion::Lerp(const Quaternion& start, const Quaternion& end, float factor)
 {
 	// Interpolate the two quaternions
 	//  - This is not recomended over spherical interpolation
@@ -225,10 +223,10 @@ Quaternion Quaternion::Lerp(const Quaternion& start, const Quaternion& end, floa
 	return out;
 }
 
-Quaternion Quaternion::Slerp(const Quaternion& start, const Quaternion& end, float factor)
+Maths::Quaternion Maths::Quaternion::Slerp(const Quaternion& start, const Quaternion& end, float factor)
 {
 	//Clamp interpolation between start and end
-	factor = min(max(factor, 0.0f), 1.0f);
+	factor = std::min(std::max(factor, 0.0f), 1.0f);
 
 	// Calc cos theta (Dot product)
 	float cos_theta = Quaternion::Dot(start, end);
@@ -272,7 +270,7 @@ Quaternion Quaternion::Slerp(const Quaternion& start, const Quaternion& end, flo
 	}
 }
 
-Quaternion Quaternion::LookAt(const Vector3& from, const Vector3& to, const Vector3& up)
+Maths::Quaternion Maths::Quaternion::LookAt(const Vector3& from, const Vector3& to, const Vector3& up)
 {
 	const Vector3 resting_forward_vector = Vector3(0, 0, -1);
 
@@ -285,7 +283,7 @@ Quaternion Quaternion::LookAt(const Vector3& from, const Vector3& to, const Vect
 	Vector3 right = Vector3::Cross(forward, up).Normalized();
 	Vector3 up_w = Vector3::Cross(right, forward).Normalized();
 
-	Quaternion fix_spin = GetRotation(up_l, up_w);
+	Maths::Quaternion fix_spin = GetRotation(up_l, up_w);
 
 	out = fix_spin * out;
 	out.Normalise();
@@ -293,7 +291,7 @@ Quaternion Quaternion::LookAt(const Vector3& from, const Vector3& to, const Vect
 	return out;
 }
 
-Quaternion Quaternion::GetRotation(const Vector3& from_dir, const Vector3& to_dir, const Vector3& up)
+Maths::Quaternion Maths::Quaternion::GetRotation(const Vector3& from_dir, const Vector3& to_dir, const Vector3& up)
 {
 	float costheta = Vector3::Dot(from_dir, to_dir);
 
@@ -301,12 +299,12 @@ Quaternion Quaternion::GetRotation(const Vector3& from_dir, const Vector3& to_di
 	// - Same as default, no rotation
 	if (fabs(costheta - 1.0f) < 1e-6f)
 	{
-		return Quaternion(0.0f, 0.0f, 0.0f, 1.0f);
+		return Maths::Quaternion(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 	// - Directly opposite default rotation
 	else if (fabs(costheta + 1.0f) < 1e-6f)
 	{
-		return Quaternion(up, PI);
+		return Maths::Quaternion(up, Math::PI::F);
 	}
 
 	
@@ -314,5 +312,5 @@ Quaternion Quaternion::GetRotation(const Vector3& from_dir, const Vector3& to_di
 	float theta = acosf(costheta);
 	Vector3 rotAxis = Vector3::Cross(from_dir, to_dir).Normalized();
 
-	return Quaternion::AxisAngleToQuaterion(rotAxis, (float)RadToDeg(theta));
+	return Maths::Quaternion::AxisAngleToQuaterion(rotAxis, Math::RadToDeg(theta));
 }

@@ -366,8 +366,8 @@ void ScreenPicker::HandleObjectMouseMove(float dt, Vector3& clip_space)
 
 
 void ScreenPicker::RenderPickingScene(
-	const Matrix4& projViewMtx, 
-	const Matrix4& invProjViewMtx, 
+	const Maths::Matrix4& projViewMtx, 
+	const Maths::Matrix4& invProjViewMtx, 
 	GLuint depthTex, 
 	uint depthTexWidth, 
 	uint depthTexHeight)

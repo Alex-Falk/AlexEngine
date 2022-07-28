@@ -100,3 +100,37 @@ void Vector4::Set(const float x, const float y, const float z, const float w)
 	this->z = z;
 	this->w = w;
 }
+
+float const Vector4::operator[](const int index) const
+{
+	switch (index)
+	{
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	case 3:
+		return w;
+	default:
+		return 0;
+	}
+}
+
+float& Vector4::operator[](const int index)
+{
+	switch (index)
+	{
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	case 3:
+		return w;
+	default:
+		return x; // TODO: Cleaner fix for this?
+	}
+}

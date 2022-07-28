@@ -1,4 +1,6 @@
 #include "MD5FileData.h"
+
+#include <SOIL.h>
 #ifdef USE_MD5MESH
 #ifdef WEEK_2_CODE
 /*
@@ -17,10 +19,11 @@ static float	matrixElements[16] = {
 	0,  0, 0, 1
 };
 
+Maths::Matrix4 Matrix4(float* arr);
 /*
 static class variables must still be instantiated somewhere!!!
 */
-const Matrix4 MD5FileData::conversionMatrix			= Matrix4(matrixElements);
+const Maths::Matrix4 MD5FileData::conversionMatrix			= Matrix4(matrixElements);
 
 MD5FileData::MD5FileData(const std::string &filename)	{
 	std::ifstream f(filename,std::ios::in);	//MD5 files are text based, so don't make it an ios::binary ifstream...

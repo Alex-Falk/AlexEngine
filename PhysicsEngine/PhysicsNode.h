@@ -1,8 +1,8 @@
 #pragma once
 
 #include <functional>
-#include <nclgl/Matrix4.h>
-#include <nclgl/Quaternion.h>
+#include <Maths/Matrix4.h>
+#include <Maths/Quaternion.h>
 
 #include "CollisionShape.h"
 #include "common.h"
@@ -11,7 +11,7 @@ namespace  Physics
 {
 	class CollisionShape;
 
-	typedef std::function<void(const Matrix4& transform)> UpdateCallback;
+	typedef std::function<void(const Maths::Matrix4& transform)> UpdateCallback;
 
 	class PhysicsNode
 	{
@@ -29,7 +29,7 @@ namespace  Physics
 
 		void ApplyTorque(Vector3 torque);
 		void ApplyAngularVelocity(Vector3 angularVelocity);
-		void SetRotation(Quaternion rotation);
+		void SetRotation(Maths::Quaternion rotation);
 
 		void SetInverseMass(float inverseMass);
 		void SetCollisionShape(CollisionShape* collisionShape);
@@ -45,12 +45,12 @@ namespace  Physics
 		Vector3 GetLinearVelocity();
 		CollisionShape* GetCollisionShape() { return m_collisionShape; }
 		bool HasCollision() const;
-		Matrix4& GetWorldTransform() { return m_worldTransform; }
+		Maths::Matrix4& GetWorldTransform() { return m_worldTransform; }
 	
 	protected:
 
 	private:
-		Matrix4 m_worldTransform;
+		Maths::Matrix4 m_worldTransform;
 
 		Vector3 m_position;
 		Vector3 m_linearVelocity;
@@ -58,10 +58,10 @@ namespace  Physics
 		Vector3 m_impulse;
 		float m_inverseMass;
 
-		Quaternion m_orientation;
+		Maths::Quaternion m_orientation;
 		Vector3 m_angularVelocity;
 		Vector3 m_torque;
-		Matrix3 m_inverseInertia;
+		Maths::Matrix3 m_inverseInertia;
 
 		float m_elasticity{};
 		float m_friction{};

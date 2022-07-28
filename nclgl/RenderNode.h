@@ -42,9 +42,9 @@ public:
 
 
 
-	void			SetTransform(const Matrix4 &matrix) { transform = matrix;}
-	const Matrix4&	GetTransform() const				{ return transform;}
-	const Matrix4&	GetWorldTransform() const			{ return worldTransform;}
+	void			SetTransform(const Maths::Matrix4 &matrix) { transform = matrix;}
+	const Maths::Matrix4&	GetTransform() const				{ return transform;}
+	const Maths::Matrix4&	GetWorldTransform() const			{ return worldTransform;}
 
 	virtual void	Update(float msec);
 
@@ -103,8 +103,8 @@ public:
 	bool 	 IsCollide() { return isCollided; }
 
 protected:
-	Matrix4		worldTransform;
-	Matrix4		transform;
+	Maths::Matrix4		worldTransform;
+	Maths::Matrix4		transform;
 	RenderNode*	parent;
 	float		distanceFromCamera;
 	float		boundingRadius;

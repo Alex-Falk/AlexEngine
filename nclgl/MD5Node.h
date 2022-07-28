@@ -53,17 +53,17 @@ public:
 	void	PlayAnim(std::string name);	
 
 
-	bool	GetParentLocalOrientation(const string&name, Quaternion &t);
-	bool	GetParentWorldOrientation(const string&name, Quaternion &t);
+	bool	GetParentLocalOrientation(const string&name, Maths::Quaternion &t);
+	bool	GetParentWorldOrientation(const string&name, Maths::Quaternion &t);
 
-	bool	GetParentLocalTransform(const string&name, Matrix4 &t);
-	bool	GetParentWorldTransform(const string&name, Matrix4 &t);
+	bool	GetParentLocalTransform(const string&name, Maths::Matrix4 &t);
+	bool	GetParentWorldTransform(const string&name, Maths::Matrix4 &t);
 
-	bool	GetJointLocalTransform(const string&name, Matrix4 &t);
-	bool	SetJointLocalTransform(const string &name, Matrix4 &t);
+	bool	GetJointLocalTransform(const string&name, Maths::Matrix4 &t);
+	bool	SetJointLocalTransform(const string &name, Maths::Matrix4 &t);
 
-	bool	GetJointWorldTransform(const string&name, Matrix4 &t);
-	bool	SetJointWorldTransform(const string &name, Matrix4 &t);
+	bool	GetJointWorldTransform(const string&name, Maths::Matrix4 &t);
+	bool	SetJointWorldTransform(const string &name, Maths::Matrix4 &t);
 
 	MD5Skeleton* GetSkeleton() {
 		return &currentSkeleton;

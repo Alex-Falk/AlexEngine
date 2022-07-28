@@ -61,8 +61,8 @@ function as it will include the filename and linenumber it was triggered on with
 *//////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include <nclgl/Matrix4.h>
-#include <nclgl/Matrix3.h>
+#include <Maths/Matrix4.h>
+#include <Maths/Matrix3.h>
 #include <Maths/Vector3.h>
 #include <Maths/Vector4.h>
 #include "Shader.h"
@@ -137,10 +137,10 @@ public:
 	static void DrawHairLineNDT(const Vector3& start, const Vector3& end, const Vector4& color = Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	//Draw Matrix (x,y,z axis at pos)
-	static void DrawMatrix(const Matrix4& transform_mtx);
-	static void DrawMatrix(const Matrix3& rotation_mtx, const Vector3& position);
-	static void DrawMatrixNDT(const Matrix4& transform_mtx);
-	static void DrawMatrixNDT(const Matrix3& rotation_mtx, const Vector3& position);
+	static void DrawMatrix(const Maths::Matrix4& transform_mtx);
+	static void DrawMatrix(const Maths::Matrix3& rotation_mtx, const Vector3& position);
+	static void DrawMatrixNDT(const Maths::Matrix4& transform_mtx);
+	static void DrawMatrixNDT(const Maths::Matrix3& rotation_mtx, const Vector3& position);
 
 	//Draw Triangle 
 	static void DrawTriangle(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector4& color = Vector4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -183,8 +183,8 @@ public:
 	static void _RenderDebugClipSpace();		//Text (probably don't want this anti-aliased)
 
 	static void _SetDebugDrawData(
-		const Matrix4& projMtx,
-		const Matrix4& viewMtx,
+		const Maths::Matrix4& projMtx,
+		const Maths::Matrix4& viewMtx,
 		const Vector3& camera_pos
 	)
 	{
@@ -220,9 +220,9 @@ protected:
 
 protected:
 	static Vector3	g_CameraPosition;
-	static Matrix4  g_ProjMtx;
-	static Matrix4  g_ViewMtx;
-	static Matrix4  g_ProjViewMtx;
+	static Maths::Matrix4  g_ProjMtx;
+	static Maths::Matrix4  g_ViewMtx;
+	static Maths::Matrix4  g_ProjViewMtx;
 	static int g_NumStatusEntries;
 	static float g_MaxStatusEntryWidth;
 	static std::deque<LogEntry> g_vLogEntries;

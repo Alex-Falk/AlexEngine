@@ -80,10 +80,10 @@ struct MD5Joint {
 	int			parent;			//Index into the joint array of parent
 	int			forceWorld;
 	Vector3		position;		//Position relative to parent joint
-	Quaternion	orientation;	//Orientation relative to parent joint
-	Matrix4		transform;		//World transform of this joint
+	Maths::Quaternion	orientation;	//Orientation relative to parent joint
+	Maths::Matrix4		transform;		//World transform of this joint
 
-	Matrix4		localTransform;
+	Maths::Matrix4		localTransform;
 };
 
 
@@ -217,9 +217,9 @@ public:
 	using a simple transformation matrix. We only need one such matrix, and it
 	never needs to change once created, so it is declared as static const.
 	*/
-	static const Matrix4 conversionMatrix;
+	static const Maths::Matrix4 conversionMatrix;
 
-	static const Matrix4 inverseConversionMatrix;
+	static const Maths::Matrix4 inverseConversionMatrix;
 
 
 protected:	

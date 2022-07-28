@@ -295,7 +295,7 @@ void GraphicsPipeline::RenderScene()
 	// - This needs to be somewhere before we lose our depth buffer
 	//   BUT at the moment that means our screen picking is super sampled and rendered at 
 	//   a much higher resolution. Which is silly.
-	ScreenPicker::Instance()->RenderPickingScene(projViewMatrix, Matrix4::Inverse(projViewMatrix), screenTexDepth, screenTexWidth, screenTexHeight);
+	ScreenPicker::Instance()->RenderPickingScene(projViewMatrix, Maths::Matrix4::GetInverseOf(projViewMatrix), screenTexDepth, screenTexWidth, screenTexHeight);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, screenFBO);
 	glViewport(0, 0, screenTexWidth, screenTexHeight);
@@ -342,7 +342,7 @@ void GraphicsPipeline::Resize(int x, int y)
 	OGLRenderer::Resize(x, y);
 
 	//Update our projection matrix
-	projMatrix = Matrix4::Perspective(PROJ_NEAR, PROJ_FAR, (float)x / (float)y, PROJ_FOV);
+	projMatrix = Maths::Matrix4::CreatePerspectiveMatrix(PROJ_NEAR, PROJ_FAR, (float)x / (float)y, PROJ_FOV);
 }
 
 void GraphicsPipeline::BuildAndSortRenderLists()
@@ -432,14 +432,14 @@ void GraphicsPipeline::BuildShadowTransforms()
 	//  Matrix4 lightview = Matrix4::BuildViewMatrix(Vector3(0.0f, 0.0f, 0.0f), -lightDirection, viewDir);	
 
 	//Fixed size shadow area (just moves with camera) 
-	shadowViewMtx = Matrix4::BuildViewMatrix(Vector3(0.0f, 0.0f, 0.0f), -lightDirection, Vector3(0, 1, 0));
+	shadowViewMtx = Maths::Matrix4::CreateViewMatrix(Vector3(0.0f, 0.0f, 0.0f), -lightDirection, Vector3(0, 1, 0));
 
-	Matrix4 invCamProjView = Matrix4::Inverse(projMatrix * viewMatrix);
+	Maths::Matrix4 invCamProjView = Maths::Matrix4::GetInverseOf(projMatrix * viewMatrix);
 
 	auto compute_depth = [&](float x)
 	{
 		float proj_start = -(proj_range * x + PROJ_NEAR);
-		return (proj_start*projMatrix[10] + projMatrix[14]) / (proj_start*projMatrix[11]);
+		return (proj_start*projMatrix[2][2] + projMatrix[3][2]) / (proj_start*projMatrix[2][3]);
 	};
 
 	const float divisor = (SHADOWMAP_NUM*SHADOWMAP_NUM) - 1.f;
@@ -473,7 +473,7 @@ void GraphicsPipeline::BuildShadowTransforms()
 		bb._max.z = max(bb._max.z, sceneBoundingRadius);
 
 		//Build Light Projection		
-		shadowProj[i] = Matrix4::Orthographic(bb._max.z, bb._min.z, bb._min.x, bb._max.x, bb._max.y, bb._min.y);
+		shadowProj[i] = Maths::Matrix4::CreateOrthographicMatrix(bb._max.z, bb._min.z, bb._min.x, bb._max.x, bb._max.y, bb._min.y);
 		shadowProjView[i] = shadowProj[i] * shadowViewMtx;
 	}
 }

@@ -9,22 +9,22 @@ bool Frustum::InsideFrustum(RenderNode &n) {
 	return true; // RenderNode is inside every plane ...
 }
 
-void Frustum::FromMatrix(const Matrix4 & mat) {
-	Vector3 xaxis = Vector3(mat.values[0], mat.values[4], mat.values[8]);
-	Vector3 yaxis = Vector3(mat.values[1], mat.values[5], mat.values[9]);
-	Vector3 zaxis = Vector3(mat.values[2], mat.values[6], mat.values[10]);
-	Vector3 waxis = Vector3(mat.values[3], mat.values[7], mat.values[11]);
+void Frustum::FromMatrix(const Maths::Matrix4 & mat) {
+	Vector3 xaxis = Vector3(mat[0][0], mat[1][0], mat[2][0]);
+	Vector3 yaxis = Vector3(mat[0][1], mat[1][1], mat[2][1]);
+	Vector3 zaxis = Vector3(mat[0][2], mat[1][2], mat[2][2]);
+	Vector3 waxis = Vector3(mat[0][3], mat[1][3], mat[2][3]);
 	// RIGHT
-	planes[0] = Plane(waxis - xaxis, (mat.values[15] - mat.values[12]), true);
+	planes[0] = Plane(waxis - xaxis, (mat[3][3] - mat[3][0]), true);
 	// LEFT
-	planes[1] = Plane(waxis + xaxis, (mat.values[15] + mat.values[12]), true);
+	planes[1] = Plane(waxis + xaxis, (mat[3][3] + mat[3][0]), true);
 	// BOTTOM
-	planes[2] = Plane(waxis + yaxis, (mat.values[15] + mat.values[13]), true);
+	planes[2] = Plane(waxis + yaxis, (mat[3][3] + mat[3][1]), true);
 	// TOP
-	planes[3] = Plane(waxis - yaxis, (mat.values[15] - mat.values[13]), true);
+	planes[3] = Plane(waxis - yaxis, (mat[3][3] - mat[3][1]), true);
 	// FAR
-	planes[4] = Plane(waxis - zaxis, (mat.values[15] - mat.values[14]), true);
+	planes[4] = Plane(waxis - zaxis, (mat[3][3] - mat[3][2]), true);
 	// NEAR
-	planes[5] = Plane(waxis + zaxis, (mat.values[15] + mat.values[14]), true);
+	planes[5] = Plane(waxis + zaxis, (mat[3][3] + mat[3][2]), true);
 }
 

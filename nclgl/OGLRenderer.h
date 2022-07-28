@@ -21,25 +21,17 @@ _-_-_-_-_-_-_-""  ""
 #include "Common.h"
 
 #include <string>
-#include <fstream>
 #include <vector>
-
-
+#include <Maths/Matrix4.h>
+#include <Maths/Quaternion.h>
 
 #include <GL\glew.h>
 #include <GL\wglew.h>
 
-#include <SOIL.h>
-
-#include <Maths/Vector2.h>
-#include <Maths/Vector3.h>
-#include "Quaternion.h"
-#include <Maths/Matrix4.h>
 #include "Window.h"
 #include "light.h"
 
 #include "Shader.h"		//Students make this file...
-#include "Mesh.h"		//And this one...
 
 using std::vector;
 
@@ -56,13 +48,13 @@ using std::vector;
 
 //#define OPENGL_DEBUGGING
 
-static const float biasValues[16] = {
-	0.5, 0.0, 0.0, 0.0,
-	0.0, 0.5, 0.0, 0.0,
-	0.0, 0.0, 0.5, 0.0,
-	0.5, 0.5, 0.5, 1.0
+static constexpr float biasValues[4][4] = {
+	{ 0.5, 0.0, 0.0, 0.0 },
+	{ 0.0, 0.5, 0.0, 0.0 },
+	{ 0.0, 0.0, 0.5, 0.0 },
+	{ 0.5, 0.5, 0.5, 1.0 }
 };
-static const Matrix4 biasMatrix(const_cast<float*>(biasValues));
+static const Maths::Matrix4 biasMatrix(biasValues);
 
 class Shader;
 
@@ -91,16 +83,16 @@ protected:
 
 	void			SetShaderLight(const Light &l);
 
-	void			DrawDebugPerspective(Matrix4*matrix = 0);
-	void			DrawDebugOrtho(Matrix4*matrix = 0);
+	void			DrawDebugPerspective(Maths::Matrix4*matrix = 0);
+	void			DrawDebugOrtho(Maths::Matrix4*matrix = 0);
 
 	Shader* currentShader;
 	
 
-	Matrix4 projMatrix;		//Projection matrix
-	Matrix4 modelMatrix;	//Model matrix. NOT MODELVIEW
-	Matrix4 viewMatrix;		//View matrix
-	Matrix4 textureMatrix;	//Texture matrix
+	Maths::Matrix4 projMatrix;		//Projection matrix
+	Maths::Matrix4 modelMatrix;		//Model matrix. NOT MODELVIEW
+	Maths::Matrix4 viewMatrix;		//View matrix
+	Maths::Matrix4 textureMatrix;	//Texture matrix
 
 	int		width;			//Render area width (not quite the same as window width)
 	int		height;			//Render area height (not quite the same as window height)

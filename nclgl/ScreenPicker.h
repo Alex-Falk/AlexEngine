@@ -100,8 +100,8 @@ public:
 protected:
 	//Called by ScreenRenderer
 	void ClearAllObjects();
-	void RenderPickingScene(const Matrix4& projViewMtx,
-		const Matrix4& invProjViewMtx,
+	void RenderPickingScene(const Maths::Matrix4& projViewMtx,
+		const Maths::Matrix4& invProjViewMtx,
 		GLuint depthTex,
 		uint depthTexWidth,
 		uint depthTexHeight);
@@ -144,7 +144,7 @@ protected:
 	Vector3			m_OldWorldSpacePos;
 
 	//clip-space to world-space transform
-	Matrix4			m_invViewProjMtx;
+	Maths::Matrix4			m_invViewProjMtx;
 
 	//Shader
 	Shader* m_pShaderPicker;

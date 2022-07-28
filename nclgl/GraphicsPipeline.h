@@ -45,12 +45,12 @@ public:
 	inline bool GetVsyncEnabled() const { return isVsyncEnabled; }
 	inline void SetVsyncEnabled(bool enabled) { wglSwapIntervalEXT((isVsyncEnabled = enabled) ? 1 : 0); }
 
-	inline Matrix4& GetProjMtx() { return projMatrix; }
-	inline Matrix4& GetViewMtx() { return viewMatrix; }
+	inline Maths::Matrix4& GetProjMtx() { return projMatrix; }
+	inline Maths::Matrix4& GetViewMtx() { return viewMatrix; }
 
-	inline Matrix4& GetShadowViewMtx() { return shadowViewMtx; }
-	inline Matrix4* GetShadowProjMatrices() { return shadowProj; }
-	inline Matrix4* GetShadowProjViewMatrices() { return shadowProjView; }
+	inline Maths::Matrix4& GetShadowViewMtx() { return shadowViewMtx; }
+	inline Maths::Matrix4* GetShadowProjMatrices() { return shadowProj; }
+	inline Maths::Matrix4* GetShadowProjViewMatrices() { return shadowProjView; }
 
 	inline Vector3& GetAmbientColor() { return ambientColor; }
 	inline Vector3& GetLightDirection() { return lightDirection; }
@@ -71,7 +71,7 @@ protected:
 	void BuildShadowTransforms(); //Builds the shadow projView matrices
 
 protected:
-	Matrix4 projViewMatrix;
+	Maths::Matrix4 projViewMatrix;
 
 	//Render FBO
 	GLuint				screenTexWidth, screenTexHeight;
@@ -97,9 +97,9 @@ protected:
 	float	sceneBoundingRadius; ///Approx based on scene contents
 	GLuint	shadowFBO;
 	GLuint	shadowTex;
-	Matrix4	shadowProj[SHADOWMAP_NUM];
-	Matrix4	shadowViewMtx;
-	Matrix4	shadowProjView[SHADOWMAP_NUM];
+	Maths::Matrix4	shadowProj[SHADOWMAP_NUM];
+	Maths::Matrix4	shadowViewMtx;
+	Maths::Matrix4	shadowProjView[SHADOWMAP_NUM];
 	float   normalizedFarPlanes[SHADOWMAP_NUM - 1];
 
 	//Common

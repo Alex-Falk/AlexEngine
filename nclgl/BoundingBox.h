@@ -54,7 +54,7 @@ struct BoundingBox
 
 
 	//Transform the given AABB (Axis Aligned Bounding Box) and returns a new AABB that encapsulates the new rotated bounding box.
-	BoundingBox Transform(const Matrix4& mtx)
+	BoundingBox Transform(const Maths::Matrix4& mtx)
 	{
 		BoundingBox bb;
 		bb.ExpandToFit(mtx * Vector3(_min.x, _min.y, _min.z));

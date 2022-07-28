@@ -1,4 +1,7 @@
 #include "OBJMesh.h"
+
+#include <SOIL.h>
+
 #include "NCLDebug.h"
 #ifdef WEEK_2_CODE
 /*

@@ -60,7 +60,7 @@ bool Physics::CollisionDetection::ObjectsIntersecting(const CollisionPair& pair,
 }
 
 bool Physics::CollisionDetection::SphereSphereIntersection(const SphereCollisionShape& sphereA,
-	const Matrix4& worldTransformA, const SphereCollisionShape& sphereB, const Matrix4& worldTransformB, Collision& outCollision)
+	const Maths::Matrix4& worldTransformA, const SphereCollisionShape& sphereB, const Maths::Matrix4& worldTransformB, Collision& outCollision)
 {
 	float radiiSum = sphereA.GetRadius() + sphereB.GetRadius();
 	Vector3 delta = worldTransformB.GetPositionVector() - worldTransformA.GetPositionVector();
@@ -80,8 +80,8 @@ bool Physics::CollisionDetection::SphereSphereIntersection(const SphereCollision
 	return false;
 }
 
-bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape& aabbA, const Matrix4& worldTransformA,
-	const AABBCollisionShape& aabbB, const Matrix4& worldTransformB, Collision& outCollision)
+bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape& aabbA, const Maths::Matrix4& worldTransformA,
+	const AABBCollisionShape& aabbB, const Maths::Matrix4& worldTransformB, Collision& outCollision)
 {
 	if (aabbA.BoundingBox.CollidingWithBoundingBox(aabbB.BoundingBox))
 	{
@@ -127,7 +127,7 @@ bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape&
 }
 
 bool Physics::CollisionDetection::SphereAABBIntersection(const SphereCollisionShape& sphere,
-	const Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Matrix4& aabbTransform,
+	const Maths::Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Maths::Matrix4& aabbTransform,
 	Collision& outCollision)
 {
 	// Find closet point on the box to the sphere center

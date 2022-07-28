@@ -13,7 +13,7 @@
 //Horrible!!!
 // TODO: Fix these variables!
 bool dragDataSet = false;
-Matrix3 dragDataInertia;
+Maths::Matrix3 dragDataInertia;
 float dragDataMass;
 
 Vector4 CommonUtils::GenColor(float scalar, float alpha)
@@ -63,13 +63,13 @@ GameObject* CommonUtils::BuildSphereObject(
 	RenderComponent* rnode = new RenderComponent();
 
 	RenderNode* dummy = new RenderNode(CommonMeshes::Sphere(), color);
-	dummy->SetTransform(Matrix4::Scale(Vector3(radius, radius, radius)));
+	dummy->SetTransform(Maths::Matrix4::CreateScaleMatrix(Vector3(radius, radius, radius)));
 
 	//dummy->SetMaterial(GraphicsPipeline::Instance()->GetAllMaterials()[matType]);
 	dummy->SetBoundingRadius(radius);
 	rnode->AddChild(dummy);
 
-	rnode->SetTransform(Matrix4::Translation(pos));
+	rnode->SetTransform(Maths::Matrix4::CreateTranslationMatrix(pos));
 	rnode->SetBoundingRadius(radius);
 
 	PhysicsComponent* pnode = NULL;	
@@ -132,14 +132,14 @@ GameObject* CommonUtils::BuildCuboidObject(
 
 	RenderNode* dummy = new RenderNode(mesh, color);
 	
-	dummy->SetTransform(Matrix4::Scale(halfdims));
+	dummy->SetTransform(Maths::Matrix4::CreateScaleMatrix(halfdims));
 
 	//dummy->SetMaterial(GraphicsPipeline::Instance()->GetAllMaterials()[matType]);
 	dummy->SetBoundingRadius(halfdims.Length());
 
 	rnode->AddChild(dummy);
 	
-	rnode->SetTransform(Matrix4::Translation(pos));
+	rnode->SetTransform(Maths::Matrix4::CreateTranslationMatrix(pos));
 	rnode->SetBoundingRadius(halfdims.Length());
 
 	PhysicsComponent* pnode = NULL;
@@ -201,14 +201,14 @@ GameObject* CommonUtils::BuildPlaneObject(
 	RenderComponent* rnode = new RenderComponent();
 
 	RenderNode* dummy = new RenderNode(Mesh::GenerateQuad(), color);
-	dummy->SetTransform(Matrix4::Scale(halfdims));
+	dummy->SetTransform(Maths::Matrix4::CreateScaleMatrix(halfdims));
 
 	//dummy->SetMaterial(GraphicsPipeline::Instance()->GetAllMaterials()[matType]);
 	dummy->SetBoundingRadius(halfdims.Length());
 
 	rnode->AddChild(dummy);
 
-	rnode->SetTransform(Matrix4::Translation(pos));
+	rnode->SetTransform(Maths::Matrix4::CreateTranslationMatrix(pos));
 	rnode->SetBoundingRadius(halfdims.Length());
 
 	PhysicsComponent* pnode = NULL;

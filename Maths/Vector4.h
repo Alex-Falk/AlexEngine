@@ -45,6 +45,8 @@ public:
 	float z;
 	float w;
 
+	float const operator[](const int index) const;
+	float& operator[](const int index);
 };
 
 Vector4 operator*(const float lhs, const Vector4& rhs);

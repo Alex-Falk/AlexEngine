@@ -36,24 +36,24 @@ void GameObject::AddComponent(Component* component)
 	}
 }
 
-void GameObject::SetTransform(const Matrix4 transform)
+void GameObject::SetTransform(const Maths::Matrix4 transform)
 {
 	m_transform = transform;
 }
 
-Matrix4 GameObject::GetTransform() const
+Maths::Matrix4 GameObject::GetTransform() const
 {
 	return m_transform;
 }
 
 void GameObject::TranslatePosition(const Vector3& by)
 {
-	m_transform.Translate(by);
+	m_transform.TranslatePosition(by);
 }
 
 void GameObject::TranslateLocalPosition(const Vector3& by)
 {
-	m_transform.TranslateLocal(by);
+	m_transform.TranslatePosition(by);
 }
 
 void GameObject::SetPosition(const Vector3& position)
@@ -61,7 +61,7 @@ void GameObject::SetPosition(const Vector3& position)
 	m_transform.SetPositionVector(position);
 }
 
-void GameObject::SetRotation(const Quaternion& rotation)
+void GameObject::SetRotation(const Maths::Quaternion& rotation)
 {
 	const auto& pos = m_transform.GetPositionVector();
 	m_transform = rotation.ToMatrix4();

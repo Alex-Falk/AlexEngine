@@ -217,7 +217,7 @@ void MD5Anim::LoadMD5AnimBaseFrame( std::ifstream &from )	{
 	/*
 	We need to initialise enough space on the heap for every joint transform
 	*/
-	baseFrame.orientations	= new Quaternion[numJoints];
+	baseFrame.orientations	= new Maths::Quaternion[numJoints];
 	baseFrame.positions		= new Vector3[numJoints];
 
 	int current = 0;
@@ -319,7 +319,7 @@ void	MD5Anim::TransformSkeleton(MD5Skeleton &skel, unsigned int frameNum) {
 	for(unsigned int i = 0; i < numJoints; ++i) {
 		//Grab COPIES of the position and orientation of the baseframe joint
 		Vector3		animPos	 = baseFrame.positions[i];
-		Quaternion  animQuat = baseFrame.orientations[i];
+		Maths::Quaternion  animQuat = baseFrame.orientations[i];
 
 		/*
 		Each frame has a number of 'delta' components, and each joint

@@ -60,7 +60,7 @@ than performing everything on the GPU.
 #include <map>
 
 #include "ChildMeshInterface.h"
-#include "Quaternion.h"
+#include <Maths/Quaternion.h>
 #include <Maths/Vector3.h>
 #include <Maths/Vector2.h>
 

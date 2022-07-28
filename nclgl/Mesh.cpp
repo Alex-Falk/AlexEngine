@@ -168,10 +168,10 @@ Mesh* Mesh::TestQuad(float r)	{
 	m->textureCoords[4] = Vector2(1.0f,	1.0f);
 	m->textureCoords[5] = Vector2(0.0f,	1.0f);
 
-	Matrix4 pushPos  = Matrix4::Translation(Vector3(0.5,0.5,0));
-	Matrix4 popPos	 = Matrix4::Translation(Vector3(-0.5,-0.5,0));
-	Matrix4 rotation = Matrix4::Rotation(r,Vector3(0,0,1));
-	Matrix4 concat   = pushPos * rotation * popPos;
+	Maths::Matrix4 pushPos  = Maths::Matrix4::CreateTranslationMatrix(Vector3(0.5,0.5,0));
+	Maths::Matrix4 popPos	 = Maths::Matrix4::CreateTranslationMatrix(Vector3(-0.5,-0.5,0));
+	Maths::Matrix4 rotation = Maths::Matrix4::CreateRotationMatrix(r,Vector3(0,0,1));
+	Maths::Matrix4 concat   = pushPos * rotation * popPos;
 
 	for(int i = 0; i < 4; ++i) {
 		Vector4 rotvec = concat * Vector4(m->textureCoords[i].x,m->textureCoords[i].y,0,1);
@@ -264,10 +264,10 @@ Mesh*	Mesh::TestTriangle(float r) {
 	m->textureCoords[1] = Vector2(1.0f,	0.0f);
 	m->textureCoords[2] = Vector2(0.0f,	1.0f);
 
-	Matrix4 pushPos  = Matrix4::Translation(Vector3(0.5,0.5,0));
-	Matrix4 popPos	 = Matrix4::Translation(Vector3(-0.5,-0.5,0));
-	Matrix4 rotation = Matrix4::Rotation(r,Vector3(0,0,1));
-	Matrix4 concat   = pushPos * rotation * popPos;
+	Maths::Matrix4 pushPos  = Maths::Matrix4::CreateTranslationMatrix(Vector3(0.5,0.5,0));
+	Maths::Matrix4 popPos	= Maths::Matrix4::CreateTranslationMatrix(Vector3(-0.5,-0.5,0));
+	Maths::Matrix4 rotation = Maths::Matrix4::CreateRotationMatrix(r,Vector3(0,0,1));
+	Maths::Matrix4 concat   = pushPos * rotation * popPos;
 
 	for(int i = 0; i < 3; ++i) {
 		Vector4 rotvec = concat * Vector4(m->textureCoords[i].x,m->textureCoords[i].y,0,1);
