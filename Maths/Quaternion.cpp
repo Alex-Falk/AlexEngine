@@ -304,7 +304,7 @@ Maths::Quaternion Maths::Quaternion::GetRotation(const Vector3& from_dir, const 
 	// - Directly opposite default rotation
 	else if (fabs(costheta + 1.0f) < 1e-6f)
 	{
-		return Quaternion(up, PI::F);
+		return Quaternion(up, Pi::F);
 	}
 
 	

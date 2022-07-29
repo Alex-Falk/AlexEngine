@@ -5,14 +5,14 @@
 
 namespace Maths
 {
-	namespace PI
+	namespace Pi
 	{
 		static constexpr auto F = 3.14159265358979323846f;
 		static constexpr auto D = 3.14159265358979323846;
 	}
 
-	static constexpr float TWO_PI = 2 * PI::F;
-	static constexpr float PI_OVER_360 = PI::F / 360.f;
+	static constexpr float TWO_PI = 2 * Pi::F;
+	static constexpr float PI_OVER_360 = Pi::F / 360.f;
 	
 	static auto Squared(const float val) { return val * val; }
 
@@ -25,10 +25,10 @@ namespace Maths
 	static auto IsFloatZero(const float val) { return std::fabs(val) < std::numeric_limits<float>::epsilon();}
 	
 	//Radians to degrees
-	static auto RadToDeg(const double deg) { return deg * 180.0 / PI::D; }
-	static auto RadToDeg(const float deg)	{ return deg * 180.0f / PI::F; }
+	static auto RadToDeg(const double deg) { return deg * 180.0 / Pi::D; }
+	static auto RadToDeg(const float deg)	{ return deg * 180.0f / Pi::F; }
 	
 	//Degrees to radians
-	static auto DegToRad(const double rad) { return rad * PI::D / 180.0; }
-	static auto DegToRad(const float rad) { return rad * PI::F / 180.0f; }
+	static auto DegToRad(const double rad) { return rad * Pi::D / 180.0; }
+	static auto DegToRad(const float rad) { return rad * Pi::F / 180.0f; }
 }

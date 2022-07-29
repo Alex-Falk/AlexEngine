@@ -114,8 +114,8 @@ Vector3 Vector3::Normalized() const
 {
 	const float length = Length();
 
-	if (length <= 0.0001f)
-		return Vector3::Zero();
+	if (Maths::IsFloatZero(length))
+		return Zero();
 
 	return { x / length, y / length, z / length};
 }

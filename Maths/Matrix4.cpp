@@ -218,7 +218,7 @@ Maths::Matrix4 Maths::Matrix4::CreateViewMatrix(const Vector3& from, const Vecto
     rotationMat[2][1] = u.z;
 
     rotationMat[0][2] = -f.x;
-    rotationMat[1][2]  = -f.y;
+    rotationMat[1][2] = -f.y;
     rotationMat[2][2] = -f.z;
 
     return rotationMat*positionMat;

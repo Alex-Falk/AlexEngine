@@ -67,7 +67,6 @@
     <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Plane.h" />
-    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderNode.h" />
     <ClInclude Include="ScreenPicker.h" />
     <ClInclude Include="Shader.h" />
