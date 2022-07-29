@@ -68,8 +68,8 @@ Maths::Matrix3 Maths::Matrix3::Rotation(float degrees, const Vector3 &inaxis)
 	Vector3 axis = inaxis;
 	axis.Normalize();
 
-	float c = cosf(Math::DegToRad(degrees));
-	float s = sinf(Math::DegToRad(degrees));
+	float c = cosf(DegToRad(degrees));
+	float s = sinf(DegToRad(degrees));
 
 	m(0, 0) = (axis.x * axis.x) * (1.0f - c) + c;
 	m(1, 0) = (axis.y * axis.x) * (1.0f - c) + (axis.z * s);
@@ -217,21 +217,21 @@ float Maths::Matrix3::Determinant() const
 }
 
 
-Maths::Matrix3& operator+=(Maths::Matrix3& a, const Maths::Matrix3& b)
+Maths::Matrix3& Maths::operator+=(Maths::Matrix3& a, const Maths::Matrix3& b)
 {
 	for (unsigned int i = 0; i < 9; ++i)
 		a.mat_array[i] += b.mat_array[i];
 	return a;
 }
 
-Maths::Matrix3& operator-=(Maths::Matrix3& a, const Maths::Matrix3& b)
+Maths::Matrix3& Maths::operator-=(Maths::Matrix3& a, const Maths::Matrix3& b)
 {
 	for (unsigned int i = 0; i < 9; ++i)
 		a.mat_array[i] -= b.mat_array[i];
 	return a;
 }
 
-Maths::Matrix3 operator+(const Maths::Matrix3& a, const Maths::Matrix3& b)
+Maths::Matrix3 Maths::operator+(const Maths::Matrix3& a, const Maths::Matrix3& b)
 {
 	Maths::Matrix3 m;
 	for (unsigned int i = 0; i < 9; ++i)
@@ -239,7 +239,7 @@ Maths::Matrix3 operator+(const Maths::Matrix3& a, const Maths::Matrix3& b)
 	return m;
 }
 
-Maths::Matrix3 operator-(const Maths::Matrix3& a, const Maths::Matrix3& b)
+Maths::Matrix3 Maths::operator-(const Maths::Matrix3& a, const Maths::Matrix3& b)
 {
 	Maths::Matrix3 m;
 	for (unsigned int i = 0; i < 9; ++i)
@@ -247,7 +247,7 @@ Maths::Matrix3 operator-(const Maths::Matrix3& a, const Maths::Matrix3& b)
 	return m;
 }
 
-Maths::Matrix3 operator*(const Maths::Matrix3& a, const Maths::Matrix3& b)
+Maths::Matrix3 Maths::operator*(const Maths::Matrix3& a, const Maths::Matrix3& b)
 {
 	Maths::Matrix3 out;
 
@@ -266,26 +266,26 @@ Maths::Matrix3 operator*(const Maths::Matrix3& a, const Maths::Matrix3& b)
 	return out;
 }
 
-Maths::Matrix3& operator+=(Maths::Matrix3& a, const float b)
+Maths::Matrix3& Maths::operator+=(Maths::Matrix3& a, const float b)
 {
 	for (unsigned int i = 0; i < 9; ++i)
 		a.mat_array[i] += b;
 	return a;
 }
 
-Maths::Matrix3& operator-=(Maths::Matrix3& a, const float b)
+Maths::Matrix3& Maths::operator-=(Maths::Matrix3& a, const float b)
 {
 	for (unsigned int i = 0; i < 9; ++i)
 		a.mat_array[i] -= b;
 	return a;
 }
-Maths::Matrix3& operator*=(Maths::Matrix3& a, const float b)
+Maths::Matrix3& Maths::operator*=(Maths::Matrix3& a, const float b)
 {
 	for (unsigned int i = 0; i < 9; ++i)
 		a.mat_array[i] *= b;
 	return a;
 }
-Maths::Matrix3& operator/=(Maths::Matrix3& a, const float b)
+Maths::Matrix3& Maths::operator/=(Maths::Matrix3& a, const float b)
 {
 	for (unsigned int i = 0; i < 9; ++i)
 		a.mat_array[i] /= b;
@@ -300,21 +300,21 @@ Maths::Matrix3 operator+(Maths::Matrix3& a, const float b)
 	return m;
 }
 
-Maths::Matrix3 operator-(const Maths::Matrix3& a, const float b)
+Maths::Matrix3 Maths::operator-(const Maths::Matrix3& a, const float b)
 {
 	Maths::Matrix3 m;
 	for (unsigned int i = 0; i < 9; ++i)
 		m.mat_array[i] = a.mat_array[i] - b;
 	return m;
 }
-Maths::Matrix3 operator*(const Maths::Matrix3& a, const float b)
+Maths::Matrix3 Maths::operator*(const Maths::Matrix3& a, const float b)
 {
 	Maths::Matrix3 m;
 	for (unsigned int i = 0; i < 9; ++i)
 		m.mat_array[i] = a.mat_array[i] * b;
 	return m;
 }
-Maths::Matrix3 operator/(const Maths::Matrix3& a, const float b)
+Maths::Matrix3 Maths::operator/(const Maths::Matrix3& a, const float b)
 {
 	Maths::Matrix3 m;
 	for (unsigned int i = 0; i < 9; ++i)
@@ -322,7 +322,7 @@ Maths::Matrix3 operator/(const Maths::Matrix3& a, const float b)
 	return m;
 }
 
-Vector3 operator*(const Maths::Matrix3& a, const Vector3& b)
+Vector3 Maths::operator*(const Maths::Matrix3& a, const Vector3& b)
 {
 	Vector3 out;
 

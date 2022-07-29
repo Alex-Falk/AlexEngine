@@ -54,9 +54,9 @@ public:
 	static Vector3 Clamp(const Vector3& vec, const Vector3& min, const Vector3& max)
 	{
 		return {
-			Math::Clamp(vec.x, min.x, max.x),
-			Math::Clamp(vec.y, min.y, max.y),
-			Math::Clamp(vec.z, min.z, max.z)
+			Maths::Clamp(vec.x, min.x, max.x),
+			Maths::Clamp(vec.y, min.y, max.y),
+			Maths::Clamp(vec.z, min.z, max.z)
 		};
 	}
 

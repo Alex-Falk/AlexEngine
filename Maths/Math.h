@@ -1,7 +1,9 @@
 #pragma once
 #include <math.h>
 
-namespace Math
+#include <cmath>
+
+namespace Maths
 {
 	namespace PI
 	{
@@ -12,13 +14,15 @@ namespace Math
 	static constexpr float TWO_PI = 2 * PI::F;
 	static constexpr float PI_OVER_360 = PI::F / 360.f;
 	
-	static auto Squared(float val) { return val * val; }
+	static auto Squared(const float val) { return val * val; }
 
-	static auto Min(float lhs, float rhs) { return lhs < rhs ? lhs : rhs; }
+	static auto Min(const float lhs, const float rhs) { return lhs < rhs ? lhs : rhs; }
 
-	static auto Max(float lhs, float rhs) { return lhs > rhs ? lhs : rhs; }
+	static auto Max(const float lhs, const float rhs) { return lhs > rhs ? lhs : rhs; }
 
-	static auto Clamp(float val, float min, float max) { return Max(Min(val, max), min); }
+	static auto Clamp(const float val, const float min, const float max) { return Max(Min(val, max), min); }
+
+	static auto IsFloatZero(const float val) { return std::fabs(val) < std::numeric_limits<float>::epsilon();}
 	
 	//Radians to degrees
 	static auto RadToDeg(const double deg) { return deg * 180.0 / PI::D; }

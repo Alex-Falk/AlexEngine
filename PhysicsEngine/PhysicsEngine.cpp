@@ -119,7 +119,7 @@ namespace Physics
 			return false;
 		}
 
-		return nodeA->GetPosition().DistSqr(nodeB->GetPosition()) < Math::Squared(nodeA->GetBoundingRadius() + nodeB->GetBoundingRadius());
+		return nodeA->GetPosition().DistSqr(nodeB->GetPosition()) < Maths::Squared(nodeA->GetBoundingRadius() + nodeB->GetBoundingRadius());
 	}
 
 	vector<CollisionPair> PhysicsEngine::GetBroadphaseCollisionPairs() const

@@ -146,9 +146,9 @@ Maths::Matrix3 Maths::Quaternion::ToMatrix3() const {
 }
 
 Maths::Quaternion Maths::Quaternion::EulerAnglesToQuaternion(float pitch, float yaw, float roll) {
-	float y2 = Math::DegToRad(yaw / 2.0f);
-	float p2 = Math::DegToRad(pitch / 2.0f);
-	float r2 = Math::DegToRad(roll / 2.0f);
+	float y2 = DegToRad(yaw / 2.0f);
+	float p2 = DegToRad(pitch / 2.0f);
+	float r2 = DegToRad(roll / 2.0f);
 
 
 	float cosy = cos(y2);
@@ -169,7 +169,7 @@ Maths::Quaternion Maths::Quaternion::EulerAnglesToQuaternion(float pitch, float 
 };
 
 Maths::Quaternion Maths::Quaternion::AxisAngleToQuaterion(const Vector3& vector, float degrees) {
-	const float halfTheta = Math::DegToRad(degrees) * 0.5f;
+	const float halfTheta = DegToRad(degrees) * 0.5f;
 	const float sinTheta = sin(halfTheta);
 
 	Quaternion q = Quaternion(vector * sinTheta, cos(halfTheta));
@@ -299,12 +299,12 @@ Maths::Quaternion Maths::Quaternion::GetRotation(const Vector3& from_dir, const 
 	// - Same as default, no rotation
 	if (fabs(costheta - 1.0f) < 1e-6f)
 	{
-		return Maths::Quaternion(0.0f, 0.0f, 0.0f, 1.0f);
+		return Quaternion(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 	// - Directly opposite default rotation
 	else if (fabs(costheta + 1.0f) < 1e-6f)
 	{
-		return Maths::Quaternion(up, Math::PI::F);
+		return Quaternion(up, PI::F);
 	}
 
 	
@@ -312,5 +312,5 @@ Maths::Quaternion Maths::Quaternion::GetRotation(const Vector3& from_dir, const 
 	float theta = acosf(costheta);
 	Vector3 rotAxis = Vector3::Cross(from_dir, to_dir).Normalized();
 
-	return Maths::Quaternion::AxisAngleToQuaterion(rotAxis, Math::RadToDeg(theta));
+	return AxisAngleToQuaterion(rotAxis, RadToDeg(theta));
 }
