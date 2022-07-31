@@ -29,10 +29,6 @@
     <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="HeightMap.cpp" />
     <ClCompile Include="Keyboard.cpp" />
-    <ClCompile Include="MD5Anim.cpp" />
-    <ClCompile Include="MD5FileData.cpp" />
-    <ClCompile Include="MD5Mesh.cpp" />
-    <ClCompile Include="MD5Node.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="OBJMesh.cpp" />
@@ -57,10 +53,6 @@
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Light.h" />
-    <ClInclude Include="MD5Anim.h" />
-    <ClInclude Include="MD5FileData.h" />
-    <ClInclude Include="MD5Mesh.h" />
-    <ClInclude Include="MD5Node.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="OBJMesh.h" />

@@ -21,7 +21,7 @@ std::deque<LogEntry> NCLDebug::g_vLogEntries;
 int NCLDebug::g_vLogOffsetIdx = -1;
 
 std::vector<Vector4> NCLDebug::g_vChars;
-uint NCLDebug::g_vCharsLogStart = 0;
+uint16_t NCLDebug::g_vCharsLogStart = 0;
 
 DebugDrawList NCLDebug::g_DrawList[2];
 DebugDrawList NCLDebug::g_DrawListNDT[2];
@@ -35,7 +35,7 @@ GLuint	 NCLDebug::g_glArr				= NULL;
 GLuint	 NCLDebug::g_glBuf				= NULL;
 GLuint	 NCLDebug::g_glBufCapacity		= NULL;
 Vector4* NCLDebug::g_glBufPtr			= NULL;
-uint	 NCLDebug::g_glBufOffsets[9];
+uint16_t NCLDebug::g_glBufOffsets[9];
 
 GLuint NCLDebug::g_glLogFontTex			= NULL;
 GLuint NCLDebug::g_glDefaultFontTex		= NULL;
@@ -559,8 +559,8 @@ void NCLDebug::_BuildTextBackgrounds()
 		for (int i = 0; i < 5; ++i)
 		{
 			Vector3 round_offset = Vector3(
-				cosf((float)DegToRad(i * 22.5f)) * rounded_offset_x,
-				sinf((float)DegToRad(i * 22.5f)) * rounded_offset_y,
+				cosf(Maths::DegToRad(i * 22.5f)) * rounded_offset_x,
+				sinf(Maths::DegToRad(i * 22.5f)) * rounded_offset_y,
 				0.0f);
 
 			NextTri(invProjView * Vector3(B.x + round_offset.x - rounded_offset_x, B.y + round_offset.y - rounded_offset_y, 0.0f), col);
@@ -578,8 +578,8 @@ void NCLDebug::_BuildTextBackgrounds()
 		for (int i = 0; i < 5; ++i)
 		{
 			Vector3 round_offset = Vector3(
-				sinf((float)DegToRad(i * 22.5f)) * rounded_offset_x,
-				cosf((float)DegToRad(i * 22.5f)) * rounded_offset_y,
+				sinf(Maths::DegToRad(i * 22.5f)) * rounded_offset_x,
+				cosf(Maths::DegToRad(i * 22.5f)) * rounded_offset_y,
 				0.0f);
 
 			NextTri(invProjView * Vector3(B.x + round_offset.x - rounded_offset_x, B.y - round_offset.y + rounded_offset_y, 0.0f), col);
@@ -657,7 +657,7 @@ void NCLDebug::_BuildTextBackgrounds()
 		DrawTextCs(Vector4(-1.f + cs_size.x * 0.25f, 1.f - cs_size.y * 0.6f, -1.f, 1.f), STATUS_TEXT_SIZE, "Status");
 	}
 
-	g_vCharsLogStart = (uint)g_vChars.size();
+	g_vCharsLogStart = (uint16_t)g_vChars.size();
 
 	if (g_LogVisible)
 	{
@@ -782,8 +782,8 @@ size_t GetDrawSize(const DebugDrawList& list)
 void NCLDebug::_BuildRenderVBO()
 {
 	//Buffer all data into the single buffer object
-	uint max_size = 0;
-	uint offsets[17];
+	 uint16_t max_size = 0;
+	 uint16_t offsets[17];
 
 	//Compute offsets
 	for (int i = 0; i < 2; ++i)
@@ -793,25 +793,25 @@ void NCLDebug::_BuildRenderVBO()
 		int i8 = i * 8;
 
 		//Points
-		offsets[i8 + 0] = max_size;		max_size += (uint)listO._vPoints.size();
-		offsets[i8 + 1] = max_size;		max_size += (uint)listT._vPoints.size();
+		offsets[i8 + 0] = max_size;		max_size += (uint16_t)listO._vPoints.size();
+		offsets[i8 + 1] = max_size;		max_size += (uint16_t)listT._vPoints.size();
 
 		//Thicklines
-		offsets[i8 + 2] = max_size;		max_size += (uint)listO._vThickLines.size();
-		offsets[i8 + 3] = max_size;		max_size += (uint)listT._vThickLines.size();
+		offsets[i8 + 2] = max_size;		max_size += (uint16_t)listO._vThickLines.size();
+		offsets[i8 + 3] = max_size;		max_size += (uint16_t)listT._vThickLines.size();
 
 		//Hairlines
-		offsets[i8 + 4] = max_size;		max_size += (uint)listO._vHairLines.size();
-		offsets[i8 + 5] = max_size;		max_size += (uint)listT._vHairLines.size();
+		offsets[i8 + 4] = max_size;		max_size += (uint16_t)listO._vHairLines.size();
+		offsets[i8 + 5] = max_size;		max_size += (uint16_t)listT._vHairLines.size();
 
 		//Triangles
-		offsets[i8 + 6] = max_size;		max_size += (uint)listO._vTris.size();
-		offsets[i8 + 7] = max_size;		max_size += (uint)listT._vTris.size();
+		offsets[i8 + 6] = max_size;		max_size += (uint16_t)listO._vTris.size();
+		offsets[i8 + 7] = max_size;		max_size += (uint16_t)listT._vTris.size();
 	}
 
 	//Text
 	offsets[16] = max_size;
-	max_size += (uint)g_vChars.size();
+	max_size += (uint16_t)g_vChars.size();
 
 	//Cram offset data down into draw start, draw end 
 	for (int i = 0; i < 8; ++i)
@@ -827,7 +827,7 @@ void NCLDebug::_BuildRenderVBO()
 		glGenBuffers(1, &g_glBuf);
 		glBindBuffer(GL_ARRAY_BUFFER, g_glBuf);
 
-		g_glBufCapacity = (uint)max_size;
+		g_glBufCapacity = (uint16_t)max_size;
 		const size_t stride = 2 * sizeof(Vector4);
 
 
@@ -846,13 +846,13 @@ void NCLDebug::_BuildRenderVBO()
 	}
 
 	//Upload data to buffer
-	auto buffer_data = [](std::vector<Vector4>& arr, uint offset) -> void
+	auto buffer_data = [](std::vector<Vector4>& arr,  uint16_t offset) -> void
 	{
 		if (!arr.empty())
 			glBufferSubData(GL_ARRAY_BUFFER, offset * sizeof(Vector4), arr.size() * sizeof(Vector4), &arr[0]);
 	};
 
-	auto buffer_drawlist = [&](DebugDrawList* list, uint* offsets)
+	auto buffer_drawlist = [&](DebugDrawList* list, uint16_t* offsets)
 	{
 		DebugDrawList& listO = list[0];
 		DebugDrawList& listT = list[1];
@@ -884,14 +884,14 @@ void NCLDebug::_BuildRenderVBO()
 }
 
 
-void NCLDebug::_RenderDrawlist(uint* offsets)
+void NCLDebug::_RenderDrawlist(uint16_t* offsets)
 {
 	float aspectRatio = Window::GetWindow().GetScreenSize().y / Window::GetWindow().GetScreenSize().x;
 
-	uint n_points = (offsets[1] - offsets[0]) >> 1;
-	uint n_tlines = (offsets[2] - offsets[1]) >> 1;
-	uint n_hlines = (offsets[3] - offsets[2]) >> 1;
-	uint n_tris   = (offsets[4] - offsets[3]) >> 1;
+	 uint16_t n_points = (offsets[1] - offsets[0]) >> 1;
+	 uint16_t n_tlines = (offsets[2] - offsets[1]) >> 1;
+	 uint16_t n_hlines = (offsets[3] - offsets[2]) >> 1;
+	 uint16_t n_tris   = (offsets[4] - offsets[3]) >> 1;
 
 	if (g_pShaderPoints && n_points > 0)
 	{
@@ -964,7 +964,7 @@ void NCLDebug::_RenderDebugClipSpace()
 		glDrawArrays(GL_LINES, g_glBufOffsets[8] >> 1, g_vCharsLogStart >> 1);
 
 		glBindTexture(GL_TEXTURE_2D, g_glLogFontTex);
-		glDrawArrays(GL_LINES, (g_glBufOffsets[8] + g_vCharsLogStart) >> 1, ((uint)g_vChars.size()-g_vCharsLogStart) >> 1);
+		glDrawArrays(GL_LINES, (g_glBufOffsets[8] + g_vCharsLogStart) >> 1, ((uint16_t)g_vChars.size()-g_vCharsLogStart) >> 1);
 		
 		glBindVertexArray(0);
 	}
@@ -973,9 +973,9 @@ void NCLDebug::_RenderDebugClipSpace()
 void NCLDebug::_LoadShaders()
 {
 	g_pShaderPoints = new Shader(
-		SHADERDIR"DebugShaders/PointVertex.glsl",
-		SHADERDIR"DebugShaders/PointFragment.glsl",
-		SHADERDIR"DebugShaders/PointGeometry.glsl");
+		Graphics::ShaderDir +"DebugShaders/PointVertex.glsl",
+		Graphics::ShaderDir +"DebugShaders/PointFragment.glsl",
+		Graphics::ShaderDir +"DebugShaders/PointGeometry.glsl");
 	if (!g_pShaderPoints->LinkProgram())
 	{
 		NCLERROR("NCLDebug Point shader could not be loaded");
@@ -983,9 +983,9 @@ void NCLDebug::_LoadShaders()
 	}
 	
 	g_pShaderLines = new Shader(
-		SHADERDIR"DebugShaders/Vertex.glsl",
-		SHADERDIR"DebugShaders/Fragment.glsl",
-		SHADERDIR"DebugShaders/LineGeometry.glsl");
+		Graphics::ShaderDir +"DebugShaders/Vertex.glsl",
+		Graphics::ShaderDir +"DebugShaders/Fragment.glsl",
+		Graphics::ShaderDir +"DebugShaders/LineGeometry.glsl");
 	if (!g_pShaderLines->LinkProgram())
 	{
 		NCLERROR("NCLDebug ThickLine shader could not be loaded");
@@ -993,8 +993,8 @@ void NCLDebug::_LoadShaders()
 	}
 
 	g_pShaderHairLines = new Shader(
-		SHADERDIR"DebugShaders/VertexColOnly.glsl",
-		SHADERDIR"DebugShaders/Fragment.glsl");
+		Graphics::ShaderDir +"DebugShaders/VertexColOnly.glsl",
+		Graphics::ShaderDir +"DebugShaders/Fragment.glsl");
 	if (!g_pShaderHairLines->LinkProgram())
 	{
 		NCLERROR("NCLDebug HairLine shader could not be loaded");
@@ -1002,9 +1002,9 @@ void NCLDebug::_LoadShaders()
 	}
 
 	g_pShaderText = new Shader(
-		SHADERDIR"DebugShaders/TextVertex.glsl",
-		SHADERDIR"DebugShaders/TextFragment.glsl",
-		SHADERDIR"DebugShaders/TextGeometry.glsl");
+		Graphics::ShaderDir +"DebugShaders/TextVertex.glsl",
+		Graphics::ShaderDir +"DebugShaders/TextFragment.glsl",
+		Graphics::ShaderDir +"DebugShaders/TextGeometry.glsl");
 	if (!g_pShaderText->LinkProgram())
 	{
 		NCLERROR("NCLDebug Text shader could not be loaded");
@@ -1024,10 +1024,10 @@ void NCLDebug::_LoadShaders()
 
 void NCLDebug::_ReleaseShaders()
 {
-	SAFE_DELETE(g_pShaderPoints);
-	SAFE_DELETE(g_pShaderLines);
-	SAFE_DELETE(g_pShaderHairLines);
-	SAFE_DELETE(g_pShaderText);
+	delete g_pShaderPoints;
+	delete g_pShaderLines;
+	delete g_pShaderHairLines;
+	delete g_pShaderText;
 
 	if (g_glLogFontTex)
 	{

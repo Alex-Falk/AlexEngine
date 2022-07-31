@@ -39,7 +39,7 @@ namespace Physics
 			Point.Penetration = penetration;
 		}
 
-		uint FramesLeft{};
+		 uint16_t FramesLeft{};
 	};
 
 	class CollisionDetection

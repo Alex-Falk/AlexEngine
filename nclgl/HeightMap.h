@@ -19,7 +19,7 @@
 
 class HeightMap : public Mesh {
 public:
-	HeightMap(std::string name, const uint rawWidth = RAW_WIDTH, const uint rawHeight = RAW_HEIGHT, const float HeightMapX= HEIGHTMAP_X, const float HeightMapY = HEIGHTMAP_Y, const float HeightMapZ = HEIGHTMAP_Z, const float HeightMapTexX = HEIGHTMAP_TEX_X, const float HeightMapTexZ = HEIGHTMAP_TEX_Z);
+	HeightMap(std::string name, const uint16_t rawWidth = RAW_WIDTH, const uint16_t rawHeight = RAW_HEIGHT, const float HeightMapX= HEIGHTMAP_X, const float HeightMapY = HEIGHTMAP_Y, const float HeightMapZ = HEIGHTMAP_Z, const float HeightMapTexX = HEIGHTMAP_TEX_X, const float HeightMapTexZ = HEIGHTMAP_TEX_Z);
 	~HeightMap(void) {};
 
 };

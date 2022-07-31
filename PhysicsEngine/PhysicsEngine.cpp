@@ -38,7 +38,7 @@ namespace Physics
 		for(auto obj : m_physicsObjects)
 		{
 			m_partioning->RemovePhysicsNode(obj);
-			SAFE_DELETE(obj);
+			delete obj;
 		}
 
 		m_physicsObjects.clear();

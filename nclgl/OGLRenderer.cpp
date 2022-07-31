@@ -140,7 +140,7 @@ OGLRenderer::OGLRenderer(Window &window)	{
 Destructor. Deletes the default shader, and the OpenGL rendering context.
 */
 OGLRenderer::~OGLRenderer(void)	{
-	SAFE_DELETE(currentShader);
+	delete currentShader;
 	wglDeleteContext(renderContext);
 }
 

@@ -94,8 +94,8 @@ CHANGE LIST
 
 18. [Common.h] 
 	Changed folder defines to match new directory layout which is:
-		#define SHADERDIR	"../../Data/Shaders/"
-		#define MESHDIR		"../../Data/Meshes/"
+		#define Graphics::ShaderDir +	"../../Data/Shaders/"
+		#define Graphics::MeshDir +		"../../Data/Meshes/"
 		#define TEXTUREDIR  "../../Data/Textures/"
 		#define SOUNDSDIR	"../../Data/Sounds/"
 

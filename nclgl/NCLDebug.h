@@ -212,7 +212,7 @@ protected:
 	static void _SortRenderLists();
 	static void _BuildTextBackgrounds();
 	static void _BuildRenderVBO();
-	static void _RenderDrawlist(uint* offsets);
+	static void _RenderDrawlist(uint16_t* offsets);
 
 
 	//Hacky Win32 version of creating basic font texture
@@ -232,7 +232,7 @@ protected:
 	static bool g_LogVisible;
 
 	static std::vector<Vector4> g_vChars;
-	static uint g_vCharsLogStart;
+	static uint16_t g_vCharsLogStart;
 	static FILE*  g_vOutLogFile;
 
 	static DebugDrawList g_DrawList[2];			//Depth-Tested		(Transparent - Opaque)
@@ -244,7 +244,7 @@ protected:
 	static Shader*	g_pShaderText;
 
 	static GLuint	g_glArr, g_glBuf;
-	static uint		g_glBufOffsets[9];
+	static uint16_t	g_glBufOffsets[9];
 	static GLuint   g_glBufCapacity;
 	static Vector4* g_glBufPtr;
 

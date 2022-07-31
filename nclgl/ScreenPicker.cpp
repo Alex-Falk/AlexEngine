@@ -24,7 +24,7 @@ ScreenPicker::~ScreenPicker()
 	m_pCurrentlyHoverObject = NULL;
 	m_AllRegisteredObjects.clear();
 
-	SAFE_DELETE(m_pShaderPicker);
+	delete m_pShaderPicker;
 
 	if (m_glPickerTex)
 	{
@@ -82,7 +82,7 @@ void ScreenPicker::UnregisterNodeForMouseCallback(RenderNode* node)
 		return;
 	}
 
-	uint i = 0;
+	 uint16_t i = 0;
 	for (; i < m_AllRegisteredObjects.size(); ++i)
 	{
 		if (m_AllRegisteredObjects[i]._renderNode == node)
@@ -100,9 +100,9 @@ void ScreenPicker::UpdateAssets(int screen_width, int screen_height)
 	if (!m_pShaderPicker)
 	{
 #ifdef USE_NSIGHT_HACK
-		m_pShaderPicker = new Shader(SHADERDIR"SceneRenderer/TechVertexPicker.glsl", SHADERDIR"SceneRenderer/TechFragScreenPicker_nsightfix.glsl");
+		m_pShaderPicker = new Shader(Graphics::ShaderDir +"SceneRenderer/TechVertexPicker.glsl", Graphics::ShaderDir +"SceneRenderer/TechFragScreenPicker_nsightfix.glsl");
 #else
-		m_pShaderPicker = new Shader(SHADERDIR"SceneRenderer/TechVertexPicker.glsl", SHADERDIR"SceneRenderer/TechFragScreenPicker.glsl");
+		m_pShaderPicker = new Shader(Graphics::ShaderDir +"SceneRenderer/TechVertexPicker.glsl", Graphics::ShaderDir +"SceneRenderer/TechFragScreenPicker.glsl");
 #endif
 		glBindFragDataLocation(m_pShaderPicker->GetProgram(), 0, "OutFrag");
 		if (!m_pShaderPicker->LinkProgram())
@@ -369,8 +369,8 @@ void ScreenPicker::RenderPickingScene(
 	const Maths::Matrix4& projViewMtx, 
 	const Maths::Matrix4& invProjViewMtx, 
 	GLuint depthTex, 
-	uint depthTexWidth, 
-	uint depthTexHeight)
+	uint16_t depthTexWidth, 
+	uint16_t depthTexHeight)
 {
 	m_invViewProjMtx = invProjViewMtx;
 	UpdateAssets(depthTexWidth, depthTexHeight);
@@ -411,7 +411,7 @@ void ScreenPicker::RenderPickingScene(
 	//Render our clickable objects
 	GLint uModelMtx  = glGetUniformLocation(m_pShaderPicker->GetProgram(), "uModelMtx");
 	GLint uPickerIdx = glGetUniformLocation(m_pShaderPicker->GetProgram(), "uPickerIdx");
-	for (uint i = 0; i < m_AllRegisteredObjects.size(); ++i)
+	for (uint16_t i = 0; i < m_AllRegisteredObjects.size(); ++i)
 	{
 		PickerNode& node = m_AllRegisteredObjects[i];
 		if (node._renderNode->GetMesh())

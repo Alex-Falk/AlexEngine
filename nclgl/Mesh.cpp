@@ -43,7 +43,7 @@ Mesh::Mesh(const Mesh& rhs)
 	normals			= rhs.normals		? new Vector3[numVertices]	: NULL;
 	tangents		= rhs.tangents		? new Vector3[numVertices]	: NULL;
 	colours			= rhs.colours		? new Vector4[numVertices]	: NULL;
-	indices			= rhs.indices		? new uint[numIndices]		: NULL;
+	indices			= rhs.indices		? new unsigned int[numIndices]	: NULL;
 
 	if (vertices)		memcpy(vertices		, rhs.vertices		, numVertices * sizeof(Vector3));
 	if (textureCoords)	memcpy(textureCoords, rhs.textureCoords	, numVertices * sizeof(Vector2));
@@ -203,15 +203,15 @@ Mesh*	Mesh::GenerateCone(float segments) {
 	float radius = 1.0f;
 
 	for(int i = 0; i < 8; ++i) {
-		float startx = radius * (float)cos(DegToRad(i * divisor));
-		float starty = radius * (float)sin(DegToRad(i * divisor));
+		float startx = radius * cosf(Maths::DegToRad(i * divisor));
+		float starty = radius * sinf(Maths::DegToRad(i * divisor));
 
 		m->vertices[i] = Vector3(startx, starty, 1.0f);
 	}
 
 	for(int i = 0; i < 8; ++i) {
-		float startx = 0.001f * (float)cos(DegToRad(i * divisor));
-		float starty = 0.001f * (float)sin(DegToRad(i * divisor));
+		float startx = 0.001f * cosf(Maths::DegToRad(i * divisor));
+		float starty = 0.001f * sinf(Maths::DegToRad(i * divisor));
 
 		//m->vertices[8+i] = Vector3(startx, starty, 0.0f);
 

@@ -1,6 +1,6 @@
 #include "HeightMap.h"
 
-HeightMap::HeightMap(std::string name, const uint rawWidth, const uint rawHeight, const float HeightMapX, const float HeightMapY, const float HeightMapZ, const float HeightMapTexX, const float HeightMapTexZ) {
+HeightMap::HeightMap(std::string name, const uint16_t rawWidth, const uint16_t rawHeight, const float HeightMapX, const float HeightMapY, const float HeightMapZ, const float HeightMapTexX, const float HeightMapTexZ) {
 	std::ifstream file(name.c_str(), ios::binary);
 	if (!file) {
 		return;
@@ -14,9 +14,9 @@ HeightMap::HeightMap(std::string name, const uint rawWidth, const uint rawHeight
 	file.read((char *)data, numVertices * sizeof(unsigned char));
 	file.close();
 
-	for (uint x = 0; x < rawWidth; ++x) {
-		for (uint z = 0; z < rawHeight; ++z) {
-			uint offset = (x * rawWidth) + z;
+	for (uint16_t x = 0; x < rawWidth; ++x) {
+		for (uint16_t z = 0; z < rawHeight; ++z) {
+			uint16_t offset = (x * rawWidth) + z;
 
 			vertices[offset] = Vector3(x * HeightMapX, data[offset] * HeightMapY, z * HeightMapZ);
 
@@ -26,12 +26,12 @@ HeightMap::HeightMap(std::string name, const uint rawWidth, const uint rawHeight
 	delete data;
 	numIndices = 0;
 
-	for (uint x = 0; x < rawWidth - 1; ++x) {
-		for (uint z = 0; z < rawHeight - 1; ++z) {
-			uint a = (x * (rawWidth)) + z;
-			uint b = ((x + 1) * (rawWidth)) + z;
-			uint c = ((x + 1) * (rawWidth)) + (z + 1);
-			uint d = (x * (rawWidth)) + (z + 1);
+	for (uint16_t x = 0; x < rawWidth - 1; ++x) {
+		for (uint16_t z = 0; z < rawHeight - 1; ++z) {
+			uint16_t a = (x * (rawWidth)) + z;
+			uint16_t b = ((x + 1) * (rawWidth)) + z;
+			uint16_t c = ((x + 1) * (rawWidth)) + (z + 1);
+			uint16_t d = (x * (rawWidth)) + (z + 1);
 
 			indices[numIndices++] = c;
 			indices[numIndices++] = b;

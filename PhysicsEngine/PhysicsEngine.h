@@ -66,7 +66,7 @@ namespace Physics
 
 		CollisionDetection m_collisionDetection;
 
-		const uint m_numCollisionFrames = 5;
+		const uint16_t m_numCollisionFrames = 5;
 	};
 }
 

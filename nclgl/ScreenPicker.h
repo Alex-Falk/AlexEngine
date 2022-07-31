@@ -103,8 +103,8 @@ protected:
 	void RenderPickingScene(const Maths::Matrix4& projViewMtx,
 		const Maths::Matrix4& invProjViewMtx,
 		GLuint depthTex,
-		uint depthTexWidth,
-		uint depthTexHeight);
+		uint16_t depthTexWidth,
+		uint16_t depthTexHeight);
 
 	//Internal FBO/Shader generation
 	void UpdateAssets(int screen_width, int screen_height);
@@ -160,7 +160,7 @@ protected:
 	float	m_PickerDepth;
 
 #ifdef USE_ASYNC_PBO
-	uint	m_pboIdx; //1 or 0
+	uint16_t m_pboIdx; //1 or 0
 	GLuint	m_glPBO[2];
 #endif
 };

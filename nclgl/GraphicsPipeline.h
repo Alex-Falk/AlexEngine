@@ -90,7 +90,7 @@ protected:
 	Vector3	lightDirection;
 	Vector3 backgroundColor;
 	float	specularFactor;
-	uint	numSuperSamples;
+	uint16_t numSuperSamples;
 
 
 	//Shadowmaps

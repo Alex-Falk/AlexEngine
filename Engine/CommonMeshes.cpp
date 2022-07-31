@@ -13,7 +13,7 @@ void CommonMeshes::InitializeMeshes()
 {
 	if (m_pCube == NULL)
 	{
-		m_pCheckerboardTex = SOIL_load_OGL_texture(TEXTUREDIR"checkerboard.tga", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_COMPRESS_TO_DXT);
+		m_pCheckerboardTex = SOIL_load_OGL_texture((Graphics::TextureDir + "checkerboard.tga").c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_COMPRESS_TO_DXT);
 
 		if (m_pCheckerboardTex)
 		{
@@ -29,18 +29,18 @@ void CommonMeshes::InitializeMeshes()
 			NCLERROR("Unable to load checkerboard texture!");
 		}
 
-		m_pCube = new OBJMesh(MESHDIR"cube.obj");
+		m_pCube = new OBJMesh(Graphics::MeshDir +"cube.obj");
 		m_pCube->SetTexture(m_pCheckerboardTex);
 
-		m_pSphere = new OBJMesh(MESHDIR"sphere.obj");
+		m_pSphere = new OBJMesh(Graphics::MeshDir +"sphere.obj");
 		m_pSphere->SetTexture(m_pCheckerboardTex);
 	}
 }
 
 void CommonMeshes::ReleaseMeshes()
 {
-	SAFE_DELETE(m_pCube);
-	SAFE_DELETE(m_pSphere);
+	delete m_pCube;
+	delete m_pSphere;
 	if (m_pCheckerboardTex)
 	{
 		glDeleteTextures(1, &m_pCheckerboardTex);

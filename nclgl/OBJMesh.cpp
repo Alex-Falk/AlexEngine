@@ -3,7 +3,7 @@
 #include <SOIL.h>
 
 #include "NCLDebug.h"
-#ifdef WEEK_2_CODE
+
 /*
 OBJ files look generally something like this:
 
@@ -285,7 +285,7 @@ void	OBJMesh::SetTexturesFromMTL(string &mtlFile, string &mtlType) {
 		return;
 	}
 
-	std::ifstream f(string(MESHDIR + mtlFile).c_str(),std::ios::in);
+	std::ifstream f(string(Graphics::MeshDir + mtlFile).c_str(),std::ios::in);
 
 	if(!f) {//Oh dear, it can't find the file :(
 		return;
@@ -329,7 +329,7 @@ void	OBJMesh::SetTexturesFromMTL(string &mtlFile, string &mtlType) {
 			}
 
 			if(!currentMTL.diffuse.empty()) {
-				string filename = (string(TEXTUREDIR) + currentMTL.diffuse);
+				string filename = (string(Graphics::TextureDir) + currentMTL.diffuse);
 				NCLDebug::Log("    -> Loading Texture: %s", filename.c_str());
 				currentMTL.diffuseNum = SOIL_load_OGL_texture(filename.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_TEXTURE_REPEATS);
 			}
@@ -347,7 +347,7 @@ void	OBJMesh::SetTexturesFromMTL(string &mtlFile, string &mtlType) {
 			}
 
 			if(!currentMTL.bump.empty()) {
-				string filename = (string(TEXTUREDIR) + currentMTL.bump);
+				string filename = (string(Graphics::TextureDir) + currentMTL.bump);
 				NCLDebug::Log("    -> Loading Texture: %s", filename.c_str());
 				currentMTL.bumpNum = SOIL_load_OGL_texture(filename.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_TEXTURE_REPEATS);
 			}
@@ -381,7 +381,6 @@ void	OBJMesh::FixTextures(MTLInfo &info) {
 
 		info.bump = temp;
 
-		info.bumpNum = SOIL_load_OGL_texture(string(TEXTUREDIR + info.bump).c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y |  SOIL_FLAG_TEXTURE_REPEATS);
+		info.bumpNum = SOIL_load_OGL_texture(string(Graphics::TextureDir + info.bump).c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y |  SOIL_FLAG_TEXTURE_REPEATS);
 	}
 }
-#endif

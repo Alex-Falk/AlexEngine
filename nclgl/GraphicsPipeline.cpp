@@ -49,13 +49,11 @@ GraphicsPipeline::GraphicsPipeline()
 
 GraphicsPipeline::~GraphicsPipeline()
 {
-	SAFE_DELETE(camera);
-
-	SAFE_DELETE(fullscreenQuad);
-
-	SAFE_DELETE(shaderPresentToWindow);
-	SAFE_DELETE(shaderShadow);
-	SAFE_DELETE(shaderForwardLighting);
+	delete camera;
+	delete fullscreenQuad;
+	delete shaderPresentToWindow;
+	delete shaderShadow;
+	delete shaderForwardLighting;
 
 	NCLDebug::_ReleaseShaders();
 
@@ -109,25 +107,25 @@ void GraphicsPipeline::RemoveRenderNode(RenderNode* node)
 void GraphicsPipeline::LoadShaders()
 {
 	shaderPresentToWindow = new Shader(
-		SHADERDIR"SceneRenderer/TechVertexBasic.glsl",
-		SHADERDIR"SceneRenderer/TechFragSuperSample.glsl");
+		Graphics::ShaderDir +"SceneRenderer/TechVertexBasic.glsl",
+		Graphics::ShaderDir +"SceneRenderer/TechFragSuperSample.glsl");
 	if (!shaderPresentToWindow->LinkProgram())
 	{
 		NCLERROR("Could not link shader: Present to window / SuperSampling");
 	}
 
 	shaderShadow = new Shader(
-		SHADERDIR"SceneRenderer/TechVertexShadow.glsl",
-		SHADERDIR"Common/EmptyFragment.glsl",
-		SHADERDIR"SceneRenderer/TechGeomShadow.glsl");
+		Graphics::ShaderDir +"SceneRenderer/TechVertexShadow.glsl",
+		Graphics::ShaderDir +"Common/EmptyFragment.glsl",
+		Graphics::ShaderDir +"SceneRenderer/TechGeomShadow.glsl");
 	if (!shaderShadow->LinkProgram())
 	{
 		NCLERROR("Could not link shader: Shadow Shader");
 	}
 
 	shaderForwardLighting = new Shader(
-		SHADERDIR"SceneRenderer/TechVertexFull.glsl",
-		SHADERDIR"SceneRenderer/TechFragForwardRender.glsl");
+		Graphics::ShaderDir +"SceneRenderer/TechVertexFull.glsl",
+		Graphics::ShaderDir +"SceneRenderer/TechFragForwardRender.glsl");
 	if (!shaderForwardLighting->LinkProgram())
 	{
 		NCLERROR("Could not link shader: Forward Renderer");
@@ -141,8 +139,8 @@ void GraphicsPipeline::UpdateAssets(int width, int height)
 	//Screen Framebuffer
 	if (width * numSuperSamples != screenTexWidth || height * numSuperSamples != screenTexHeight)
 	{
-		screenTexWidth = (uint)(width * numSuperSamples);
-		screenTexHeight = (uint)(height * numSuperSamples);
+		screenTexWidth = (uint16_t)(width * numSuperSamples);
+		screenTexHeight = (uint16_t)(height * numSuperSamples);
 		ScreenPicker::Instance()->UpdateAssets(screenTexWidth, screenTexHeight);
 
 

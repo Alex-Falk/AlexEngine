@@ -22,6 +22,7 @@ _-_-_-_-_-_-_-""  ""
 *//////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "GraphicsPipeline.h"
 #include "..\nclgl\RenderNode.h"
 #include "..\nclgl\OBJMesh.h"
 
@@ -36,7 +37,7 @@ public:
 	//CubeRobot relies on their being a cube Mesh - this creates that Mesh.
 	static void	CreateCube() {
 		OBJMesh*m = new OBJMesh();
-		m->LoadOBJMesh(MESHDIR"cube.obj");
+		m->LoadOBJMesh(Graphics::MeshDir + + + "cube.obj");
 		cube = m; 
 	}
 
