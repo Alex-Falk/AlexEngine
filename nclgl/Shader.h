@@ -12,7 +12,7 @@ _-_-_-_-_-_-_-|   /\_/\   NYANYANYAN
 -_-_-_-_-_-_-~|__( ^ .^) /
 _-_-_-_-_-_-_-""  ""   
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -24,33 +24,36 @@ _-_-_-_-_-_-_-""  ""
 #define SHADER_GEOMETRY 2
 
 using namespace std;
-class Shader	{
+
+class Shader
+{
 public:
-	Shader(string vertex, string fragment , string geometry = "");
+	Shader(string vertex, string fragment, string geometry = "");
 	~Shader(void);
 
-	GLuint  GetProgram() { return program;}
-	
-
-	void	Reload(bool deleteOld = true);
+	GLuint GetProgram() { return program; }
 
 
-	bool	LoadSuccess() {
+	void Reload(bool deleteOld = true);
+
+
+	bool LoadSuccess()
+	{
 		return !loadFailed;
 	}
-	bool	LinkProgram();
+
+	bool LinkProgram();
 protected:
-	bool	LoadShaderFile(string from, string &into);
-	GLuint	GenerateShader(string from, GLenum type);
-	void	SetDefaultAttributes();
-	
-	GLuint	objects[3];
-	GLuint	program;
+	bool LoadShaderFile(string from, string& into);
+	GLuint GenerateShader(string from, GLenum type);
+	void SetDefaultAttributes();
 
-	bool	loadFailed;
+	GLuint objects[3];
+	GLuint program;
 
-	string	vertexName;
-	string	fragName;
-	string	geomName;
+	bool loadFailed;
+
+	string vertexName;
+	string fragName;
+	string geomName;
 };
-

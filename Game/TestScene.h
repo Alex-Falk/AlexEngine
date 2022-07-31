@@ -11,7 +11,7 @@ public:
 		m_name = name;
 	}
 
-	virtual void ActivateScene() override
+	void ActivateScene() override
 	{
 		GameObject* ground = CommonUtils::BuildCuboidObject(
 			"Ground",
@@ -61,4 +61,3 @@ public:
 		//sphere2->OnInitialise();
 	}
 };
-

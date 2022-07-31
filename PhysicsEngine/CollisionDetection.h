@@ -31,7 +31,8 @@ namespace Physics
 
 		ContactPoint Point;
 
-		void SetContactPoint(const Vector3& posRelToA, const Vector3& posRelToB, const Vector3& normal, float penetration)
+		void SetContactPoint(const Vector3& posRelToA, const Vector3& posRelToB, const Vector3& normal,
+		                     float penetration)
 		{
 			Point.PosRelToA = posRelToA;
 			Point.PosRelToB = posRelToB;
@@ -39,7 +40,7 @@ namespace Physics
 			Point.Penetration = penetration;
 		}
 
-		 uint16_t FramesLeft{};
+		uint16_t FramesLeft{};
 	};
 
 	class CollisionDetection
@@ -48,9 +49,14 @@ namespace Physics
 		static bool ObjectsIntersecting(const CollisionPair& pair, Collision& outCollision);
 
 	private:
-		static bool SphereSphereIntersection(const SphereCollisionShape& sphereA, const Maths::Matrix4& worldTransformA , const SphereCollisionShape& sphereB, const Maths::Matrix4& worldTransformB, Collision& outCollision);
-		static bool AABBAABBIntersection(const AABBCollisionShape& aabbA, const Maths::Matrix4& worldTransformA, const AABBCollisionShape& sphereB, const Maths::Matrix4& worldTransformB, Collision& outCollision);
-		static bool SphereAABBIntersection(const SphereCollisionShape& sphere, const Maths::Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Maths::Matrix4& aabbTransform, Collision& outCollision);
+		static bool SphereSphereIntersection(const SphereCollisionShape& sphereA, const Maths::Matrix4& worldTransformA,
+		                                     const SphereCollisionShape& sphereB, const Maths::Matrix4& worldTransformB,
+		                                     Collision& outCollision);
+		static bool AABBAABBIntersection(const AABBCollisionShape& aabbA, const Maths::Matrix4& worldTransformA,
+		                                 const AABBCollisionShape& sphereB, const Maths::Matrix4& worldTransformB,
+		                                 Collision& outCollision);
+		static bool SphereAABBIntersection(const SphereCollisionShape& sphere, const Maths::Matrix4& sphereTransform,
+		                                   const AABBCollisionShape& aabb, const Maths::Matrix4& aabbTransform,
+		                                   Collision& outCollision);
 	};
-
 }

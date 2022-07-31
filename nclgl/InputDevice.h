@@ -16,7 +16,7 @@ _-_-_-_-_-_-_-|   /\_/\   NYANYANYAN
 -_-_-_-_-_-_-~|__( ^ .^) /
 _-_-_-_-_-_-_-""  ""      
  
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 #include<windows.h>
@@ -37,19 +37,26 @@ despite it being how RAW input works....GG guys.
 #define HID_USAGE_GENERIC_KEYBOARD		((USHORT) 0x06)
 #endif
 
-class InputDevice	{
+class InputDevice
+{
 protected:
 	friend class Window;
-	InputDevice(void) { isAwake = true;};
-	~InputDevice(void){};
+	InputDevice(void) { isAwake = true; };
+
+	~InputDevice(void)
+	{
+	};
 
 protected:
 	virtual void Update(RAWINPUT* raw) = 0;
 
-	virtual void UpdateHolds() {}
-	virtual void Sleep(){ isAwake = false;}
-	virtual void Wake() { isAwake = true;}
+	virtual void UpdateHolds()
+	{
+	}
 
-	bool			isAwake;		//Is the device awake...
-	RAWINPUTDEVICE	rid;			//Windows OS hook 
+	virtual void Sleep() { isAwake = false; }
+	virtual void Wake() { isAwake = true; }
+
+	bool isAwake; //Is the device awake...
+	RAWINPUTDEVICE rid; //Windows OS hook 
 };

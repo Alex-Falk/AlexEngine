@@ -15,7 +15,8 @@ void Physics::SphereCollisionShape::GetMinMaxVertexOnAxis(const Vector3& axis, V
 }
 
 void Physics::SphereCollisionShape::GetIncidentReferencePolygon(const Vector3& axis, std::list<Vector3>& out_face,
-	Vector3& out_normal, std::vector<Plane>& out_adjacent_planes) const
+                                                                Vector3& out_normal,
+                                                                std::vector<Plane>& out_adjacent_planes) const
 {
 }
 
@@ -34,6 +35,7 @@ void Physics::AABBCollisionShape::GetMinMaxVertexOnAxis(const Vector3& axis, Vec
 }
 
 void Physics::AABBCollisionShape::GetIncidentReferencePolygon(const Vector3& axis, std::list<Vector3>& out_face,
-	Vector3& out_normal, std::vector<Plane>& out_adjacent_planes) const
+                                                              Vector3& out_normal,
+                                                              std::vector<Plane>& out_adjacent_planes) const
 {
 }

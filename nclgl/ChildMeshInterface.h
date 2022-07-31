@@ -16,25 +16,31 @@ _-_-_-_-_-_-_-|   /\_/\   NYANYANYAN
 -_-_-_-_-_-_-~|__( ^ .^) /
 _-_-_-_-_-_-_-""  ""   
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 #include "common.h"
 #pragma once
 
 #include "Mesh.h"
 #include <vector>
 
-class ChildMeshInterface	{
+class ChildMeshInterface
+{
 public:
 	//Adds a child mesh to this mesh (only used by OBJ and MD5Mesh)
 
-	virtual ~ChildMeshInterface() {
-		for(unsigned int i = 0; i < children.size(); ++i) {
+	virtual ~ChildMeshInterface()
+	{
+		for (unsigned int i = 0; i < children.size(); ++i)
+		{
 			delete children.at(i);
 		}
 	}
 
 protected:
 	//Some Meshes have children...
-	std::vector<Mesh*>children;
-	ChildMeshInterface(void){};
+	std::vector<Mesh*> children;
+
+	ChildMeshInterface(void)
+	{
+	};
 };

@@ -20,15 +20,16 @@ namespace Physics
 			BoundingBox* AABB;
 
 			vector<PhysicsNode*> PhysicsNodes;
-			vector<Physics::PhysicsNode*> GetAllPhysicsNodesInChildren();
+			vector<PhysicsNode*> GetAllPhysicsNodesInChildren();
 			size_t GetNumberOfPhysicsNodes() const;
 		};
 
 	public:
-		OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax, std::vector<PhysicsNode*> physicsNodes);
+		OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax,
+		       std::vector<PhysicsNode*> physicsNodes);
 		OcTree(Vector3 min, Vector3 max, std::vector<PhysicsNode*> physicsNodes);
 		~OcTree() override;
-				
+
 
 		void AddPhysicsNode(PhysicsNode* physicsNode) const override;
 		void RemovePhysicsNode(PhysicsNode* physicsNode) const override;
@@ -36,7 +37,6 @@ namespace Physics
 
 		void Update() override;
 	private:
-		
 		void UpdatePhysicsNodes();
 		void AdjustNodesPostUpdate() const;
 

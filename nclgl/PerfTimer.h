@@ -26,28 +26,29 @@ class PerfTimer
 public:
 	PerfTimer()
 		: m_UpdateInterval(1.0f)
-		, m_RealTimeElapsed(0.0f)
+		  , m_RealTimeElapsed(0.0f)
 	{
 		m_Timer.GetTimedMS();
 		memset(&m_CurrentData, 0, sizeof(PerfTimer_Data));
 		memset(&m_PreviousData, 0, sizeof(PerfTimer_Data));
 	}
 
-	virtual ~PerfTimer() {}
+	virtual ~PerfTimer()
+	{
+	}
 
 
 	//Returns the maximum execution time recorded in the last second
-	inline float GetHigh() const { return m_PreviousData._max; }
+	float GetHigh() const { return m_PreviousData._max; }
 
 	//Returns the minimum execution time recorded in the last second
-	inline float GetLow() const { return m_PreviousData._min; }
+	float GetLow() const { return m_PreviousData._min; }
 
 	//Returns the average execution time
-	inline float GetAvg() const { return m_PreviousData._sum / float(m_PreviousData._num); }
+	float GetAvg() const { return m_PreviousData._sum / static_cast<float>(m_PreviousData._num); }
 
 	//Changes the rate at which the results are updated/replaced
 	void SetUpdateInterval(float seconds) { m_UpdateInterval = seconds; }
-
 
 
 	//Called /before/ the section of code to measure
@@ -98,7 +99,8 @@ public:
 	// Must be called once per frame in order to be shown.
 	void PrintOutputToStatusEntry(const Vector4& colour, const std::string& name)
 	{
-		NCLDebug::AddStatusEntry(colour, "%s%5.2fms [max:%5.2fms, min:%5.2fms]", name.c_str(), GetAvg(), GetHigh(), GetLow());
+		NCLDebug::AddStatusEntry(colour, "%s%5.2fms [max:%5.2fms, min:%5.2fms]", name.c_str(), GetAvg(), GetHigh(),
+		                         GetLow());
 	}
 
 protected:
@@ -109,14 +111,14 @@ protected:
 
 	struct PerfTimer_Data
 	{
-		float	_max;
-		float	_min;
+		float _max;
+		float _min;
 
 		//Average defined by (_sum / _num)
-		float	_sum;
-		int		_num;
+		float _sum;
+		int _num;
 	};
 
-	PerfTimer_Data m_PreviousData;	// Front - Last completed measurement, shown for output
-	PerfTimer_Data m_CurrentData;	// Back - Currently Updating
+	PerfTimer_Data m_PreviousData; // Front - Last completed measurement, shown for output
+	PerfTimer_Data m_CurrentData; // Back - Currently Updating
 };

@@ -4,15 +4,14 @@
 class Vector2
 {
 public:
-
 	Vector2() = default;
-	Vector2(const float x, const float y);
+	Vector2(float x, float y);
 	Vector2(const Vector2& other) = default;
 	~Vector2() = default;
 
 	static Vector2 Zero();
 	void ToZero();
-	
+
 	float Length() const;
 	float LengthSqr() const;
 
@@ -26,7 +25,7 @@ public:
 
 	Vector2 operator-(const Vector2& other) const;
 	Vector2 operator+(const Vector2& other) const;
-	Vector2 operator*(const float num) const;
+	Vector2 operator*(float num) const;
 	Vector2& operator +=(const Vector2& other);
 	Vector2& operator -=(const Vector2& other);
 	Vector2 operator-() const;
@@ -36,10 +35,7 @@ public:
 	float x{};
 	float y{};
 protected:
-
 private:
-
-
 };
 
-Vector2 operator*(const float lhs, const Vector2& rhs);
+Vector2 operator*(float lhs, const Vector2& rhs);

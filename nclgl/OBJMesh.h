@@ -52,7 +52,7 @@ _-_-_-_-_-_-_-|   /\_/\   NYANYANYAN
 -_-_-_-_-_-_-~|__( ^ .^) /
 _-_-_-_-_-_-_-""  ""   
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 /*
 As this tutorial series progresses, you'll learn how to generate normals, tangents,
@@ -107,13 +107,13 @@ time lighting tutorial, uncomment both OBJ_USE_NORMALS and OBJ_USE_TANGENTS_BUMP
 #define MTLBUMPMAPALT	"bump"
 
 
-
 /*
 OBJSubMesh structs are used to temporarily keep the data loaded 
 in from the OBJ files, before being parsed into a series of
 Meshes
 */
-struct OBJSubMesh {
+struct OBJSubMesh
+{
 	std::vector<int> texIndices;
 	std::vector<int> vertIndices;
 	std::vector<int> normIndices;
@@ -123,33 +123,42 @@ struct OBJSubMesh {
 	string mtlSrc;
 };
 
-struct MTLInfo {
+struct MTLInfo
+{
 	string bump;
 	string diffuse;
 
 	GLuint bumpNum;
 	GLuint diffuseNum;
 
-	MTLInfo() {
-		bumpNum		= 0;
-		diffuseNum	= 0;
+	MTLInfo()
+	{
+		bumpNum = 0;
+		diffuseNum = 0;
 	}
+
 	//this is all we care about...
 };
 
-class OBJMesh : public Mesh, public ChildMeshInterface	{
+class OBJMesh : public Mesh, public ChildMeshInterface
+{
 public:
-	OBJMesh(void){};
-	OBJMesh(std::string filename){LoadOBJMesh(filename);};
-	~OBJMesh(void){};
-	bool	LoadOBJMesh(std::string filename);
+	OBJMesh(void)
+	{
+	};
+	OBJMesh(std::string filename) { LoadOBJMesh(filename); };
 
-	virtual void Draw();
+	~OBJMesh(void) override
+	{
+	};
+	bool LoadOBJMesh(std::string filename);
+
+	void Draw() override;
 
 protected:
-	void	SetTexturesFromMTL(string &mtlFile, string &mtlType);
+	void SetTexturesFromMTL(string& mtlFile, string& mtlType);
 
-	void	FixTextures(MTLInfo &info);
+	void FixTextures(MTLInfo& info);
 
-	map <string, MTLInfo> materials;
+	map<string, MTLInfo> materials;
 };

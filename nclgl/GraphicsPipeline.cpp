@@ -1,27 +1,25 @@
 #include "GraphicsPipeline.h"
 #include "ScreenPicker.h"
 #include "BoundingBox.h"
-#include <nclgl\NCLDebug.h>
+#include <nclgl/NCLDebug.h>
 #include <algorithm>
 
 GraphicsPipeline::GraphicsPipeline()
 	: OGLRenderer(Window::GetWindow())
-	, camera(new Camera())
-	, isVsyncEnabled(false)
-	, screenTexWidth(0)
-	, screenTexHeight(0)
-	, screenFBO(NULL)
-	, screenTexColor(NULL)
-	, screenTexDepth(NULL)
-	, shaderPresentToWindow(NULL)
-	, shaderShadow(NULL)
-	, shaderForwardLighting(NULL)
-	, fullscreenQuad(NULL)
-	, shadowFBO(NULL)
-	, shadowTex(NULL)
+	  , screenTexWidth(0)
+	  , screenTexHeight(0)
+	  , screenFBO(0)
+	  , screenTexColor(0)
+	  , screenTexDepth(0)
+	  , shaderPresentToWindow(nullptr)
+	  , shaderShadow(nullptr)
+	  , shaderForwardLighting(nullptr)
+	  , shadowFBO(0)
+	  , shadowTex(0)
+	  , fullscreenQuad(nullptr)
+	  , camera(new Camera())
+	  , isVsyncEnabled(false)
 {
-
-
 	LoadShaders();
 	NCLDebug::_LoadShaders();
 
@@ -62,14 +60,14 @@ GraphicsPipeline::~GraphicsPipeline()
 		glDeleteTextures(1, &screenTexColor);
 		glDeleteTextures(1, &screenTexDepth);
 		glDeleteFramebuffers(1, &screenFBO);
-		screenFBO = NULL;
+		screenFBO = 0;
 	}
 
 	if (shadowFBO)
 	{
 		glDeleteTextures(1, &shadowTex);
 		glDeleteFramebuffers(1, &shadowFBO);
-		shadowFBO = NULL;
+		shadowFBO = 0;
 	}
 }
 
@@ -85,7 +83,8 @@ void GraphicsPipeline::InitializeDefaults()
 
 	backgroundColor = Vector3(0.8f, 0.8f, 0.8f);
 	ambientColor = Vector3(0.2f, 0.2f, 0.2f);
-	lightDirection = Vector3(0.5f, -1.0f, -0.8f); lightDirection.Normalize();
+	lightDirection = Vector3(0.5f, -1.0f, -0.8f);
+	lightDirection.Normalize();
 	specularFactor = 96.0f;
 
 	numSuperSamples = 4;
@@ -107,25 +106,25 @@ void GraphicsPipeline::RemoveRenderNode(RenderNode* node)
 void GraphicsPipeline::LoadShaders()
 {
 	shaderPresentToWindow = new Shader(
-		Graphics::ShaderDir +"SceneRenderer/TechVertexBasic.glsl",
-		Graphics::ShaderDir +"SceneRenderer/TechFragSuperSample.glsl");
+		Graphics::ShaderDir + "SceneRenderer/TechVertexBasic.glsl",
+		Graphics::ShaderDir + "SceneRenderer/TechFragSuperSample.glsl");
 	if (!shaderPresentToWindow->LinkProgram())
 	{
 		NCLERROR("Could not link shader: Present to window / SuperSampling");
 	}
 
 	shaderShadow = new Shader(
-		Graphics::ShaderDir +"SceneRenderer/TechVertexShadow.glsl",
-		Graphics::ShaderDir +"Common/EmptyFragment.glsl",
-		Graphics::ShaderDir +"SceneRenderer/TechGeomShadow.glsl");
+		Graphics::ShaderDir + "SceneRenderer/TechVertexShadow.glsl",
+		Graphics::ShaderDir + "Common/EmptyFragment.glsl",
+		Graphics::ShaderDir + "SceneRenderer/TechGeomShadow.glsl");
 	if (!shaderShadow->LinkProgram())
 	{
 		NCLERROR("Could not link shader: Shadow Shader");
 	}
 
 	shaderForwardLighting = new Shader(
-		Graphics::ShaderDir +"SceneRenderer/TechVertexFull.glsl",
-		Graphics::ShaderDir +"SceneRenderer/TechFragForwardRender.glsl");
+		Graphics::ShaderDir + "SceneRenderer/TechVertexFull.glsl",
+		Graphics::ShaderDir + "SceneRenderer/TechFragForwardRender.glsl");
 	if (!shaderForwardLighting->LinkProgram())
 	{
 		NCLERROR("Could not link shader: Forward Renderer");
@@ -139,12 +138,13 @@ void GraphicsPipeline::UpdateAssets(int width, int height)
 	//Screen Framebuffer
 	if (width * numSuperSamples != screenTexWidth || height * numSuperSamples != screenTexHeight)
 	{
-		screenTexWidth = (uint16_t)(width * numSuperSamples);
-		screenTexHeight = (uint16_t)(height * numSuperSamples);
+		screenTexWidth = static_cast<uint16_t>(width * numSuperSamples);
+		screenTexHeight = static_cast<uint16_t>(height * numSuperSamples);
 		ScreenPicker::Instance()->UpdateAssets(screenTexWidth, screenTexHeight);
 
 
-		auto SetTextureDefaults = []() {
+		auto SetTextureDefaults = []()
+		{
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -155,17 +155,19 @@ void GraphicsPipeline::UpdateAssets(int width, int height)
 		if (!screenTexColor) glGenTextures(1, &screenTexColor);
 		glBindTexture(GL_TEXTURE_2D, screenTexColor);
 		SetTextureDefaults();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB8, screenTexWidth, screenTexHeight, 0, GL_RED, GL_UNSIGNED_BYTE, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB8, screenTexWidth, screenTexHeight, 0, GL_RED, GL_UNSIGNED_BYTE, nullptr);
 
 		//Depth+Stencil Texture
 		if (!screenTexDepth) glGenTextures(1, &screenTexDepth);
 		glBindTexture(GL_TEXTURE_2D, screenTexDepth);
 		SetTextureDefaults();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenTexWidth, screenTexHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenTexWidth, screenTexHeight, 0, GL_DEPTH_COMPONENT,
+		             GL_FLOAT, nullptr);
 
 
 		//Generate our Framebuffer
-		if (!screenFBO) glGenFramebuffers(1, &screenFBO);
+		if (!screenFBO)
+			glGenFramebuffers(1, &screenFBO);
 		glBindFramebuffer(GL_FRAMEBUFFER, screenFBO);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, screenTexColor, 0);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, screenTexDepth, 0);
@@ -193,10 +195,11 @@ void GraphicsPipeline::UpdateAssets(int width, int height)
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
-	if (!shadowFBO) glGenFramebuffers(1, &shadowFBO);
+	if (!shadowFBO)
+		glGenFramebuffers(1, &shadowFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowFBO);
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, shadowTex, 0);
-	glDrawBuffers(0, GL_NONE);
+	glDrawBuffers(0, nullptr);
 	if ((status = glCheckFramebufferStatus(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE)
 	{
 		NCLERROR("Unable to create Shadow Framebuffer! StatusCode: %x", status);
@@ -228,9 +231,10 @@ void GraphicsPipeline::RenderScene()
 	// - Most scene objects will probably end up being static, so we really should only be updating
 	//   modelMatrices for objects (and their children) who have actually moved since last frame
 	for (RenderNode* node : allNodes)
-		node->Update(0.0f); //Not sure what the msec is here is for, apologies if this breaks anything in your framework!
+		node->Update(0.0f);
+	//Not sure what the msec is here is for, apologies if this breaks anything in your framework!
 
-							//Build Transparent/Opaque Renderlists
+	//Build Transparent/Opaque Renderlists
 	BuildAndSortRenderLists();
 
 	//NCLDebug - Build render lists
@@ -245,17 +249,16 @@ void GraphicsPipeline::RenderScene()
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	glUseProgram(shaderShadow->GetProgram());
-	glUniformMatrix4fv(glGetUniformLocation(shaderShadow->GetProgram(), "uShadowTransform[0]"), SHADOWMAP_NUM, GL_FALSE, (float*)&shadowProjView[0]);
+	glUniformMatrix4fv(glGetUniformLocation(shaderShadow->GetProgram(), "uShadowTransform[0]"), SHADOWMAP_NUM, GL_FALSE,
+	                   (float*)&shadowProjView[0]);
 	GLint uModelMtx = glGetUniformLocation(shaderShadow->GetProgram(), "uModelMtx");
 
 	RenderAllObjects(true,
-		[&](RenderNode* node)
-	{
-		glUniformMatrix4fv(uModelMtx, 1, GL_FALSE, (float*)&node->GetWorldTransform());
-	}
+	                 [&](RenderNode* node)
+	                 {
+		                 glUniformMatrix4fv(uModelMtx, 1, GL_FALSE, (float*)&node->GetWorldTransform());
+	                 }
 	);
-
-
 
 
 	//Render scene to screen fbo
@@ -265,35 +268,43 @@ void GraphicsPipeline::RenderScene()
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(shaderForwardLighting->GetProgram());
-	glUniformMatrix4fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uProjViewMtx"), 1, GL_FALSE, (float*)&projViewMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uProjViewMtx"), 1, GL_FALSE,
+	                   (float*)&projViewMatrix);
 	glUniform1i(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uDiffuseTex"), 0);
-	glUniform3fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uCameraPos"), 1, (float*)&camera->GetPosition());
+	glUniform3fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uCameraPos"), 1,
+	             (float*)&camera->GetPosition());
 	glUniform3fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uAmbientColor"), 1, (float*)&ambientColor);
-	glUniform3fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uLightDirection"), 1, (float*)&lightDirection);
+	glUniform3fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uLightDirection"), 1,
+	             (float*)&lightDirection);
 	glUniform1fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uSpecularFactor"), 1, &specularFactor);
 
-	glUniform1fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uNormalizedFarPlanes[0]"), SHADOWMAP_NUM - 1, (float*)&normalizedFarPlanes[0]);
-	glUniformMatrix4fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uShadowTransform[0]"), SHADOWMAP_NUM, GL_FALSE, (float*)&shadowProjView[0]);
+	glUniform1fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uNormalizedFarPlanes[0]"),
+	             SHADOWMAP_NUM - 1, &normalizedFarPlanes[0]);
+	glUniformMatrix4fv(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uShadowTransform[0]"), SHADOWMAP_NUM,
+	                   GL_FALSE, (float*)&shadowProjView[0]);
 	glUniform1i(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uShadowTex"), 2);
-	glUniform2f(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uShadowSinglePixel"), 1.f / SHADOWMAP_SIZE, 1.f / SHADOWMAP_SIZE);
+	glUniform2f(glGetUniformLocation(shaderForwardLighting->GetProgram(), "uShadowSinglePixel"), 1.f / SHADOWMAP_SIZE,
+	            1.f / SHADOWMAP_SIZE);
 
-	glActiveTexture(GL_TEXTURE2); glBindTexture(GL_TEXTURE_2D_ARRAY, shadowTex);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, shadowTex);
 
 	uModelMtx = glGetUniformLocation(shaderForwardLighting->GetProgram(), "uModelMtx");
 	GLint uColor = glGetUniformLocation(shaderForwardLighting->GetProgram(), "uColor");
 	RenderAllObjects(false,
-		[&](RenderNode* node)
-	{
-		glUniformMatrix4fv(uModelMtx, 1, GL_FALSE, (float*)&node->GetWorldTransform());
-		glUniform4fv(uColor, 1, (float*)&node->GetColor());
-	}
+	                 [&](RenderNode* node)
+	                 {
+		                 glUniformMatrix4fv(uModelMtx, 1, GL_FALSE, (float*)&node->GetWorldTransform());
+		                 glUniform4fv(uColor, 1, (float*)&node->GetColor());
+	                 }
 	);
 
 	// Render Screen Picking ID's
 	// - This needs to be somewhere before we lose our depth buffer
 	//   BUT at the moment that means our screen picking is super sampled and rendered at 
 	//   a much higher resolution. Which is silly.
-	ScreenPicker::Instance()->RenderPickingScene(projViewMatrix, Maths::Matrix4::GetInverseOf(projViewMatrix), screenTexDepth, screenTexWidth, screenTexHeight);
+	ScreenPicker::Instance()->RenderPickingScene(projViewMatrix, Maths::Matrix4::GetInverseOf(projViewMatrix),
+	                                             screenTexDepth, screenTexWidth, screenTexHeight);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, screenFBO);
 	glViewport(0, 0, screenTexWidth, screenTexHeight);
@@ -302,18 +313,18 @@ void GraphicsPipeline::RenderScene()
 	NCLDebug::_RenderDebugNonDepthTested();
 
 
-
 	//Downsample and present to screen
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, width, height);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-	float superSamples = (float)(numSuperSamples);
+	float superSamples = numSuperSamples;
 	glUseProgram(shaderPresentToWindow->GetProgram());
 	glUniform1i(glGetUniformLocation(shaderPresentToWindow->GetProgram(), "uColorTex"), 0);
 	glUniform1f(glGetUniformLocation(shaderPresentToWindow->GetProgram(), "uGammaCorrection"), gammaCorrection);
 	glUniform1f(glGetUniformLocation(shaderPresentToWindow->GetProgram(), "uNumSuperSamples"), superSamples);
-	glUniform2f(glGetUniformLocation(shaderPresentToWindow->GetProgram(), "uSinglepixel"), 1.f / screenTexWidth, 1.f / screenTexHeight);
+	glUniform2f(glGetUniformLocation(shaderPresentToWindow->GetProgram(), "uSinglepixel"), 1.f / screenTexWidth,
+	            1.f / screenTexHeight);
 	fullscreenQuad->SetTexture(screenTexColor);
 	fullscreenQuad->Draw();
 
@@ -322,7 +333,7 @@ void GraphicsPipeline::RenderScene()
 	NCLDebug::_ClearDebugLists();
 
 
-	OGLRenderer::SwapBuffers();
+	SwapBuffers();
 }
 
 void GraphicsPipeline::Resize(int x, int y)
@@ -340,7 +351,8 @@ void GraphicsPipeline::Resize(int x, int y)
 	OGLRenderer::Resize(x, y);
 
 	//Update our projection matrix
-	projMatrix = Maths::Matrix4::CreatePerspectiveMatrix(PROJ_NEAR, PROJ_FAR, (float)x / (float)y, PROJ_FOV);
+	projMatrix = Maths::Matrix4::CreatePerspectiveMatrix(
+		PROJ_NEAR, PROJ_FAR, static_cast<float>(x) / static_cast<float>(y), PROJ_FOV);
 }
 
 void GraphicsPipeline::BuildAndSortRenderLists()
@@ -360,9 +372,9 @@ void GraphicsPipeline::BuildAndSortRenderLists()
 		renderlistTransparent.begin(),
 		renderlistTransparent.end(),
 		[](const TransparentPair& a, const TransparentPair& b)
-	{
-		return a.second > b.second;
-	}
+		{
+			return a.second > b.second;
+		}
 	);
 }
 
@@ -380,12 +392,12 @@ void GraphicsPipeline::RecursiveAddToRenderLists(RenderNode* node)
 			Vector3 diff = node->GetWorldTransform().GetPositionVector() - camera->GetPosition();
 			float camDistSq = Vector3::Dot(diff, diff); //Same as doing .Length() without the sqrt
 
-			renderlistTransparent.push_back({ node, camDistSq });
+			renderlistTransparent.push_back({node, camDistSq});
 		}
 	}
 
 	//Recurse over all children and process them aswell
-	for (auto itr = node->GetChildIteratorStart(); itr != node->GetChildIteratorEnd(); itr++)
+	for (auto itr = node->GetChildIteratorStart(); itr != node->GetChildIteratorEnd(); ++itr)
 		RecursiveAddToRenderLists(*itr);
 }
 
@@ -437,15 +449,15 @@ void GraphicsPipeline::BuildShadowTransforms()
 	auto compute_depth = [&](float x)
 	{
 		float proj_start = -(proj_range * x + PROJ_NEAR);
-		return (proj_start*projMatrix[2][2] + projMatrix[3][2]) / (proj_start*projMatrix[2][3]);
+		return (proj_start * projMatrix[2][2] + projMatrix[3][2]) / (proj_start * projMatrix[2][3]);
 	};
 
-	const float divisor = (SHADOWMAP_NUM*SHADOWMAP_NUM) - 1.f;
+	const float divisor = (SHADOWMAP_NUM * SHADOWMAP_NUM) - 1.f;
 	for (int i = 0; i < SHADOWMAP_NUM; ++i)
 	{
 		//Linear scalars going from 0.0f (near) to 1.0f (far)
-		float lin_near = (powf(2.0f, (float)(i)) - 1.f) / divisor;
-		float lin_far = (powf(2.0f, (float)(i + 1)) - 1.f) / divisor;
+		float lin_near = (powf(2.0f, static_cast<float>(i)) - 1.f) / divisor;
+		float lin_far = (powf(2.0f, static_cast<float>(i + 1)) - 1.f) / divisor;
 
 		//True non-linear depth ranging from -1.0f (near) to 1.0f (far)
 		float norm_near = compute_depth(lin_near);
@@ -471,7 +483,8 @@ void GraphicsPipeline::BuildShadowTransforms()
 		bb._max.z = max(bb._max.z, sceneBoundingRadius);
 
 		//Build Light Projection		
-		shadowProj[i] = Maths::Matrix4::CreateOrthographicMatrix(bb._max.z, bb._min.z, bb._min.x, bb._max.x, bb._max.y, bb._min.y);
+		shadowProj[i] = Maths::Matrix4::CreateOrthographicMatrix(bb._max.z, bb._min.z, bb._min.x, bb._max.x, bb._max.y,
+		                                                         bb._min.y);
 		shadowProjView[i] = shadowProj[i] * shadowViewMtx;
 	}
 }

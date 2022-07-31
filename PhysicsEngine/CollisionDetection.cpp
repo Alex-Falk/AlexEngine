@@ -28,17 +28,19 @@ bool Physics::CollisionDetection::ObjectsIntersecting(const CollisionPair& pair,
 		switch (shapeA->GetType())
 		{
 		case CollisionShape::Sphere:
-		{
-			const auto sphereA = dynamic_cast<SphereCollisionShape*>(shapeA);
-			const auto sphereB = dynamic_cast<SphereCollisionShape*>(shapeB);
-			return SphereSphereIntersection(*sphereA, pair.NodeA->GetWorldTransform(), *sphereB, pair.NodeB->GetWorldTransform(), outCollision);
-		}
+			{
+				const auto sphereA = dynamic_cast<SphereCollisionShape*>(shapeA);
+				const auto sphereB = dynamic_cast<SphereCollisionShape*>(shapeB);
+				return SphereSphereIntersection(*sphereA, pair.NodeA->GetWorldTransform(), *sphereB,
+				                                pair.NodeB->GetWorldTransform(), outCollision);
+			}
 		case CollisionShape::AABB:
-		{
+			{
 				const auto aabbA = dynamic_cast<AABBCollisionShape*>(shapeA);
 				const auto aabbB = dynamic_cast<AABBCollisionShape*>(shapeB);
-				return AABBAABBIntersection(*aabbA, pair.NodeA->GetWorldTransform(), *aabbB, pair.NodeB->GetWorldTransform(), outCollision);
-		}
+				return AABBAABBIntersection(*aabbA, pair.NodeA->GetWorldTransform(), *aabbB,
+				                            pair.NodeB->GetWorldTransform(), outCollision);
+			}
 		default:
 			NCLERROR("Collision Detection for types other than spheres is not implemented yet")
 		}
@@ -47,20 +49,25 @@ bool Physics::CollisionDetection::ObjectsIntersecting(const CollisionPair& pair,
 	{
 		const auto aabb = dynamic_cast<AABBCollisionShape*>(shapeA);
 		const auto sphere = dynamic_cast<SphereCollisionShape*>(shapeB);
-		return SphereAABBIntersection(*sphere, pair.NodeB->GetWorldTransform(), *aabb, pair.NodeA->GetWorldTransform(), outCollision);
+		return SphereAABBIntersection(*sphere, pair.NodeB->GetWorldTransform(), *aabb, pair.NodeA->GetWorldTransform(),
+		                              outCollision);
 	}
 	else if (shapeA->GetType() == CollisionShape::Sphere && shapeB->GetType() == CollisionShape::AABB)
 	{
 		const auto aabb = dynamic_cast<AABBCollisionShape*>(shapeB);
 		const auto sphere = dynamic_cast<SphereCollisionShape*>(shapeA);
-		return SphereAABBIntersection(*sphere, pair.NodeA->GetWorldTransform(), *aabb, pair.NodeB->GetWorldTransform(), outCollision);
+		return SphereAABBIntersection(*sphere, pair.NodeA->GetWorldTransform(), *aabb, pair.NodeB->GetWorldTransform(),
+		                              outCollision);
 	}
 
 	return false;
 }
 
 bool Physics::CollisionDetection::SphereSphereIntersection(const SphereCollisionShape& sphereA,
-	const Maths::Matrix4& worldTransformA, const SphereCollisionShape& sphereB, const Maths::Matrix4& worldTransformB, Collision& outCollision)
+                                                           const Maths::Matrix4& worldTransformA,
+                                                           const SphereCollisionShape& sphereB,
+                                                           const Maths::Matrix4& worldTransformB,
+                                                           Collision& outCollision)
 {
 	float radiiSum = sphereA.GetRadius() + sphereB.GetRadius();
 	Vector3 delta = worldTransformB.GetPositionVector() - worldTransformA.GetPositionVector();
@@ -80,8 +87,10 @@ bool Physics::CollisionDetection::SphereSphereIntersection(const SphereCollision
 	return false;
 }
 
-bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape& aabbA, const Maths::Matrix4& worldTransformA,
-	const AABBCollisionShape& aabbB, const Maths::Matrix4& worldTransformB, Collision& outCollision)
+bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape& aabbA,
+                                                       const Maths::Matrix4& worldTransformA,
+                                                       const AABBCollisionShape& aabbB,
+                                                       const Maths::Matrix4& worldTransformB, Collision& outCollision)
 {
 	if (aabbA.BoundingBox.CollidingWithBoundingBox(aabbB.BoundingBox))
 	{
@@ -127,14 +136,16 @@ bool Physics::CollisionDetection::AABBAABBIntersection(const AABBCollisionShape&
 }
 
 bool Physics::CollisionDetection::SphereAABBIntersection(const SphereCollisionShape& sphere,
-	const Maths::Matrix4& sphereTransform, const AABBCollisionShape& aabb, const Maths::Matrix4& aabbTransform,
-	Collision& outCollision)
+                                                         const Maths::Matrix4& sphereTransform,
+                                                         const AABBCollisionShape& aabb,
+                                                         const Maths::Matrix4& aabbTransform,
+                                                         Collision& outCollision)
 {
 	// Find closet point on the box to the sphere center
 	Vector3 delta = aabbTransform.GetPositionVector() - sphereTransform.GetPositionVector();
 
 	Vector3 closest = Vector3::Clamp(delta, -aabb.BoundingBox.GetHalfSize(), aabb.BoundingBox.GetHalfSize());
-	
+
 	// If the point is closer than the sphere radius then we have a collision
 	Vector3 local = delta - closest;
 	float dist = local.Length();

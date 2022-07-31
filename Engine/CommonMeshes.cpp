@@ -1,19 +1,20 @@
 #include "CommonMeshes.h"
-#include <nclgl\NCLDebug.h>
-#include <nclgl\OBJMesh.h>
+#include <nclgl/NCLDebug.h>
+#include <nclgl/OBJMesh.h>
 #include <SOIL.h>
 
-Mesh* CommonMeshes::m_pCube		= NULL;
-Mesh* CommonMeshes::m_pSphere	= NULL;
+Mesh* CommonMeshes::m_pCube = nullptr;
+Mesh* CommonMeshes::m_pSphere = nullptr;
 
-GLuint    CommonMeshes::m_pCheckerboardTex = 0;
+GLuint CommonMeshes::m_pCheckerboardTex = 0;
 
 
 void CommonMeshes::InitializeMeshes()
 {
-	if (m_pCube == NULL)
+	if (m_pCube == nullptr)
 	{
-		m_pCheckerboardTex = SOIL_load_OGL_texture((Graphics::TextureDir + "checkerboard.tga").c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_COMPRESS_TO_DXT);
+		m_pCheckerboardTex = SOIL_load_OGL_texture((Graphics::TextureDir + "checkerboard.tga").c_str(), SOIL_LOAD_AUTO,
+		                                           SOIL_CREATE_NEW_ID, SOIL_FLAG_COMPRESS_TO_DXT);
 
 		if (m_pCheckerboardTex)
 		{
@@ -21,7 +22,8 @@ void CommonMeshes::InitializeMeshes()
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //No linear interpolation to get crisp checkerboard no matter the scalling
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			//No linear interpolation to get crisp checkerboard no matter the scalling
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		else
@@ -29,10 +31,10 @@ void CommonMeshes::InitializeMeshes()
 			NCLERROR("Unable to load checkerboard texture!");
 		}
 
-		m_pCube = new OBJMesh(Graphics::MeshDir +"cube.obj");
+		m_pCube = new OBJMesh(Graphics::MeshDir + "cube.obj");
 		m_pCube->SetTexture(m_pCheckerboardTex);
 
-		m_pSphere = new OBJMesh(Graphics::MeshDir +"sphere.obj");
+		m_pSphere = new OBJMesh(Graphics::MeshDir + "sphere.obj");
 		m_pSphere->SetTexture(m_pCheckerboardTex);
 	}
 }

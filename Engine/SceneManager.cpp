@@ -4,7 +4,8 @@
 
 void SceneManager::AddScene(Scene* scene)
 {
-	if (scene == nullptr) {
+	if (scene == nullptr)
+	{
 		return;
 	}
 
@@ -13,7 +14,8 @@ void SceneManager::AddScene(Scene* scene)
 
 void SceneManager::RemoveScene(Scene* scene)
 {
-	if (scene == nullptr) {
+	if (scene == nullptr)
+	{
 		return;
 	}
 
@@ -22,8 +24,10 @@ void SceneManager::RemoveScene(Scene* scene)
 
 bool SceneManager::GoToScene(const std::string& name)
 {
-	for (Scene* scene : m_scenes) {
-		if (scene->GetName() == name) {
+	for (Scene* scene : m_scenes)
+	{
+		if (scene->GetName() == name)
+		{
 			m_scene = scene;
 			m_scene->ActivateScene();
 			return true;
@@ -40,7 +44,8 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	for (Scene* scene : m_scenes) {
+	for (Scene* scene : m_scenes)
+	{
 		scene->Cleanup();
 		delete scene;
 	}

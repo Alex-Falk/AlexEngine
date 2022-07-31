@@ -9,11 +9,11 @@ Description:
 	These are loaded when the GraphicsPipeline is first initialised and released when it is deleted, so can
 	be globally accessed for the entirity of any Scene/GameObject.
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include <nclgl\Mesh.h>
-#include <GL\glew.h>
+#include <nclgl/Mesh.h>
+#include <GL/glew.h>
 
 class Scene;
 
@@ -26,10 +26,10 @@ public:
 	// e.g RenderNode* cube_copy = new RenderNode(*CommonMeshes::Cube());
 
 	//Cube 
-	static Mesh* Cube()			{ return m_pCube; }
+	static Mesh* Cube() { return m_pCube; }
 
 	//Sphere
-	static Mesh* Sphere()		{ return m_pSphere; }
+	static Mesh* Sphere() { return m_pSphere; }
 
 	static const GLuint CheckerboardTex() { return m_pCheckerboardTex; }
 

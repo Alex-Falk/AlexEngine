@@ -1,21 +1,27 @@
 #include "HeightMap.h"
 
-HeightMap::HeightMap(std::string name, const uint16_t rawWidth, const uint16_t rawHeight, const float HeightMapX, const float HeightMapY, const float HeightMapZ, const float HeightMapTexX, const float HeightMapTexZ) {
+HeightMap::HeightMap(std::string name, const uint16_t rawWidth, const uint16_t rawHeight, const float HeightMapX,
+                     const float HeightMapY, const float HeightMapZ, const float HeightMapTexX,
+                     const float HeightMapTexZ)
+{
 	std::ifstream file(name.c_str(), ios::binary);
-	if (!file) {
+	if (!file)
+	{
 		return;
 	}
 	numVertices = rawWidth * rawHeight;
-	numIndices = (rawWidth - 1)*(rawHeight - 1) * 6;
+	numIndices = (rawWidth - 1) * (rawHeight - 1) * 6;
 	vertices = new Vector3[numVertices];
 	textureCoords = new Vector2[numVertices];
 	indices = new GLuint[numIndices];
-	unsigned char * data = new unsigned char[numVertices];
-	file.read((char *)data, numVertices * sizeof(unsigned char));
+	auto data = new unsigned char[numVertices];
+	file.read((char*)data, numVertices * sizeof(unsigned char));
 	file.close();
 
-	for (uint16_t x = 0; x < rawWidth; ++x) {
-		for (uint16_t z = 0; z < rawHeight; ++z) {
+	for (uint16_t x = 0; x < rawWidth; ++x)
+	{
+		for (uint16_t z = 0; z < rawHeight; ++z)
+		{
 			uint16_t offset = (x * rawWidth) + z;
 
 			vertices[offset] = Vector3(x * HeightMapX, data[offset] * HeightMapY, z * HeightMapZ);
@@ -26,8 +32,10 @@ HeightMap::HeightMap(std::string name, const uint16_t rawWidth, const uint16_t r
 	delete data;
 	numIndices = 0;
 
-	for (uint16_t x = 0; x < rawWidth - 1; ++x) {
-		for (uint16_t z = 0; z < rawHeight - 1; ++z) {
+	for (uint16_t x = 0; x < rawWidth - 1; ++x)
+	{
+		for (uint16_t z = 0; z < rawHeight - 1; ++z)
+		{
 			uint16_t a = (x * (rawWidth)) + z;
 			uint16_t b = ((x + 1) * (rawWidth)) + z;
 			uint16_t c = ((x + 1) * (rawWidth)) + (z + 1);

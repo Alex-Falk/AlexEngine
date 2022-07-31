@@ -25,7 +25,8 @@ namespace Physics
 
 	void PhysicsEngine::RemovePhysicsObject(PhysicsNode* obj)
 	{
-		m_physicsObjects.erase(std::remove(m_physicsObjects.begin(), m_physicsObjects.end(), obj), m_physicsObjects.end());
+		m_physicsObjects.erase(std::remove(m_physicsObjects.begin(), m_physicsObjects.end(), obj),
+		                       m_physicsObjects.end());
 
 		if (m_partioning)
 		{
@@ -35,7 +36,7 @@ namespace Physics
 
 	void PhysicsEngine::ClearObjects()
 	{
-		for(auto obj : m_physicsObjects)
+		for (auto obj : m_physicsObjects)
 		{
 			m_partioning->RemovePhysicsNode(obj);
 			delete obj;
@@ -60,7 +61,7 @@ namespace Physics
 
 		m_worldLimits.Min = {-100.f, -100.f, -100.f};
 		m_worldLimits.Max = {100.f, 100.f, 100.f};
-		WorldPartitioning* tree = nullptr;// new OcTree(m_worldLimits.Min, m_worldLimits.Max, m_physicsObjects);
+		WorldPartitioning* tree = nullptr; // new OcTree(m_worldLimits.Min, m_worldLimits.Max, m_physicsObjects);
 		m_partioning = std::unique_ptr<WorldPartitioning>(tree);
 	}
 
@@ -78,7 +79,7 @@ namespace Physics
 			return;
 
 		m_dtOffset = 0;
-		
+
 		// Broadphase
 		auto collisionPairs = GetBroadphaseCollisionPairs();
 
@@ -101,9 +102,8 @@ namespace Physics
 		// Update Positions
 		for (auto obj : m_physicsObjects)
 		{
-				obj->IntegrateVelocity(timestep);
+			obj->IntegrateVelocity(timestep);
 		}
-
 	}
 
 	std::vector<PhysicsNode*> PhysicsEngine::GetPhysicsNodes()
@@ -119,7 +119,8 @@ namespace Physics
 			return false;
 		}
 
-		return nodeA->GetPosition().DistSqr(nodeB->GetPosition()) < Maths::Squared(nodeA->GetBoundingRadius() + nodeB->GetBoundingRadius());
+		return nodeA->GetPosition().DistSqr(nodeB->GetPosition()) < Maths::Squared(
+			nodeA->GetBoundingRadius() + nodeB->GetBoundingRadius());
 	}
 
 	vector<CollisionPair> PhysicsEngine::GetBroadphaseCollisionPairs() const
@@ -127,16 +128,16 @@ namespace Physics
 		if (!m_partioning)
 		{
 			vector<CollisionPair> result = {};
-			for(size_t i = 0; i < m_physicsObjects.size() - 1; ++i)
+			for (size_t i = 0; i < m_physicsObjects.size() - 1; ++i)
 			{
 				for (size_t j = i + 1; j < m_physicsObjects.size(); ++j)
 				{
-					result.push_back(CollisionPair { m_physicsObjects[i], m_physicsObjects[j]});
+					result.push_back(CollisionPair{m_physicsObjects[i], m_physicsObjects[j]});
 				}
 			}
 			return result;
 		}
-		
+
 		m_partioning->Update();
 		return m_partioning->GetCollisionPairs();
 	}
@@ -148,22 +149,20 @@ namespace Physics
 			return;
 		}
 
-		for(auto pair : collisionPairs)
+		for (auto pair : collisionPairs)
 		{
-			Collision collision = Collision();
+			auto collision = Collision();
 			if (CollisionDetection::ObjectsIntersecting(pair, collision))
 			{
 				collision.FramesLeft = m_numCollisionFrames;
 				m_collisions.push_back(collision);
 			}
 		}
-
-
 	}
 
 	void PhysicsEngine::ResolveCollisions()
 	{
-		for(auto collision : m_collisions)
+		for (auto collision : m_collisions)
 		{
 			ResolveCollision(collision);
 		}
@@ -178,8 +177,12 @@ namespace Physics
 		float collidingMass = nodeA->GetInverseMass() + nodeB->GetInverseMass();
 
 		// Step 1: Set Position so that they no longer overlap
-		nodeA->SetPosition(nodeA->GetPosition() - collision.Point.Normal * collision.Point.Penetration * (nodeA->GetInverseMass() / collidingMass));
-		nodeB->SetPosition(nodeB->GetPosition() - collision.Point.Normal * collision.Point.Penetration * (nodeB->GetInverseMass() / collidingMass));
+		nodeA->SetPosition(
+			nodeA->GetPosition() - collision.Point.Normal * collision.Point.Penetration * (nodeA->GetInverseMass() /
+				collidingMass));
+		nodeB->SetPosition(
+			nodeB->GetPosition() - collision.Point.Normal * collision.Point.Penetration * (nodeB->GetInverseMass() /
+				collidingMass));
 
 		// Step 2: calculate velocities
 		Vector3 contactVelocity = nodeB->GetLinearVelocity() - nodeA->GetLinearVelocity();

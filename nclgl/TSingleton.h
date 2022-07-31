@@ -20,7 +20,7 @@ Note: Currently no nclgl class's have been changed to use this format (Window::G
 	  Only ncltech class's will use this quick hack class, though I as a low level utility function I thought
 	  it best to live inside nclgl.
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 #include <stddef.h>
@@ -59,28 +59,39 @@ public:
 		if (m_pInstance)
 		{
 			delete m_pInstance;
-			m_pInstance = NULL;
+			m_pInstance = nullptr;
 		}
 	}
 
 
-
 protected:
 	//Only allow the class to be created and destroyed by itself
-	TSingleton() {}
-	virtual ~TSingleton() {}
+	TSingleton()
+	{
+	}
+
+	virtual ~TSingleton()
+	{
+	}
 
 
 private:
 	//Prevent the class from being copied either by '=' operator or by copy constructor
-	TSingleton(TSingleton const&) {}
-	TSingleton& operator=(TSingleton const&) {}
+	TSingleton(const TSingleton&)
+	{
+	}
+
+	TSingleton& operator=(const TSingleton&)
+	{
+	}
 
 	//Keep a static instance pointer to refer to as required by the rest of the program
 	static std::mutex m_Constructed;
 	static T* m_pInstance;
 };
 
-//Finally make sure that the instance is initialised to NULL at the start of the program
-template <class T> std::mutex TSingleton<T>::m_Constructed;
-template <class T> T* TSingleton<T>::m_pInstance = NULL;
+//Finally make sure that the instance is initialised to nullptr at the start of the program
+template <class T>
+std::mutex TSingleton<T>::m_Constructed;
+template <class T>
+T* TSingleton<T>::m_pInstance = nullptr;

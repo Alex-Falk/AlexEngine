@@ -103,4 +103,4 @@ CHANGE LIST
 		typedef unsigned int uint;
 
 	Added SAFE_DELETE(x) define for peace of mind. Note this doesn't actually ensure it is safely deleted!
-		#define SAFE_DELETE(x) {if(x) { delete x; x = NULL; }}
+		#define SAFE_DELETE(x) {if(x) { delete x; x = nullptr; }}

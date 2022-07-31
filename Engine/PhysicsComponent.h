@@ -3,7 +3,7 @@
 #include <PhysicsEngine/PhysicsNode.h>
 
 class PhysicsComponent :
-    public Component, public Physics::PhysicsNode
+	public Component, public Physics::PhysicsNode
 {
 public:
 	PhysicsComponent(const Vector3& initialPos, float inverseMass, float boundingRadius, bool applyGravity)
@@ -12,8 +12,7 @@ public:
 	}
 
 private:
-    void OnInitialise() override;
+	void OnInitialise() override;
 
-    void OnUpdate(float dt) override;
+	void OnUpdate(float dt) override;
 };
-

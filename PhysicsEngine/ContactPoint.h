@@ -1,7 +1,7 @@
 #pragma once
 #include "Maths/Vector3.h"
 
-namespace  Physics
+namespace Physics
 {
 	struct ContactPoint
 	{

@@ -6,15 +6,15 @@
 class Vector4
 {
 public:
-
 	Vector4() = default;
-	Vector4(const float x, const float y, const float z, const float w);
-	Vector4(const Vector3& xyz, const float w);
+	Vector4(float x, float y, float z, float w);
+	Vector4(const Vector3& xyz, float w);
 	Vector4(const Vector4& other) = default;
 	~Vector4() = default;
 
-	Vector3 ToVector3() const {
-		return  { x, y, z };
+	Vector3 ToVector3() const
+	{
+		return {x, y, z};
 	}
 
 
@@ -33,7 +33,7 @@ public:
 
 	Vector4 operator-(const Vector4& other) const;
 	Vector4 operator+(const Vector4& other) const;
-	Vector4 operator*(const float num) const;
+	Vector4 operator*(float num) const;
 	Vector4& operator +=(const Vector4& other);
 	Vector4& operator -=(const Vector4& other);
 	Vector4 operator-() const;
@@ -45,8 +45,8 @@ public:
 	float z;
 	float w;
 
-	float const operator[](const int index) const;
-	float& operator[](const int index);
+	const float operator[](int index) const;
+	float& operator[](int index);
 };
 
-Vector4 operator*(const float lhs, const Vector4& rhs);
+Vector4 operator*(float lhs, const Vector4& rhs);

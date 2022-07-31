@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "..\nclgl\mesh.h"
+#include "../nclgl/mesh.h"
 
 
 #ifndef HEIGHT_MAP_DEF_OFF
@@ -17,9 +17,14 @@
 #define HEIGHTMAP_TEX_Z 1.0f/16.0f
 #endif
 
-class HeightMap : public Mesh {
+class HeightMap : public Mesh
+{
 public:
-	HeightMap(std::string name, const uint16_t rawWidth = RAW_WIDTH, const uint16_t rawHeight = RAW_HEIGHT, const float HeightMapX= HEIGHTMAP_X, const float HeightMapY = HEIGHTMAP_Y, const float HeightMapZ = HEIGHTMAP_Z, const float HeightMapTexX = HEIGHTMAP_TEX_X, const float HeightMapTexZ = HEIGHTMAP_TEX_Z);
-	~HeightMap(void) {};
+	HeightMap(std::string name, uint16_t rawWidth = RAW_WIDTH, uint16_t rawHeight = RAW_HEIGHT,
+	          float HeightMapX = HEIGHTMAP_X, float HeightMapY = HEIGHTMAP_Y, float HeightMapZ = HEIGHTMAP_Z,
+	          float HeightMapTexX = HEIGHTMAP_TEX_X, float HeightMapTexZ = HEIGHTMAP_TEX_Z);
 
+	~HeightMap(void) override
+	{
+	};
 };

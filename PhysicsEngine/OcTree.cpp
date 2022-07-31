@@ -47,7 +47,7 @@ namespace Physics
 	}
 
 	OcTree::OcTree(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax,
-		std::vector<PhysicsNode*> physicsNodes): WorldPartitioning()
+	               std::vector<PhysicsNode*> physicsNodes): WorldPartitioning()
 	{
 		OcTree(Vector3(xMin, yMin, zMin), Vector3(xMax, yMax, zMax), physicsNodes);
 	}
@@ -75,9 +75,12 @@ namespace Physics
 
 	void OcTree::TerminateTree(Node* node)
 	{
-		if (node) {
-			if (node->Children) {
-				for (int i = 0; i < 8; ++i) {
+		if (node)
+		{
+			if (node->Children)
+			{
+				for (int i = 0; i < 8; ++i)
+				{
 					if (node->Children[i]) { TerminateTree(node->Children[i]); }
 				}
 			}
@@ -94,10 +97,10 @@ namespace Physics
 		{
 			BoundingBox** boxes = BoundingBox::SplitIntoEight(*node->AABB);
 
-			node->Children = new Node * [8];
+			node->Children = new Node*[8];
 			for (int i = 8; i < 8; i++)
 			{
-				Node* newNode = new Node();
+				auto newNode = new Node();
 				newNode->Children = nullptr;
 				newNode->AABB = boxes[i];
 				node->Children[i] = new Node();
@@ -134,7 +137,7 @@ namespace Physics
 	std::vector<CollisionPair> OcTree::CreateCollisionPairs(Node* node)
 	{
 		vector<CollisionPair> collisionPairs;
-		
+
 		if (node)
 		{
 			if (node->Children)
@@ -167,7 +170,7 @@ namespace Physics
 								collisionPairs.push_back({
 									node->PhysicsNodes[i],
 									node->PhysicsNodes[j]
-									});
+								});
 							}
 						}
 					}
@@ -177,7 +180,8 @@ namespace Physics
 		return collisionPairs;
 	}
 
-	std::vector<PhysicsNode*> OcTree::GetPhysicsNodes(const Node* node, const std::vector<PhysicsNode*>& elementsInParent)
+	std::vector<PhysicsNode*> OcTree::GetPhysicsNodes(const Node* node,
+	                                                  const std::vector<PhysicsNode*>& elementsInParent)
 	{
 		std::vector<PhysicsNode*> newNodes;
 
@@ -200,7 +204,8 @@ namespace Physics
 
 		for (auto& physicsNode : m_physicsNodes)
 		{
-			if (physicsNode->GetLinearVelocity().LengthSqr() > 0.f && !(std::find(m_movedNodes.begin(), m_movedNodes.end(), physicsNode) != m_movedNodes.end()))
+			if (physicsNode->GetLinearVelocity().LengthSqr() > 0.f && !(std::find(
+				m_movedNodes.begin(), m_movedNodes.end(), physicsNode) != m_movedNodes.end()))
 			{
 				m_movedNodes.push_back(physicsNode);
 			}
@@ -233,7 +238,8 @@ namespace Physics
 			}
 			else
 			{
-				if (std::find(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode) == node->PhysicsNodes.end()) 
+				if (std::find(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode) == node->PhysicsNodes.
+					end())
 				{
 					node->PhysicsNodes.push_back(physNode);
 				}
@@ -254,7 +260,8 @@ namespace Physics
 		// TODO is this needed?
 		if (std::find(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode) != node->PhysicsNodes.end())
 		{
-			node->PhysicsNodes.erase(std::remove(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode), node->PhysicsNodes.end());
+			node->PhysicsNodes.erase(std::remove(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physNode),
+			                         node->PhysicsNodes.end());
 		}
 	}
 
@@ -276,7 +283,9 @@ namespace Physics
 				auto itr = std::find(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physicsNode);
 				if (itr != node->PhysicsNodes.end() && !IsPhysicsNodeInNode(node, physicsNode))
 				{
-					node->PhysicsNodes.erase(std::remove(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physicsNode), node->PhysicsNodes.end());
+					node->PhysicsNodes.erase(
+						std::remove(node->PhysicsNodes.begin(), node->PhysicsNodes.end(), physicsNode),
+						node->PhysicsNodes.end());
 				}
 				else if (itr == node->PhysicsNodes.end() && IsPhysicsNodeInNode(node, physicsNode))
 				{
@@ -290,7 +299,6 @@ namespace Physics
 
 	void OcTree::CollapseNode(Node* node)
 	{
-
 	}
 
 	void OcTree::CheckAdjustNode(Node* node)
@@ -301,7 +309,8 @@ namespace Physics
 		}
 		else
 		{
-			for (int i = 0; i < 8; ++i) {
+			for (int i = 0; i < 8; ++i)
+			{
 				if (node->Children)
 					CheckAdjustNode(node->Children[i]);
 			}
@@ -317,6 +326,4 @@ namespace Physics
 
 		return false;
 	}
-
 }
-

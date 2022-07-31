@@ -16,17 +16,17 @@ float Vector4::Length() const
 
 Vector4 Vector4::operator-(const Vector4& other) const
 {
-	return { x - other.x, y - other.y, z - other.z, w - other.w };
+	return {x - other.x, y - other.y, z - other.z, w - other.w};
 }
 
 Vector4 Vector4::operator+(const Vector4& other) const
 {
-	return { x + other.x, y + other.y, z + other.z, w + other.w };
+	return {x + other.x, y + other.y, z + other.z, w + other.w};
 }
 
 Vector4 Vector4::operator*(const float num) const
 {
-	return { x * num, y * num, z * num, w * num };
+	return {x * num, y * num, z * num, w * num};
 }
 
 Vector4& Vector4::operator+=(const Vector4& other)
@@ -49,12 +49,12 @@ Vector4& Vector4::operator-=(const Vector4& other)
 
 Vector4 Vector4::operator-() const
 {
-	return { -x, -y, -z, -w };
+	return {-x, -y, -z, -w};
 }
 
 Vector4 Vector4::Zero()
 {
-	return { 0.f, 0.f, 0.f, 0.f };
+	return {0.f, 0.f, 0.f, 0.f};
 }
 
 float Vector4::LengthSqr() const
@@ -74,7 +74,7 @@ void Vector4::Normalize()
 Vector4 Vector4::Normalized() const
 {
 	const float length = Length();
-	return { x / length, y / length, z / length, w / length };
+	return {x / length, y / length, z / length, w / length};
 }
 
 float Vector4::Dist(const Vector4& other) const
@@ -100,7 +100,7 @@ void Vector4::Set(const float x, const float y, const float z, const float w)
 	this->w = w;
 }
 
-float const Vector4::operator[](const int index) const
+const float Vector4::operator[](const int index) const
 {
 	switch (index)
 	{

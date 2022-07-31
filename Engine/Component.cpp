@@ -8,6 +8,5 @@ Component::~Component()
 
 Component::Component(std::string name)
 {
-    m_name = std::move(name);
+	m_name = std::move(name);
 }
-

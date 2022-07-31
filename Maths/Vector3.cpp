@@ -20,22 +20,22 @@ float Vector3::Length() const
 
 Vector3 Vector3::operator-(const Vector3& other) const
 {
-	return { x - other.x, y - other.y, z - other.z };
+	return {x - other.x, y - other.y, z - other.z};
 }
 
 Vector3 Vector3::operator+(const Vector3& other) const
 {
-	return { x + other.x, y + other.y, z + other.z };
+	return {x + other.x, y + other.y, z + other.z};
 }
 
 Vector3 Vector3::operator*(const float num) const
 {
-	return { x * num, y * num, z * num };
+	return {x * num, y * num, z * num};
 }
 
 Vector3 Vector3::operator/(const float num) const
 {
-	return { x / num, y / num, z / num };
+	return {x / num, y / num, z / num};
 }
 
 Vector3& Vector3::operator+=(const Vector3& other)
@@ -56,7 +56,7 @@ Vector3& Vector3::operator-=(const Vector3& other)
 
 Vector3 Vector3::operator-() const
 {
-	return { -x, -y, -z };
+	return {-x, -y, -z};
 }
 
 void Vector3::Inverse()
@@ -68,7 +68,7 @@ void Vector3::Inverse()
 
 Vector3 Vector3::Inverted()
 {
-	return { -x, -y, -z };
+	return {-x, -y, -z};
 }
 
 float Vector3::Dot(const Vector3& lhs, const Vector3& rhs)
@@ -78,12 +78,12 @@ float Vector3::Dot(const Vector3& lhs, const Vector3& rhs)
 
 Vector3 Vector3::Cross(const Vector3& lhs, const Vector3& rhs)
 {
-	return { (lhs.y * rhs.z) - (lhs.z * rhs.y), (lhs.z * rhs.x) - (lhs.x * rhs.z),(lhs.x * rhs.y) - (lhs.y * rhs.x) };
+	return {(lhs.y * rhs.z) - (lhs.z * rhs.y), (lhs.z * rhs.x) - (lhs.x * rhs.z), (lhs.x * rhs.y) - (lhs.y * rhs.x)};
 }
 
 Vector3 Vector3::Zero()
 {
-	return { 0.f, 0.f, 0.f};
+	return {0.f, 0.f, 0.f};
 }
 
 void Vector3::ToZero()
@@ -117,7 +117,7 @@ Vector3 Vector3::Normalized() const
 	if (Maths::IsFloatZero(length))
 		return Zero();
 
-	return { x / length, y / length, z / length};
+	return {x / length, y / length, z / length};
 }
 
 float Vector3::Dist(const Vector3& other) const

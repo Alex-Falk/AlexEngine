@@ -7,17 +7,17 @@
 #include "CollisionShape.h"
 #include "common.h"
 
-namespace  Physics
+namespace Physics
 {
 	class CollisionShape;
 
-	typedef std::function<void(const Maths::Matrix4& transform)> UpdateCallback;
+	using UpdateCallback = std::function<void(const Maths::Matrix4& transform)>;
 
 	class PhysicsNode
 	{
 	public:
 		PhysicsNode(const Vector3& initialPos, float inverseMass, float boundingRadius, bool applyGravity);
-		
+
 		void IntegrateAcceleration(float dt);
 		void IntegrateVelocity(float dt);
 
@@ -39,16 +39,15 @@ namespace  Physics
 		void SetOnUpdateCallback(UpdateCallback callback) { m_onUpdateCallback = callback; }
 		void FireOnUpdateCallback();
 
-		inline Vector3 GetPosition() const { return m_position; }
+		Vector3 GetPosition() const { return m_position; }
 		float GetBoundingRadius() const { return m_boundingRadius; }
 		float GetInverseMass() const { return m_inverseMass; }
 		Vector3 GetLinearVelocity();
 		CollisionShape* GetCollisionShape() { return m_collisionShape; }
 		bool HasCollision() const;
 		Maths::Matrix4& GetWorldTransform() { return m_worldTransform; }
-	
-	protected:
 
+	protected:
 	private:
 		Maths::Matrix4 m_worldTransform;
 
@@ -68,15 +67,13 @@ namespace  Physics
 		float m_boundingRadius;
 
 		bool m_applyGravity;
-		
-		Physics::Integrator m_integrator;
+
+		Integrator m_integrator;
 		UpdateCallback m_onUpdateCallback;
 
 		CollisionShape* m_collisionShape;
 
 		Vector3 m_linearHalfVelocity;
 		Vector3 m_angularHalfVelocity;
-
 	};
 }
-

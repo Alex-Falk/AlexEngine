@@ -15,7 +15,7 @@ _-_-_-_-_-_-_-""  ""
 */
 
 #ifndef GLEW_STATIC
-	#define GLEW_STATIC
+#define GLEW_STATIC
 #endif
 
 #include "Common.h"
@@ -25,8 +25,8 @@ _-_-_-_-_-_-_-""  ""
 #include <Maths/Matrix4.h>
 #include <Maths/Quaternion.h>
 
-#include <GL\glew.h>
-#include <GL\wglew.h>
+#include <GL/glew.h>
+#include <GL/wglew.h>
 
 #include "Window.h"
 #include "light.h"
@@ -49,61 +49,62 @@ using std::vector;
 //#define OPENGL_DEBUGGING
 
 static constexpr float biasValues[4][4] = {
-	{ 0.5, 0.0, 0.0, 0.0 },
-	{ 0.0, 0.5, 0.0, 0.0 },
-	{ 0.0, 0.0, 0.5, 0.0 },
-	{ 0.5, 0.5, 0.5, 1.0 }
+	{0.5, 0.0, 0.0, 0.0},
+	{0.0, 0.5, 0.0, 0.0},
+	{0.0, 0.0, 0.5, 0.0},
+	{0.5, 0.5, 0.5, 1.0}
 };
 static const Maths::Matrix4 biasMatrix(biasValues);
 
 class Shader;
 
-class OGLRenderer	{
+class OGLRenderer
+{
 public:
 	friend class Window;
-	OGLRenderer(Window &parent);
+	OGLRenderer(Window& parent);
 	virtual ~OGLRenderer(void);
 
-	virtual void	RenderScene()		= 0;
-	virtual void	UpdateScene(float msec);
-	void			SwapBuffers();
+	virtual void RenderScene() = 0;
+	virtual void UpdateScene(float msec);
+	void SwapBuffers();
 
-	bool			HasInitialised() const;	
-	
-	Shader*			GetCurrentShader() const {
+	bool HasInitialised() const;
+
+	Shader* GetCurrentShader() const
+	{
 		return currentShader;
 	}
 
 protected:
-	virtual void	Resize(int x, int y);	
-	void			UpdateShaderMatrices();
-	void			SetCurrentShader(Shader*s);
+	virtual void Resize(int x, int y);
+	void UpdateShaderMatrices();
+	void SetCurrentShader(Shader* s);
 
-	void			SetTextureRepeating(GLuint target, bool state);
+	void SetTextureRepeating(GLuint target, bool state);
 
-	void			SetShaderLight(const Light &l);
+	void SetShaderLight(const Light& l);
 
-	void			DrawDebugPerspective(Maths::Matrix4*matrix = 0);
-	void			DrawDebugOrtho(Maths::Matrix4*matrix = 0);
+	void DrawDebugPerspective(Maths::Matrix4* matrix = nullptr);
+	void DrawDebugOrtho(Maths::Matrix4* matrix = nullptr);
 
 	Shader* currentShader;
-	
 
-	Maths::Matrix4 projMatrix;		//Projection matrix
-	Maths::Matrix4 modelMatrix;		//Model matrix. NOT MODELVIEW
-	Maths::Matrix4 viewMatrix;		//View matrix
-	Maths::Matrix4 textureMatrix;	//Texture matrix
 
-	int		width;			//Render area width (not quite the same as window width)
-	int		height;			//Render area height (not quite the same as window height)
-	bool	init;			//Did the renderer initialise properly?
+	Maths::Matrix4 projMatrix; //Projection matrix
+	Maths::Matrix4 modelMatrix; //Model matrix. NOT MODELVIEW
+	Maths::Matrix4 viewMatrix; //View matrix
+	Maths::Matrix4 textureMatrix; //Texture matrix
 
-	HDC		deviceContext;	//...Device context?
-	HGLRC	renderContext;	//Permanent Rendering Context
+	int width; //Render area width (not quite the same as window width)
+	int height; //Render area height (not quite the same as window height)
+	bool init; //Did the renderer initialise properly?
+
+	HDC deviceContext; //...Device context?
+	HGLRC renderContext; //Permanent Rendering Context
 
 #ifdef _DEBUG
-	static void CALLBACK DebugCallback(GLuint source, GLuint type,GLuint id, GLuint severity,
-									   int length, const char* message, void* userParam);
+	static void CALLBACK DebugCallback(GLuint source, GLuint type, GLuint id, GLuint severity,
+	                                   int length, const char* message, void* userParam);
 #endif
-
 };

@@ -14,7 +14,7 @@ _-_-_-_-_-_-_-|   /\_/\   NYANYANYAN
 -_-_-_-_-_-_-~|__( ^ .^) /
 _-_-_-_-_-_-_-""  ""   
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -23,17 +23,19 @@ _-_-_-_-_-_-_-""  ""
 
 //A handy enumerator, to determine which member of the bufferObject array
 //holds which data
-enum MeshBuffer {
-	VERTEX_BUFFER	,
-	COLOUR_BUFFER	, 
-	TEXTURE_BUFFER	,
-	NORMAL_BUFFER	, 
-	TANGENT_BUFFER	,
-	INDEX_BUFFER	,
+enum MeshBuffer
+{
+	VERTEX_BUFFER,
+	COLOUR_BUFFER,
+	TEXTURE_BUFFER,
+	NORMAL_BUFFER,
+	TANGENT_BUFFER,
+	INDEX_BUFFER,
 	MAX_BUFFER
 };
 
-class Mesh	{
+class Mesh
+{
 public:
 	friend class MD5Mesh;
 	Mesh(void);
@@ -43,70 +45,71 @@ public:
 	virtual void Draw();
 
 	//Generates a single triangle, with RGB colours
-	static Mesh*	GenerateTriangle();
+	static Mesh* GenerateTriangle();
 
-	static Mesh*	GenerateCone(float segments);
-	static Mesh*	TestTriangle(float texRotation);
-	static Mesh*	TestQuad(float texRotation);
+	static Mesh* GenerateCone(float segments);
+	static Mesh* TestTriangle(float texRotation);
+	static Mesh* TestQuad(float texRotation);
 
 	//Generates a single white quad, going from -1 to 1 on the x and z axis.
-	static Mesh*	GenerateQuad();
-	static Mesh*	GenerateQuadAlt();
+	static Mesh* GenerateQuad();
+	static Mesh* GenerateQuadAlt();
 
-	static Mesh*	GenerateMesh(int w, int h, float s);
+	static Mesh* GenerateMesh(int w, int h, float s);
 
-	static Mesh * GenerateMeshAlt(int w, int h, float s);
+	static Mesh* GenerateMeshAlt(int w, int h, float s);
 
 	void ClearBuffers();
 
 	//Sets the Mesh's diffuse map. Takes an OpenGL texture 'name'
-	void	SetTexture(GLuint tex)	{texture = tex;}
+	void SetTexture(GLuint tex) { texture = tex; }
 	//Gets the Mesh's diffuse map. Returns an OpenGL texture 'name'
-	GLuint  GetTexture()			{return texture;}
+	GLuint GetTexture() { return texture; }
 
 	//Sets the Mesh's bump map. Takes an OpenGL texture 'name'
-	void	SetBumpMap(GLuint tex)	{bumpTexture = tex;}
+	void SetBumpMap(GLuint tex) { bumpTexture = tex; }
 	//Gets the Mesh's bump map. Returns an OpenGL texture 'name'
-	GLuint  GetBumpMap()			{return bumpTexture;}
+	GLuint GetBumpMap() { return bumpTexture; }
 
 	//Extra stuff!!!! Aren't I nice?
-	void	DrawDebugNormals(float length = 5.0f);
-	void	DrawDebugTangents(float length = 5.0f);
+	void DrawDebugNormals(float length = 5.0f);
+	void DrawDebugTangents(float length = 5.0f);
 
 
 	//Buffers all VBO data into graphics memory. Required before drawing!
-	void	BufferData();
+	void BufferData();
 
 
 	//Generates normals for all facets. Assumes geometry type is GL_TRIANGLES...
-	void	GenerateNormals();
+	void GenerateNormals();
 
 	//Generates tangents for all facets. Assumes geometry type is GL_TRIANGLES...
-	void	GenerateTangents();
+	void GenerateTangents();
 
 	void GenerateSquareTangents();
 
 	//Helper function for GenerateTangents
-	Vector3 GenerateTangent(const Vector3 &a,const Vector3 &b,const Vector3 &c,const Vector2 &ta,const Vector2 &tb,const Vector2 &tc);
+	Vector3 GenerateTangent(const Vector3& a, const Vector3& b, const Vector3& c, const Vector2& ta, const Vector2& tb,
+	                        const Vector2& tc);
 
 	//VAO for this mesh
-	GLuint	arrayObject;
+	GLuint arrayObject;
 	//VBOs for this mesh
-	GLuint	bufferObject[MAX_BUFFER];
+	GLuint bufferObject[MAX_BUFFER];
 	//Number of vertices for this mesh
-	GLuint	numVertices;
+	GLuint numVertices;
 	//Primitive type for this mesh (GL_TRIANGLES...etc)
-	GLuint	type;
+	GLuint type;
 	//OpenGL texture name for the diffuse map
-	GLuint	texture;
+	GLuint texture;
 
 	//Stuff introduced later on in the tutorials!!
 
 	//Number of indices for this mesh
-	GLuint			numIndices;
+	GLuint numIndices;
 
 	//OpenGL texture name for the bump map
-	GLuint			bumpTexture;
+	GLuint bumpTexture;
 
 	//You might wonder why we keep pointers to vertex data once
 	//it's sent off to graphics memory. For basic meshes, there's no
@@ -114,16 +117,15 @@ public:
 	//we need access to the vertex data for skinning per frame...
 
 	//Pointer to vertex position attribute data (badly named...?)
-	Vector3*		vertices;
+	Vector3* vertices;
 	//Pointer to vertex colour attribute data
-	Vector4*		colours;
+	Vector4* colours;
 	//Pointer to vertex texture coordinate attribute data
-	Vector2*		textureCoords;
+	Vector2* textureCoords;
 	//Pointer to vertex normals attribute data
-	Vector3*		normals;
+	Vector3* normals;
 	//Pointer to vertex tangents attribute data
-	Vector3*		tangents;
+	Vector3* tangents;
 	//Pointer to vertex indices attribute data
-	unsigned int*	indices;
+	unsigned int* indices;
 };
-

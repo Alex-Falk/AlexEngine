@@ -5,7 +5,8 @@
 #include "Mesh.h"
 #include "NCLDebug.h"
 
-Shader::Shader(string vFile, string fFile, string gFile) {
+Shader::Shader(string vFile, string fFile, string gFile)
+{
 	NCLDebug::Log("Loading Shader:");
 
 	program = glCreateProgram();
@@ -13,7 +14,8 @@ Shader::Shader(string vFile, string fFile, string gFile) {
 	objects[SHADER_FRAGMENT] = GenerateShader(fFile, GL_FRAGMENT_SHADER);
 	objects[SHADER_GEOMETRY] = 0;
 
-	if (!gFile.empty()) {
+	if (!gFile.empty())
+	{
 		objects[SHADER_GEOMETRY] = GenerateShader(gFile, GL_GEOMETRY_SHADER);
 		glAttachShader(program, objects[SHADER_GEOMETRY]);
 	}
@@ -24,38 +26,44 @@ Shader::Shader(string vFile, string fFile, string gFile) {
 	SetDefaultAttributes();
 }
 
-Shader::~Shader(void) {
-	for (int i = 0; i < 3; ++i) {
+Shader::~Shader(void)
+{
+	for (int i = 0; i < 3; ++i)
+	{
 		glDetachShader(program, objects[i]);
 		glDeleteShader(objects[i]);
 	}
 	glDeleteProgram(program);
 }
 
-bool	Shader::LoadShaderFile(string from, string &into) {
-	ifstream	file;
-	string		temp;
-	
+bool Shader::LoadShaderFile(string from, string& into)
+{
+	ifstream file;
+	string temp;
+
 	file.open(from.c_str());
-	if (!file.is_open()) {	
+	if (!file.is_open())
+	{
 		return false;
 	}
 
-	while (!file.eof()) {
+	while (!file.eof())
+	{
 		getline(file, temp);
 		into += temp + "\n";
 	}
 
-	file.close();	
+	file.close();
 	return true;
 }
 
-GLuint	Shader::GenerateShader(string from, GLenum type) {
-
+GLuint Shader::GenerateShader(string from, GLenum type)
+{
 	NCLDebug::Log("    -> Compiling Shader: %s", from.c_str());
 
 	string load;
-	if (!LoadShaderFile(from, load)) {
+	if (!LoadShaderFile(from, load))
+	{
 		NCLERROR("    ERROR: File does not exist!");
 		loadFailed = true;
 		return 0;
@@ -63,16 +71,17 @@ GLuint	Shader::GenerateShader(string from, GLenum type) {
 
 	GLuint shader = glCreateShader(type);
 
-	const char *chars = load.c_str();
-	glShaderSource(shader, 1, &chars, NULL);
+	const char* chars = load.c_str();
+	glShaderSource(shader, 1, &chars, nullptr);
 	glCompileShader(shader);
 
 	GLint status;
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 
-	if (status == GL_FALSE) {
+	if (status == GL_FALSE)
+	{
 		char error[512];
-		glGetInfoLogARB(shader, sizeof(error), NULL, error);
+		glGetInfoLogARB(shader, sizeof(error), nullptr, error);
 		cout << error;
 		loadFailed = true;
 		cout << endl;
@@ -84,8 +93,10 @@ GLuint	Shader::GenerateShader(string from, GLenum type) {
 	return shader;
 }
 
-bool Shader::LinkProgram() {
-	if (loadFailed) {
+bool Shader::LinkProgram()
+{
+	if (loadFailed)
+	{
 		return false;
 	}
 	glLinkProgram(program);
@@ -93,9 +104,10 @@ bool Shader::LinkProgram() {
 	GLint code;
 	glGetProgramiv(program, GL_LINK_STATUS, &code);
 
-	if (code == GL_FALSE) {		
+	if (code == GL_FALSE)
+	{
 		char error[512];
-		glGetInfoLogARB(program, sizeof(error), NULL, error);
+		glGetInfoLogARB(program, sizeof(error), nullptr, error);
 		cout << error;
 		loadFailed = true;
 
@@ -108,7 +120,8 @@ bool Shader::LinkProgram() {
 	return true;
 }
 
-void	Shader::SetDefaultAttributes() {
+void Shader::SetDefaultAttributes()
+{
 	glBindAttribLocation(program, VERTEX_BUFFER, "position");
 	glBindAttribLocation(program, COLOUR_BUFFER, "colour"); //ARGHHH
 	glBindAttribLocation(program, COLOUR_BUFFER, "color");

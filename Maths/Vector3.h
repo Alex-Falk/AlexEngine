@@ -6,9 +6,8 @@
 class Vector3
 {
 public:
-
 	Vector3();
-	Vector3(const float x, const float y, const float z);
+	Vector3(float x, float y, float z);
 	Vector3(const Vector3& other) = default;
 	~Vector3();
 
@@ -28,8 +27,8 @@ public:
 
 	Vector3 operator-(const Vector3& other) const;
 	Vector3 operator+(const Vector3& other) const;
-	Vector3 operator*(const float num) const;
-	Vector3 operator/(const float num) const;
+	Vector3 operator*(float num) const;
+	Vector3 operator/(float num) const;
 	Vector3& operator +=(const Vector3& other);
 	Vector3& operator -=(const Vector3& other);
 	Vector3 operator-() const;
@@ -46,9 +45,9 @@ public:
 	float y;
 	float z;
 
-	static Vector3 Up() { return { 0, 1, 0 }; }
-	static Vector3 Right() { return { 1, 0, 0 }; }
-	static Vector3 Forward() { return { 0, 0, 1 }; }
+	static Vector3 Up() { return {0, 1, 0}; }
+	static Vector3 Right() { return {1, 0, 0}; }
+	static Vector3 Forward() { return {0, 0, 1}; }
 
 
 	static Vector3 Clamp(const Vector3& vec, const Vector3& min, const Vector3& max)
@@ -59,7 +58,6 @@ public:
 			Maths::Clamp(vec.z, min.z, max.z)
 		};
 	}
-
 };
 
-Vector3 operator*(const float lhs, const Vector3& rhs);
+Vector3 operator*(float lhs, const Vector3& rhs);

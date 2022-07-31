@@ -29,7 +29,6 @@ namespace Physics
 		friend class TSingleton<PhysicsEngine>;
 
 	public:
-
 		void AddPhysicsObject(PhysicsNode* obj);
 		void RemovePhysicsObject(PhysicsNode* obj);
 
@@ -46,8 +45,8 @@ namespace Physics
 
 	protected:
 		PhysicsEngine();
-		~PhysicsEngine();
-		
+		~PhysicsEngine() override;
+
 		vector<CollisionPair> GetBroadphaseCollisionPairs() const;
 		void GetNarrowphaseCollisions(vector<CollisionPair>& collisionPairs);
 		void ResolveCollisions();
@@ -55,7 +54,6 @@ namespace Physics
 		static void ResolveCollision(Collision& collision);
 
 	private:
-
 		float m_dtOffset;
 		std::vector<PhysicsNode*> m_physicsObjects;
 		std::vector<Collision> m_collisions;
@@ -69,4 +67,3 @@ namespace Physics
 		const uint16_t m_numCollisionFrames = 5;
 	};
 }
-

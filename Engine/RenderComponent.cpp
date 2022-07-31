@@ -1,5 +1,5 @@
 #include "RenderComponent.h"
-#include <nclgl\GraphicsPipeline.h>
+#include <nclgl/GraphicsPipeline.h>
 #include "GameObject.h"
 
 void RenderComponent::OnInitialise()

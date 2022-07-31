@@ -19,42 +19,47 @@ _-_-_-_-_-_-_-|   /\_/\   NYANYANYAN
 -_-_-_-_-_-_-~|__( ^ .^) /
 _-_-_-_-_-_-_-""  ""   
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 #include "GraphicsPipeline.h"
-#include "..\nclgl\RenderNode.h"
-#include "..\nclgl\OBJMesh.h"
+#include "../nclgl/RenderNode.h"
+#include "../nclgl/OBJMesh.h"
 
-class CubeRobot : public RenderNode	{
+class CubeRobot : public RenderNode
+{
 public:
 	CubeRobot(void);
-	virtual ~CubeRobot(void){};
+
+	~CubeRobot(void) override
+	{
+	};
 
 	//Overloaded from RenderNode, makes the CubeRobot dance!
-	virtual void	Update(float msec);
+	void Update(float msec) override;
 
 	//CubeRobot relies on their being a cube Mesh - this creates that Mesh.
-	static void	CreateCube() {
-		OBJMesh*m = new OBJMesh();
+	static void CreateCube()
+	{
+		auto m = new OBJMesh();
 		m->LoadOBJMesh(Graphics::MeshDir + + + "cube.obj");
-		cube = m; 
+		cube = m;
 	}
 
 	//Deletes the CubeRobot cube Mesh.
-	static void DeleteCube(){
+	static void DeleteCube()
+	{
 		delete cube;
 	}
 
 protected:
 	static Mesh* cube;
 	//These are just handy pointers to the limbs, to make animating them easier
-	RenderNode*head;
+	RenderNode* head;
 
-	RenderNode*leftArm;
-	RenderNode*rightArm;
+	RenderNode* leftArm;
+	RenderNode* rightArm;
 
-	RenderNode*leftLeg;
-	RenderNode*rightLeg;
+	RenderNode* leftLeg;
+	RenderNode* rightLeg;
 };
-

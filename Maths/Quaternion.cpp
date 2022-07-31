@@ -26,14 +26,17 @@ Maths::Quaternion::~Quaternion(void)
 {
 }
 
-float Maths::Quaternion::Dot(const Quaternion &a, const Quaternion &b) {
+float Maths::Quaternion::Dot(const Quaternion& a, const Quaternion& b)
+{
 	return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
 }
 
-void Maths::Quaternion::Normalise() {
+void Maths::Quaternion::Normalise()
+{
 	float magnitude = sqrt(Dot(*this, *this));
 
-	if (magnitude > 0.0f) {
+	if (magnitude > 0.0f)
+	{
 		float t = 1.0f / magnitude;
 
 		x *= t;
@@ -52,7 +55,8 @@ void Maths::Quaternion::Normalise() {
 }
 
 
-Maths::Quaternion Maths::Quaternion::operator *(const Quaternion &b) const {
+Maths::Quaternion Maths::Quaternion::operator *(const Quaternion& b) const
+{
 	Quaternion ans;
 	ans.w = w * b.w - x * b.x - y * b.y - z * b.z;
 	ans.x = w * b.x + x * b.w + y * b.z - z * b.y;
@@ -62,14 +66,15 @@ Maths::Quaternion Maths::Quaternion::operator *(const Quaternion &b) const {
 	return ans;
 }
 
-Maths::Quaternion Maths::Quaternion::operator *(const Vector3 &b) const {
+Maths::Quaternion Maths::Quaternion::operator *(const Vector3& b) const
+{
 	Quaternion ans;
 
 	ans.w = -(x * b.x) - (y * b.y) - (z * b.z);
 
-	ans.x =  (w * b.x) + (y * b.z) - (z * b.y);
-	ans.y =  (w * b.y) + (z * b.x) - (x * b.z);
-	ans.z =  (w * b.z) + (x * b.y) - (y * b.x);
+	ans.x = (w * b.x) + (y * b.z) - (z * b.y);
+	ans.y = (w * b.y) + (z * b.x) - (x * b.z);
+	ans.z = (w * b.z) + (x * b.y) - (y * b.x);
 
 	return ans;
 }
@@ -81,26 +86,26 @@ Vector3 Maths::Quaternion::Transform(const Vector3& point)
 	return xyz * (2.0f * Vector3::Dot(xyz, point))
 		+ point * (w * w - Vector3::Dot(xyz, xyz))
 		+ Vector3::Cross(xyz, point) * (2.0f * w);
-	
 }
 
-Maths::Quaternion Maths::Quaternion::operator*(const float &a) const
+Maths::Quaternion Maths::Quaternion::operator*(const float& a) const
 {
 	return Quaternion(x * a, y * a, z * a, w * a);
 }
 
-Maths::Matrix4 Maths::Quaternion::ToMatrix4() const {
+Maths::Matrix4 Maths::Quaternion::ToMatrix4() const
+{
 	Matrix4 mat;
 
-	float yy = y*y;
-	float zz = z*z;
-	float xy = x*y;
-	float zw = z*w;
-	float xz = x*z;
-	float yw = y*w;
-	float xx = x*x;
-	float yz = y*z;
-	float xw = x*w;
+	float yy = y * y;
+	float zz = z * z;
+	float xy = x * y;
+	float zw = z * w;
+	float xz = x * z;
+	float yw = y * w;
+	float xx = x * x;
+	float yz = y * z;
+	float xw = x * w;
 
 	mat[0][0] = 1.0f - 2.0f * (yy + zz);
 	mat[0][1] = 2.0f * (xy + zw);
@@ -117,18 +122,19 @@ Maths::Matrix4 Maths::Quaternion::ToMatrix4() const {
 	return mat;
 }
 
-Maths::Matrix3 Maths::Quaternion::ToMatrix3() const {
+Maths::Matrix3 Maths::Quaternion::ToMatrix3() const
+{
 	Matrix3 mat;
 
-	float yy = y*y;
-	float zz = z*z;
-	float xy = x*y;
-	float zw = z*w;
-	float xz = x*z;
-	float yw = y*w;
-	float xx = x*x;
-	float yz = y*z;
-	float xw = x*w;
+	float yy = y * y;
+	float zz = z * z;
+	float xy = x * y;
+	float zw = z * w;
+	float xz = x * z;
+	float yw = y * w;
+	float xx = x * x;
+	float yz = y * z;
+	float xw = x * w;
 
 	mat._11 = 1.0f - 2.0f * (yy + zz);
 	mat._12 = 2.0f * (xy + zw);
@@ -145,7 +151,8 @@ Maths::Matrix3 Maths::Quaternion::ToMatrix3() const {
 	return mat;
 }
 
-Maths::Quaternion Maths::Quaternion::EulerAnglesToQuaternion(float pitch, float yaw, float roll) {
+Maths::Quaternion Maths::Quaternion::EulerAnglesToQuaternion(float pitch, float yaw, float roll)
+{
 	float y2 = DegToRad(yaw / 2.0f);
 	float p2 = DegToRad(pitch / 2.0f);
 	float r2 = DegToRad(roll / 2.0f);
@@ -168,21 +175,25 @@ Maths::Quaternion Maths::Quaternion::EulerAnglesToQuaternion(float pitch, float 
 	return q;
 };
 
-Maths::Quaternion Maths::Quaternion::AxisAngleToQuaterion(const Vector3& vector, float degrees) {
+Maths::Quaternion Maths::Quaternion::AxisAngleToQuaterion(const Vector3& vector, float degrees)
+{
 	const float halfTheta = DegToRad(degrees) * 0.5f;
 	const float sinTheta = sin(halfTheta);
 
-	Quaternion q = Quaternion(vector * sinTheta, cos(halfTheta));
+	auto q = Quaternion(vector * sinTheta, cos(halfTheta));
 	//q.Normalise();
 	return q;
 }
 
-void Maths::Quaternion::GenerateW() {
-	w = 1.0f - (x*x) - (y*y) - (z*z);
-	if (w < 0.0f) {
+void Maths::Quaternion::GenerateW()
+{
+	w = 1.0f - (x * x) - (y * y) - (z * z);
+	if (w < 0.0f)
+	{
 		w = 0.0f;
 	}
-	else {
+	else
+	{
 		w = -sqrt(w);
 	}
 }
@@ -192,7 +203,8 @@ Maths::Quaternion Maths::Quaternion::Conjugate() const
 	return Quaternion(-x, -y, -z, w);
 }
 
-Maths::Quaternion Maths::Quaternion::FromMatrix(const Matrix4 &m) {
+Maths::Quaternion Maths::Quaternion::FromMatrix(const Matrix4& m)
+{
 	Quaternion q;
 
 	q.w = sqrt(std::max(0.0f, (1.0f + m[0][0] + m[1][1] + m[2][2]))) / 2;
@@ -200,9 +212,9 @@ Maths::Quaternion Maths::Quaternion::FromMatrix(const Matrix4 &m) {
 	q.y = sqrt(std::max(0.0f, (1.0f - m[0][0] + m[1][1] - m[2][2]))) / 2;
 	q.z = sqrt(std::max(0.0f, (1.0f - m[0][0] - m[1][1] + m[2][2]))) / 2;
 
-	q.x = (float)_copysign(q.x, m[2][1] - m[1][2]);
-	q.y = (float)_copysign(q.y, m[0][2] - m[2][0]);
-	q.z = (float)_copysign(q.z, m[1][0] - m[0][1]);
+	q.x = static_cast<float>(_copysign(q.x, m[2][1] - m[1][2]));
+	q.y = static_cast<float>(_copysign(q.y, m[0][2] - m[2][0]));
+	q.z = static_cast<float>(_copysign(q.z, m[1][0] - m[0][1]));
 
 	return q;
 }
@@ -229,7 +241,7 @@ Maths::Quaternion Maths::Quaternion::Slerp(const Quaternion& start, const Quater
 	factor = std::min(std::max(factor, 0.0f), 1.0f);
 
 	// Calc cos theta (Dot product)
-	float cos_theta = Quaternion::Dot(start, end);
+	float cos_theta = Dot(start, end);
 
 	// Quaternions can describe any rotation positively or negatively (e.g -90degrees is the same as 270degrees), however to interpolate
 	// correctly we need /both/ quaternions to use the same coordinate system
@@ -248,31 +260,28 @@ Maths::Quaternion Maths::Quaternion::Slerp(const Quaternion& start, const Quater
 	{
 		return Lerp(start, end, factor);
 	}
-	else
-	{
-		// Calculate interpolation coefficients
-		float theta = acosf(cos_theta);			// extract theta from dot product's cos(theta)
-		float sin_theta = sinf(theta);		// compute inverse rotation length -> 1.0f / sin(theta)
+	// Calculate interpolation coefficients
+	float theta = acosf(cos_theta); // extract theta from dot product's cos(theta)
+	float sin_theta = sinf(theta); // compute inverse rotation length -> 1.0f / sin(theta)
 
 
-		float factor_a = sinf((1.0f - factor) * theta) / sin_theta;
-		float factor_b = sinf(factor * theta) / sin_theta;
+	float factor_a = sinf((1.0f - factor) * theta) / sin_theta;
+	float factor_b = sinf(factor * theta) / sin_theta;
 
 
-		// Interpolate the two quaternions
-		Quaternion out;
-		out.x = factor_a * start.x + factor_b * real_end.x;
-		out.y = factor_a * start.y + factor_b * real_end.y;
-		out.z = factor_a * start.z + factor_b * real_end.z;
-		out.w = factor_a * start.w + factor_b * real_end.w;
-		out.Normalise();
-		return out;
-	}
+	// Interpolate the two quaternions
+	Quaternion out;
+	out.x = factor_a * start.x + factor_b * real_end.x;
+	out.y = factor_a * start.y + factor_b * real_end.y;
+	out.z = factor_a * start.z + factor_b * real_end.z;
+	out.w = factor_a * start.w + factor_b * real_end.w;
+	out.Normalise();
+	return out;
 }
 
 Maths::Quaternion Maths::Quaternion::LookAt(const Vector3& from, const Vector3& to, const Vector3& up)
 {
-	const Vector3 resting_forward_vector = Vector3(0, 0, -1);
+	const auto resting_forward_vector = Vector3(0, 0, -1);
 
 	Vector3 forward = (from - to).Normalized();
 	//Create look at rotation
@@ -283,7 +292,7 @@ Maths::Quaternion Maths::Quaternion::LookAt(const Vector3& from, const Vector3& 
 	Vector3 right = Vector3::Cross(forward, up).Normalized();
 	Vector3 up_w = Vector3::Cross(right, forward).Normalized();
 
-	Maths::Quaternion fix_spin = GetRotation(up_l, up_w);
+	Quaternion fix_spin = GetRotation(up_l, up_w);
 
 	out = fix_spin * out;
 	out.Normalise();
@@ -302,12 +311,12 @@ Maths::Quaternion Maths::Quaternion::GetRotation(const Vector3& from_dir, const 
 		return Quaternion(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 	// - Directly opposite default rotation
-	else if (fabs(costheta + 1.0f) < 1e-6f)
+	if (fabs(costheta + 1.0f) < 1e-6f)
 	{
 		return Quaternion(up, Pi::F);
 	}
 
-	
+
 	//Otherwise build a new rotation
 	float theta = acosf(costheta);
 	Vector3 rotAxis = Vector3::Cross(from_dir, to_dir).Normalized();

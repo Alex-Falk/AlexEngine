@@ -1,4 +1,3 @@
-
 #include <PhysicsEngine/PhysicsEngine.h>
 #include <nclgl/GraphicsPipeline.h>
 
@@ -26,22 +25,22 @@ public:
 		while (Window::GetWindow().UpdateWindow() && !Window::GetKeyboard()->KeyDown(KEYBOARD_ESCAPE))
 		{
 			//Start Timing
-			float dt = Window::GetWindow().GetTimer()->GetTimedMS() * 0.001f;	//How many milliseconds since last update?
+			float dt = Window::GetWindow().GetTimer()->GetTimedMS() * 0.001f; //How many milliseconds since last update?
 			auto scene = SceneManager::Instance()->GetActiveScene();
 
-			if (scene) 
+			if (scene)
 				scene->UpdateScene(dt);
 
 			GraphicsPipeline::Instance()->UpdateScene(dt);
 			GraphicsPipeline::Instance()->RenderScene();
 		}
 	}
-	
+
 	void RenderThread()
 	{
-		GameTimer timer = GameTimer();
-		
-		while(_running)
+		auto timer = GameTimer();
+
+		while (_running)
 		{
 			Physics::PhysicsEngine::Instance()->UpdatePhysics(timer.GetTimedMS() * 0.001f);
 			//GraphicsPipeline::Instance()->UpdateScene(timer.GetTimedMS() * 0.001f);
@@ -65,7 +64,8 @@ public:
 		SceneManager::Instance()->AddScene(scene);
 	}
 
-	void Quit(bool error, const string& reason) {
+	void Quit(bool error, const string& reason)
+	{
 		//Release Singletons
 		SceneManager::Release();
 		GraphicsPipeline::Release();
@@ -73,7 +73,8 @@ public:
 		Window::Destroy();
 
 		//Show console reason before exit
-		if (error) {
+		if (error)
+		{
 			std::cout << reason << std::endl;
 			system("PAUSE");
 			exit(-1);
@@ -88,7 +89,8 @@ private:
 	bool _running{};
 };
 
-int main() {
-		auto game = new Game();
-		return 0;
+int main()
+{
+	auto game = new Game();
+	return 0;
 }

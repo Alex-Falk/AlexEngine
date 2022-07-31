@@ -8,8 +8,8 @@
 #include <Engine/Component.h>
 #include <Maths/Matrix4.h>
 
-class GameObject {
-
+class GameObject
+{
 public:
 	GameObject();
 	virtual ~GameObject();
@@ -20,10 +20,10 @@ public:
 
 	void AddComponent(Component* component);
 
-	template<class T>
+	template <class T>
 	T* GetComponentOfType();
 
-	void SetTransform(const Maths::Matrix4 transform);
+	void SetTransform(Maths::Matrix4 transform);
 	Maths::Matrix4 GetTransform() const;
 	void TranslatePosition(const Vector3& by);
 	void TranslateLocalPosition(const Vector3& by);
@@ -31,19 +31,13 @@ public:
 	void SetPosition(const Vector3& position);
 	void SetRotation(const Maths::Quaternion& rotation);
 
-	
 
 	void OnUpdate(float dt) const;
 protected:
-
-	
-
 private:
-
 	UUID m_id;
 
 	unordered_map<std::string, Component*> m_components;
 
 	Maths::Matrix4 m_transform;
 };
-

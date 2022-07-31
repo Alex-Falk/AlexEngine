@@ -11,13 +11,13 @@ way, such that the x,y,z of the maximum/minimum dimensions are always algined wi
 This is currently used to help assist with the shadow mapping, though could be extended to help assist
 with graphics frustum culling by using both AABB and bounding sphere's inside SceneNode/Object.
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 #include <Maths/Vector3.h>
 #include <Maths/Vector4.h>
-#include <nclgl\common.h>
-#include <nclgl\NCLDebug.h>
+#include <nclgl/common.h>
+#include <nclgl/NCLDebug.h>
 
 struct BoundingBox
 {
@@ -28,8 +28,9 @@ struct BoundingBox
 	//Initialize _min to max possible value and vice versa to force the first value incorporated to always be used for both min and max points.
 	BoundingBox()
 		: _min(FLT_MAX, FLT_MAX, FLT_MAX)
-		, _max(-FLT_MAX, -FLT_MAX, -FLT_MAX)
-	{}
+		  , _max(-FLT_MAX, -FLT_MAX, -FLT_MAX)
+	{
+	}
 
 	//Expand the boundingbox to fit a given point. 
 	//  If no points have been set yet, both _min and _max will equal the point provided.
@@ -47,6 +48,7 @@ struct BoundingBox
 	{
 		return _max - GetPosition();
 	}
+
 	Vector3 GetPosition() const
 	{
 		return (_max + _min) / 2.f;
@@ -69,7 +71,8 @@ struct BoundingBox
 		return bb;
 	}
 
-	void DebugDraw() const {
+	void DebugDraw() const
+	{
 		float x1 = _min.x;
 		float y1 = _min.y;
 		float z1 = _min.z;
@@ -107,12 +110,12 @@ struct BoundingBox
 		NCLDebug::DrawThickLine(v[5], v[7], 0.05f, Vector4(1, 0, 0, 0.2f));
 
 		NCLDebug::DrawThickLine(v[6], v[7], 0.05f, Vector4(1, 0, 0, 0.2f));
-
 	}
 
-	bool CollidingWithSphere(Vector3 p, float r) {
+	bool CollidingWithSphere(Vector3 p, float r)
+	{
 		Vector3 closestPt;
-		
+
 		if (p.x < _min.x) { closestPt.x = _min.x; }
 		else if (p.x > _max.x) { closestPt.x = _max.x; }
 		else { closestPt.x = p.x; }
@@ -127,18 +130,18 @@ struct BoundingBox
 
 		Vector3 diff = p - closestPt;
 		float dsq = diff.LengthSqr();
-		
-		return dsq < r*r;
+
+		return dsq < r * r;
 	}
 
-	bool CollidingWithBoundingBox(const BoundingBox& other) const 
+	bool CollidingWithBoundingBox(const BoundingBox& other) const
 	{
 		const Vector3 delta = GetPosition() - other.GetPosition();
 		const Vector3 totalSize = GetHalfSize() + other.GetHalfSize();
 
 		return abs(delta.x) < totalSize.x &&
-		       abs(delta.y) < totalSize.y &&
-		       abs(delta.z) < totalSize.z;
+			abs(delta.y) < totalSize.y &&
+			abs(delta.z) < totalSize.z;
 	}
 
 	static BoundingBox** SplitIntoEight(const BoundingBox& bb)
@@ -171,8 +174,8 @@ struct BoundingBox
 		const Vector3 min = bb._min;
 		const Vector3 max = bb._max;
 		const Vector3 mm = (min + max) * .5f;
-		
-		Vector3 dims[16]  
+
+		Vector3 dims[16]
 		{
 			min,
 			mm,

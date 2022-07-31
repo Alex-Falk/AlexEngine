@@ -16,13 +16,14 @@ UUID GameObject::GetId()
 
 void GameObject::OnInitialise()
 {
-	for (const auto& comp : m_components) {
+	for (const auto& comp : m_components)
+	{
 		comp.second->OnInitialise();
 	}
 }
 
 void GameObject::AddComponent(Component* component)
-{	
+{
 	if (component)
 	{
 		auto type = component->GetName();
@@ -30,7 +31,7 @@ void GameObject::AddComponent(Component* component)
 		{
 			return;
 		}
-		
+
 		component->m_owner = this;
 		m_components[type] = component;
 	}
@@ -76,16 +77,16 @@ void GameObject::OnUpdate(const float dt) const
 	}
 }
 
-template<class T>
-inline T* GameObject::GetComponentOfType()
+template <class T>
+T* GameObject::GetComponentOfType()
 {
-	if (!std::is_base_of<Component, T>::value)
+	if (!std::is_base_of_v<Component, T>)
 	{
 		return nullptr;
 	}
 
 	auto comp = m_components.find(typeid(T).name());
-	if ( comp != m_components.end())
+	if (comp != m_components.end())
 	{
 		return comp;
 	}

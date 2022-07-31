@@ -13,17 +13,17 @@ float Vector2::Length() const
 
 Vector2 Vector2::operator-(const Vector2& other) const
 {
-	return { x - other.x, y - other.y };
+	return {x - other.x, y - other.y};
 }
 
 Vector2 Vector2::operator+(const Vector2& other) const
 {
-	return { x + other.x, y + other.y };
+	return {x + other.x, y + other.y};
 }
 
 Vector2 Vector2::operator*(const float num) const
 {
-	return { x * num, y * num };
+	return {x * num, y * num};
 }
 
 Vector2& Vector2::operator+=(const Vector2& other)
@@ -42,7 +42,7 @@ Vector2& Vector2::operator-=(const Vector2& other)
 
 Vector2 Vector2::operator-() const
 {
-	return { -x, -y };
+	return {-x, -y};
 }
 
 Vector2 Vector2::Zero()

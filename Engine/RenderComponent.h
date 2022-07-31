@@ -4,7 +4,7 @@
 #include <nclgl/RenderNode.h>
 
 class RenderComponent :
-    public Component, public RenderNode
+	public Component, public RenderNode
 {
 public:
 	RenderComponent(Mesh* m = nullptr, const Vector4& colour = Vector4(1, 1, 1, 1))
@@ -12,8 +12,7 @@ public:
 	{
 	}
 
-    void OnInitialise() override;
+	void OnInitialise() override;
 
-    void OnUpdate(float dt) override;
+	void OnUpdate(float dt) override;
 };
-

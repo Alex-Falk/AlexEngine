@@ -3,7 +3,8 @@
 #include "CollisionShape.h"
 #include "PhysicsEngine.h"
 
-Physics::PhysicsNode::PhysicsNode(const Vector3& initialPos, const float inverseMass, const float boundingRadius, const bool applyGravity)
+Physics::PhysicsNode::PhysicsNode(const Vector3& initialPos, const float inverseMass, const float boundingRadius,
+                                  const bool applyGravity)
 	: m_position(initialPos), m_inverseMass(inverseMass), m_boundingRadius(boundingRadius),
 	  m_applyGravity(applyGravity), m_integrator(Integrator::RK4)
 {

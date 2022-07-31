@@ -13,7 +13,7 @@ Description:
 	should have been built better. Though for the sake of simplicity (and for the love of ridiculously long
 	parameter lists) it's here, and here to stay. =]
 
-*//////////////////////////////////////////////////////////////////////////////
+*/ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -38,37 +38,37 @@ namespace CommonUtils
 		const Vector3& pos,
 		float radius,
 		bool physics_enabled = false,
-		bool apply_gravity = true,			//requires physics_enabled = true
-		float inverse_mass = 0.0f,			//requires physics_enabled = true
-		bool collidable = true,				//requires physics_enabled = true
+		bool apply_gravity = true, //requires physics_enabled = true
+		float inverse_mass = 0.0f, //requires physics_enabled = true
+		bool collidable = true, //requires physics_enabled = true
 		bool dragable = true,
 		const Vector4& color = Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 
-		GameObject * BuildPlaneObject(
-			const std::string & name,
-			const Vector3 & pos,
-			const Vector3 & halfdims,
-			bool physics_enabled = false,
-			bool apply_gravity = true,			//requires physics_enabled = true
-			float inverse_mass = 0.0f,			//requires physics_enabled = true
-			bool collidable = true,				//requires physics_enabled = true
-			bool dragable = true,
-			const Vector4 & color = Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	GameObject* BuildPlaneObject(
+		const std::string& name,
+		const Vector3& pos,
+		const Vector3& halfdims,
+		bool physics_enabled = false,
+		bool apply_gravity = true, //requires physics_enabled = true
+		float inverse_mass = 0.0f, //requires physics_enabled = true
+		bool collidable = true, //requires physics_enabled = true
+		bool dragable = true,
+		const Vector4& color = Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	//Generates a default Cuboid object with the parameters specified
-		GameObject* BuildCuboidObject(
-			const std::string& name,
-			const Vector3& pos,
-			const Vector3& halfdims,
-			bool physics_enabled = false,
-			bool apply_gravity = true,			//requires physics_enabled = true
-			float inverse_mass = 0.0f,			//requires physics_enabled = true
-			bool collidable = true,				//requires physics_enabled = true
-			bool dragable = true,
-			//PhysNodeType objectType = DEFAULT_PHYSICS,
-			const Vector4& color = Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-		//MATERIALTYPE matType = MATERIALTYPE::Forward_Lighting);
+	GameObject* BuildCuboidObject(
+		const std::string& name,
+		const Vector3& pos,
+		const Vector3& halfdims,
+		bool physics_enabled = false,
+		bool apply_gravity = true, //requires physics_enabled = true
+		float inverse_mass = 0.0f, //requires physics_enabled = true
+		bool collidable = true, //requires physics_enabled = true
+		bool dragable = true,
+		//PhysNodeType objectType = DEFAULT_PHYSICS,
+		const Vector4& color = Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	//MATERIALTYPE matType = MATERIALTYPE::Forward_Lighting);
 
 	GameObject* InvisibleWall(
 		const std::string& name,

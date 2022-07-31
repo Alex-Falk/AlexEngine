@@ -11,7 +11,6 @@ last frame (default value is for simplicities sake...)
 */
 void Camera::HandleMouse(float dt)
 {
-
 	//Update the mouse by how much
 	if (Window::GetMouse()->ButtonDown(MOUSE_LEFT))
 	{
@@ -28,31 +27,37 @@ void Camera::HandleMouse(float dt)
 	pitch = min(pitch, 90.0f);
 	pitch = max(pitch, -90.0f);
 
-	if (yaw < 0.0f) {
+	if (yaw < 0.0f)
+	{
 		yaw += 360.0f;
 	}
-	if (yaw > 360.0f) {
+	if (yaw > 360.0f)
+	{
 		yaw -= 360.0f;
 	}
 }
 
 void Camera::HandleKeyboard(float dt)
 {
-	float speed = 3.5f * dt;	//3.5m per second
+	float speed = 3.5f * dt; //3.5m per second
 
 
-								//Bounds check the pitch, to be between straight up and straight down ;)
-	if (yaw <0) {
+	//Bounds check the pitch, to be between straight up and straight down ;)
+	if (yaw < 0)
+	{
 		yaw += 360.0f;
 	}
-	if (yaw > 360.0f) {
+	if (yaw > 360.0f)
+	{
 		yaw -= 360.0f;
 	}
 
-	if (Window::GetKeyboard()->KeyDown(KEYBOARD_SHIFT)) {
+	if (Window::GetKeyboard()->KeyDown(KEYBOARD_SHIFT))
+	{
 		position.y += speed;
 	}
-	if (Window::GetKeyboard()->KeyDown(KEYBOARD_SPACE)) {
+	if (Window::GetKeyboard()->KeyDown(KEYBOARD_SPACE))
+	{
 		position.y -= speed;
 	}
 }
@@ -61,14 +66,17 @@ void Camera::HandleKeyboard(float dt)
 Generates a view matrix for the camera's viewpoint. This matrix can be sent
 straight to the shader...it's already an 'inverse camera' matrix.
 */
-Maths::Matrix4 Camera::BuildViewMatrix() {
+Maths::Matrix4 Camera::BuildViewMatrix()
+{
 	//Why do a complicated matrix inversion, when we can just generate the matrix
 	//using the negative values ;). The matrix multiplication order is important!
-	return	Maths::Matrix4::CreateRotationMatrix(-pitch, Vector3(1, 0, 0)) *
+	return Maths::Matrix4::CreateRotationMatrix(-pitch, Vector3(1, 0, 0)) *
 		Maths::Matrix4::CreateRotationMatrix(-yaw, Vector3(0, 1, 0)) *
 		Maths::Matrix4::CreateTranslationMatrix(-position);
 };
 
-Vector3 Camera::GetViewDirection() {
-	return Maths::Matrix3::Rotation(pitch, Vector3(1, 0, 0)) * Maths::Matrix3::Rotation(yaw, Vector3(0, 1, 0)) * Vector3(0, 0, -1);
+Vector3 Camera::GetViewDirection()
+{
+	return Maths::Matrix3::Rotation(pitch, Vector3(1, 0, 0)) * Maths::Matrix3::Rotation(yaw, Vector3(0, 1, 0)) *
+		Vector3(0, 0, -1);
 }

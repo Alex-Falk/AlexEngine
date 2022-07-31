@@ -27,10 +27,9 @@ public:
 	std::string GetName();
 
 	void UpdateScene(float dt) const;
-	
-		
-protected:
 
+
+protected:
 	void RemoveALlGameObjects();
 
 	std::string m_name;

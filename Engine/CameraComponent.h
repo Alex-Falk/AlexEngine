@@ -8,20 +8,20 @@
 class CameraComponent : public Component
 {
 public:
- CameraComponent();
- 
- void OnInitialise() override;
- void OnUpdate(float dt) override;
- inline static std::string GetName() { return "CameraComponent"; }
+	CameraComponent();
+
+	void OnInitialise() override;
+	void OnUpdate(float dt) override;
+	static std::string GetName() { return "CameraComponent"; }
 
 private:
- void RegisterInput() const;
- void HandleInput(float dt) const;
+	void RegisterInput() const;
+	void HandleInput(float dt) const;
 
- std::string m_forwardBinding = GetName() + "_Forward" ;
- std::string m_backBinding = GetName() + "_Back" ;
- std::string m_leftBinding = GetName() + "_Left" ;
- std::string m_rightBinding = GetName() + "_Right" ;
+	std::string m_forwardBinding = GetName() + "_Forward";
+	std::string m_backBinding = GetName() + "_Back";
+	std::string m_leftBinding = GetName() + "_Left";
+	std::string m_rightBinding = GetName() + "_Right";
 
- float m_speed;
+	float m_speed;
 };

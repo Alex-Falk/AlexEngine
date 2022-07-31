@@ -1,6 +1,6 @@
 #include "CommonUtils.h"
 #include "CommonMeshes.h"
-#include <nclgl\RenderNode.h>
+#include <nclgl/RenderNode.h>
 #include <functional>
 
 #include <Engine/RenderComponent.h>
@@ -60,9 +60,9 @@ GameObject* CommonUtils::BuildSphereObject(
 {
 	//Due to the way SceneNode/RenderNode's were setup, we have to make a dummy node which has the mesh and scaling transform
 	// and a parent node that will contain the world transform/physics transform
-	RenderComponent* rnode = new RenderComponent();
+	auto rnode = new RenderComponent();
 
-	RenderNode* dummy = new RenderNode(CommonMeshes::Sphere(), color);
+	auto dummy = new RenderNode(CommonMeshes::Sphere(), color);
 	dummy->SetTransform(Maths::Matrix4::CreateScaleMatrix(Vector3(radius, radius, radius)));
 
 	//dummy->SetMaterial(GraphicsPipeline::Instance()->GetAllMaterials()[matType]);
@@ -72,10 +72,9 @@ GameObject* CommonUtils::BuildSphereObject(
 	rnode->SetTransform(Maths::Matrix4::CreateTranslationMatrix(pos));
 	rnode->SetBoundingRadius(radius);
 
-	PhysicsComponent* pnode = NULL;	
+	PhysicsComponent* pnode = nullptr;
 	if (physics_enabled)
 	{
-		
 		pnode = new PhysicsComponent(pos, inverse_mass, radius, apply_gravity);
 		//pnode->SetType(objectType);
 
@@ -94,7 +93,7 @@ GameObject* CommonUtils::BuildSphereObject(
 		}
 	}
 
-	GameObject* obj = new GameObject();
+	auto obj = new GameObject();
 	obj->AddComponent(rnode);
 	obj->AddComponent(pnode);
 	obj->SetPosition(pos);
@@ -120,29 +119,29 @@ GameObject* CommonUtils::BuildCuboidObject(
 	bool dragable,
 	//PhysNodeType objectType,
 	const Vector4& color)
-	//MATERIALTYPE matType)
+//MATERIALTYPE matType)
 {
 	//Due to the way SceneNode/RenderNode's were setup, we have to make a dummy node which has the mesh and scaling transform
 	// and a parent node that will contain the world transform/physics transform
-	RenderComponent* rnode = new RenderComponent();
+	auto rnode = new RenderComponent();
 
-	Mesh * mesh = new Mesh();
+	auto mesh = new Mesh();
 	*mesh = *CommonMeshes::Cube();
 	//if (tex) { mesh->SetTexture(tex); }
 
-	RenderNode* dummy = new RenderNode(mesh, color);
-	
+	auto dummy = new RenderNode(mesh, color);
+
 	dummy->SetTransform(Maths::Matrix4::CreateScaleMatrix(halfdims));
 
 	//dummy->SetMaterial(GraphicsPipeline::Instance()->GetAllMaterials()[matType]);
 	dummy->SetBoundingRadius(halfdims.Length());
 
 	rnode->AddChild(dummy);
-	
+
 	rnode->SetTransform(Maths::Matrix4::CreateTranslationMatrix(pos));
 	rnode->SetBoundingRadius(halfdims.Length());
 
-	PhysicsComponent* pnode = NULL;
+	PhysicsComponent* pnode = nullptr;
 	if (physics_enabled)
 	{
 		float x = halfdims.x * 2.0f;
@@ -170,7 +169,7 @@ GameObject* CommonUtils::BuildCuboidObject(
 		}
 	}
 
-	GameObject* obj = new GameObject();
+	auto obj = new GameObject();
 	obj->AddComponent(rnode);
 	obj->AddComponent(pnode);
 	obj->SetPosition(pos);
@@ -181,7 +180,7 @@ GameObject* CommonUtils::BuildCuboidObject(
 			dummy
 		);
 	}
-	
+
 	return obj;
 }
 
@@ -198,9 +197,9 @@ GameObject* CommonUtils::BuildPlaneObject(
 {
 	//Due to the way SceneNode/RenderNode's were setup, we have to make a dummy node which has the mesh and scaling transform
 	// and a parent node that will contain the world transform/physics transform
-	RenderComponent* rnode = new RenderComponent();
+	auto rnode = new RenderComponent();
 
-	RenderNode* dummy = new RenderNode(Mesh::GenerateQuad(), color);
+	auto dummy = new RenderNode(Mesh::GenerateQuad(), color);
 	dummy->SetTransform(Maths::Matrix4::CreateScaleMatrix(halfdims));
 
 	//dummy->SetMaterial(GraphicsPipeline::Instance()->GetAllMaterials()[matType]);
@@ -211,14 +210,14 @@ GameObject* CommonUtils::BuildPlaneObject(
 	rnode->SetTransform(Maths::Matrix4::CreateTranslationMatrix(pos));
 	rnode->SetBoundingRadius(halfdims.Length());
 
-	PhysicsComponent* pnode = NULL;
+	PhysicsComponent* pnode = nullptr;
 	if (physics_enabled)
 	{
 		pnode = new PhysicsComponent(pos, inverse_mass, 0.f, apply_gravity);
 
-		float x = halfdims.x*2.0f;
-		float y = halfdims.y*2.0f;
-		float z = halfdims.z*2.0f;
+		float x = halfdims.x * 2.0f;
+		float y = halfdims.y * 2.0f;
+		float z = halfdims.z * 2.0f;
 		float a;
 		if (x >= y && x >= z) { a = x; }
 		else if (y > x && y >= z) { a = y; }
@@ -240,7 +239,7 @@ GameObject* CommonUtils::BuildPlaneObject(
 		}
 	}
 
-	GameObject* obj = new GameObject();
+	auto obj = new GameObject();
 	obj->AddComponent(rnode);
 	obj->AddComponent(pnode);
 
@@ -259,13 +258,13 @@ GameObject* CommonUtils::InvisibleWall(
 	const Vector3& pos,
 	const Vector3& halfdims)
 {
-	PhysicsComponent* pnode = NULL;
+	PhysicsComponent* pnode = nullptr;
 
 	pnode = new PhysicsComponent(pos, 0, 0.f, false);
 
-	float x = halfdims.x*2.0f;
-	float y = halfdims.y*2.0f;
-	float z = halfdims.z*2.0f;
+	float x = halfdims.x * 2.0f;
+	float y = halfdims.y * 2.0f;
+	float z = halfdims.z * 2.0f;
 	float a;
 	if (x >= y && x >= z) { a = x; }
 	else if (y > x && y >= z) { a = y; }
@@ -278,8 +277,8 @@ GameObject* CommonUtils::InvisibleWall(
 	//pnode->SetCollisionShape(pColshape);
 	//pnode->SetInverseInertia(pColshape->BuildInverseInertia(0));
 
-	RenderComponent* rnode = new RenderComponent();
-	GameObject* obj = new GameObject();
+	auto rnode = new RenderComponent();
+	auto obj = new GameObject();
 	obj->AddComponent(rnode);
 	obj->AddComponent(pnode);
 
@@ -288,10 +287,9 @@ GameObject* CommonUtils::InvisibleWall(
 
 GameObject* CommonUtils::BuildCameraObject(const std::string& name, const Vector3& pos)
 {
-	GameObject* go = new GameObject();
+	auto go = new GameObject();
 	go->SetPosition(pos);
 	go->AddComponent(new CameraComponent());
 
 	return go;
 }
-
