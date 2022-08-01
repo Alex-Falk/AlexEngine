@@ -157,11 +157,11 @@ void NCLDebug::DrawHairLineNDT(const Vector3& start, const Vector3& end, const V
 void NCLDebug::DrawMatrix(const Maths::Matrix4& mtx)
 {
 	Vector3 position = mtx.GetPositionVector();
-	GenDrawHairLine(false, position, position + Vector3(mtx[0][0], mtx[0][1], mtx[0][2]),
+	GenDrawHairLine(false, position, position + Vector3(mtx[0], mtx[1], mtx[2]),
 	                Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-	GenDrawHairLine(false, position, position + Vector3(mtx[1][0], mtx[1][1], mtx[1][2]),
+	GenDrawHairLine(false, position, position + Vector3(mtx[4], mtx[5], mtx[6]),
 	                Vector4(0.0f, 1.0f, 0.0f, 1.0f));
-	GenDrawHairLine(false, position, position + Vector3(mtx[2][0], mtx[2][1], mtx[2][2]),
+	GenDrawHairLine(false, position, position + Vector3(mtx[8], mtx[9], mtx[10]),
 	                Vector4(0.0f, 0.0f, 1.0f, 1.0f));
 }
 
@@ -175,11 +175,11 @@ void NCLDebug::DrawMatrix(const Maths::Matrix3& mtx, const Vector3& position)
 void NCLDebug::DrawMatrixNDT(const Maths::Matrix4& mtx)
 {
 	Vector3 position = mtx.GetPositionVector();
-	GenDrawHairLine(true, position, position + Vector3(mtx[0][0], mtx[0][1], mtx[0][2]),
+	GenDrawHairLine(true, position, position + Vector3(mtx[0], mtx[1], mtx[2]),
 	                Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-	GenDrawHairLine(true, position, position + Vector3(mtx[1][0], mtx[1][1], mtx[1][2]),
+	GenDrawHairLine(true, position, position + Vector3(mtx[4], mtx[5], mtx[6]),
 	                Vector4(0.0f, 1.0f, 0.0f, 1.0f));
-	GenDrawHairLine(true, position, position + Vector3(mtx[2][0], mtx[2][1], mtx[2][2]),
+	GenDrawHairLine(true, position, position + Vector3(mtx[8], mtx[9], mtx[10]),
 	                Vector4(0.0f, 0.0f, 1.0f, 1.0f));
 }
 
@@ -932,9 +932,9 @@ void NCLDebug::_RenderDrawlist(uint16_t* offsets)
 	{
 		glUseProgram(g_pShaderPoints->GetProgram());
 		glUniformMatrix4fv(glGetUniformLocation(g_pShaderPoints->GetProgram(), "uProjMtx"), 1, GL_FALSE,
-		                   &g_ProjMtx[0][0]);
+		                   &g_ProjMtx[0]);
 		glUniformMatrix4fv(glGetUniformLocation(g_pShaderPoints->GetProgram(), "uViewMtx"), 1, GL_FALSE,
-		                   &g_ViewMtx[0][0]);
+		                   &g_ViewMtx[0]);
 
 		glDrawArrays(GL_POINTS, offsets[0] >> 1, n_points);
 	}
@@ -943,7 +943,7 @@ void NCLDebug::_RenderDrawlist(uint16_t* offsets)
 	{
 		glUseProgram(g_pShaderLines->GetProgram());
 		glUniformMatrix4fv(glGetUniformLocation(g_pShaderLines->GetProgram(), "uProjViewMtx"), 1, GL_FALSE,
-		                   &g_ProjViewMtx[0][0]);
+		                   &g_ProjViewMtx[0]);
 		glUniform1f(glGetUniformLocation(g_pShaderLines->GetProgram(), "uAspect"), aspectRatio);
 
 		glDrawArrays(GL_LINES, offsets[1] >> 1, n_tlines);
@@ -953,7 +953,7 @@ void NCLDebug::_RenderDrawlist(uint16_t* offsets)
 	{
 		glUseProgram(g_pShaderHairLines->GetProgram());
 		glUniformMatrix4fv(glGetUniformLocation(g_pShaderHairLines->GetProgram(), "uProjViewMtx"), 1, GL_FALSE,
-		                   &g_ProjViewMtx[0][0]);
+		                   &g_ProjViewMtx[0]);
 
 		if (n_hlines) glDrawArrays(GL_LINES, offsets[2] >> 1, n_hlines);
 		if (n_tris) glDrawArrays(GL_TRIANGLES, offsets[3] >> 1, n_tris);

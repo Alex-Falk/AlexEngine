@@ -14,20 +14,20 @@ bool Frustum::InsideFrustum(RenderNode& n)
 
 void Frustum::FromMatrix(const Maths::Matrix4& mat)
 {
-	auto xaxis = Vector3(mat[0][0], mat[1][0], mat[2][0]);
-	auto yaxis = Vector3(mat[0][1], mat[1][1], mat[2][1]);
-	auto zaxis = Vector3(mat[0][2], mat[1][2], mat[2][2]);
-	auto waxis = Vector3(mat[0][3], mat[1][3], mat[2][3]);
+	auto xaxis = Vector3(mat[0], mat[4], mat[8]);
+	auto yaxis = Vector3(mat[1], mat[5], mat[9]);
+	auto zaxis = Vector3(mat[2], mat[6], mat[10]);
+	auto waxis = Vector3(mat[3], mat[7], mat[11]);
 	// RIGHT
-	planes[0] = Plane(waxis - xaxis, (mat[3][3] - mat[3][0]), true);
+	planes[0] = Plane(waxis - xaxis, (mat[15] - mat[12]), true);
 	// LEFT
-	planes[1] = Plane(waxis + xaxis, (mat[3][3] + mat[3][0]), true);
+	planes[1] = Plane(waxis + xaxis, (mat[15] + mat[12]), true);
 	// BOTTOM
-	planes[2] = Plane(waxis + yaxis, (mat[3][3] + mat[3][1]), true);
+	planes[2] = Plane(waxis + yaxis, (mat[15] + mat[13]), true);
 	// TOP
-	planes[3] = Plane(waxis - yaxis, (mat[3][3] - mat[3][1]), true);
+	planes[3] = Plane(waxis - yaxis, (mat[15] - mat[13]), true);
 	// FAR
-	planes[4] = Plane(waxis - zaxis, (mat[3][3] - mat[3][2]), true);
+	planes[4] = Plane(waxis - zaxis, (mat[15] - mat[14]), true);
 	// NEAR
-	planes[5] = Plane(waxis + zaxis, (mat[3][3] + mat[3][2]), true);
+	planes[5] = Plane(waxis + zaxis, (mat[15] + mat[14]), true);
 }

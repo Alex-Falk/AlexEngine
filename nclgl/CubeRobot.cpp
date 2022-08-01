@@ -49,7 +49,7 @@ CubeRobot::CubeRobot(void)
 	body->AddChild(rightLeg);
 
 	//Giant CubeRobot!
-	//transform = Matrix4::Scale(Vector3(10,10,10));
+	//transform = Matrix4::CreateScaleMatrix(Vector3(10,10,10));
 
 	//The Scene Management Tutorial introduces these, as cheap culling tests
 	body->SetBoundingRadius(15.0f);

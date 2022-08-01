@@ -48,11 +48,11 @@ using std::vector;
 
 //#define OPENGL_DEBUGGING
 
-static constexpr float biasValues[4][4] = {
-	{0.5, 0.0, 0.0, 0.0},
-	{0.0, 0.5, 0.0, 0.0},
-	{0.0, 0.0, 0.5, 0.0},
-	{0.5, 0.5, 0.5, 1.0}
+static float biasValues[16] = {
+	0.5, 0.0, 0.0, 0.0,
+	0.0, 0.5, 0.0, 0.0,
+	0.0, 0.0, 0.5, 0.0,
+	0.5, 0.5, 0.5, 1.0
 };
 static const Maths::Matrix4 biasMatrix(biasValues);
 

@@ -19,7 +19,7 @@ void Camera::HandleMouse(float dt)
 	}
 
 	//float wheel_speed = Window::GetMouse()->GetWheelMovement() * 0.5f;
-	//Matrix4 rotation = Matrix4::Rotation(yaw, Vector3(0, 1, 0)) * Matrix4::Rotation(pitch, Vector3(1, 0, 0));
+	//Matrix4 rotation = Matrix4::CreateRotationMatrix(yaw, Vector3(0, 1, 0)) * Matrix4::CreateRotationMatrix(pitch, Vector3(1, 0, 0));
 	//position += rotation * Vector3(0, 0, -1) * wheel_speed;
 
 

@@ -442,14 +442,14 @@ void GraphicsPipeline::BuildShadowTransforms()
 	//  Matrix4 lightview = Matrix4::BuildViewMatrix(Vector3(0.0f, 0.0f, 0.0f), -lightDirection, viewDir);	
 
 	//Fixed size shadow area (just moves with camera) 
-	shadowViewMtx = Maths::Matrix4::CreateViewMatrix(Vector3(0.0f, 0.0f, 0.0f), -lightDirection, Vector3(0, 1, 0));
+	shadowViewMtx = Maths::Matrix4::BuildViewMatrix(Vector3(0.0f, 0.0f, 0.0f), -lightDirection, Vector3(0, 1, 0));
 
 	Maths::Matrix4 invCamProjView = Maths::Matrix4::GetInverseOf(projMatrix * viewMatrix);
 
 	auto compute_depth = [&](float x)
 	{
 		float proj_start = -(proj_range * x + PROJ_NEAR);
-		return (proj_start * projMatrix[2][2] + projMatrix[3][2]) / (proj_start * projMatrix[2][3]);
+		return (proj_start * projMatrix[10] + projMatrix[14]) / (proj_start * projMatrix[11]);
 	};
 
 	const float divisor = (SHADOWMAP_NUM * SHADOWMAP_NUM) - 1.f;

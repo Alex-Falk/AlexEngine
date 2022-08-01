@@ -107,17 +107,17 @@ Maths::Matrix4 Maths::Quaternion::ToMatrix4() const
 	float yz = y * z;
 	float xw = x * w;
 
-	mat[0][0] = 1.0f - 2.0f * (yy + zz);
-	mat[0][1] = 2.0f * (xy + zw);
-	mat[0][2] = 2.0f * (xz - yw);
+	mat[0] = 1.0f - 2.0f * (yy + zz);
+	mat[1] = 2.0f * (xy + zw);
+	mat[2] = 2.0f * (xz - yw);
 
-	mat[1][0] = 2.0f * (xy - zw);
-	mat[1][1] = 1.0f - 2.0f * (xx + zz);
-	mat[1][2] = 2.0f * (yz + xw);
+	mat[4] = 2.0f * (xy - zw);
+	mat[5] = 1.0f - 2.0f * (xx + zz);
+	mat[6] = 2.0f * (yz + xw);
 
-	mat[2][0] = 2.0f * (xz + yw);
-	mat[2][1] = 2.0f * (yz - xw);
-	mat[2][2] = 1.0f - 2.0f * (xx + yy);
+	mat[8] = 2.0f * (xz + yw);
+	mat[9] = 2.0f * (yz - xw);
+	mat[10] = 1.0f - 2.0f * (xx + yy);
 
 	return mat;
 }
@@ -207,14 +207,14 @@ Maths::Quaternion Maths::Quaternion::FromMatrix(const Matrix4& m)
 {
 	Quaternion q;
 
-	q.w = sqrt(std::max(0.0f, (1.0f + m[0][0] + m[1][1] + m[2][2]))) / 2;
-	q.x = sqrt(std::max(0.0f, (1.0f + m[0][0] - m[1][1] - m[2][2]))) / 2;
-	q.y = sqrt(std::max(0.0f, (1.0f - m[0][0] + m[1][1] - m[2][2]))) / 2;
-	q.z = sqrt(std::max(0.0f, (1.0f - m[0][0] - m[1][1] + m[2][2]))) / 2;
+	q.w = sqrt(std::max(0.0f, (1.0f + m[0] + m[5] + m[10]))) / 2;
+	q.x = sqrt(std::max(0.0f, (1.0f + m[0] - m[5] - m[10]))) / 2;
+	q.y = sqrt(std::max(0.0f, (1.0f - m[0] + m[5] - m[10]))) / 2;
+	q.z = sqrt(std::max(0.0f, (1.0f - m[0] - m[5] + m[10]))) / 2;
 
-	q.x = static_cast<float>(_copysign(q.x, m[2][1] - m[1][2]));
-	q.y = static_cast<float>(_copysign(q.y, m[0][2] - m[2][0]));
-	q.z = static_cast<float>(_copysign(q.z, m[1][0] - m[0][1]));
+	q.x = static_cast<float>(_copysign(q.x, m[9] - m[6]));
+	q.y = static_cast<float>(_copysign(q.y, m[2] - m[8]));
+	q.z = static_cast<float>(_copysign(q.z, m[4] - m[1]));
 
 	return q;
 }
