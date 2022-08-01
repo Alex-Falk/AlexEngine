@@ -18,7 +18,7 @@ public:
 
 	virtual void OnInitialise();
 
-	void AddComponent(Component* component);
+	void AddComponent(std::unique_ptr<Component> component);
 
 	template <class T>
 	T* GetComponentOfType();
@@ -34,10 +34,12 @@ public:
 
 	void OnUpdate(float dt) const;
 protected:
+	Maths::Matrix4 m_transform;
+
 private:
 	UUID m_id;
 
-	unordered_map<std::string, Component*> m_components;
+	unordered_map<std::string, std::unique_ptr<Component>> m_components;
 
-	Maths::Matrix4 m_transform;
+
 };

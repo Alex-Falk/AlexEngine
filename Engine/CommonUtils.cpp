@@ -94,8 +94,8 @@ GameObject* CommonUtils::BuildSphereObject(
 	}
 
 	auto obj = new GameObject();
-	obj->AddComponent(rnode);
-	obj->AddComponent(pnode);
+	obj->AddComponent(std::unique_ptr<Component>(rnode));
+	obj->AddComponent(std::unique_ptr<Component>(pnode));
 	obj->SetPosition(pos);
 
 	if (dragable)
@@ -170,8 +170,8 @@ GameObject* CommonUtils::BuildCuboidObject(
 	}
 
 	auto obj = new GameObject();
-	obj->AddComponent(rnode);
-	obj->AddComponent(pnode);
+	obj->AddComponent(std::unique_ptr<Component>(rnode));
+	obj->AddComponent(std::unique_ptr<Component>(pnode));
 	obj->SetPosition(pos);
 
 	if (dragable)
@@ -240,8 +240,8 @@ GameObject* CommonUtils::BuildPlaneObject(
 	}
 
 	auto obj = new GameObject();
-	obj->AddComponent(rnode);
-	obj->AddComponent(pnode);
+	obj->AddComponent(std::unique_ptr<Component>(rnode));
+	obj->AddComponent(std::unique_ptr<Component>(pnode));
 
 	if (dragable)
 	{
@@ -279,8 +279,8 @@ GameObject* CommonUtils::InvisibleWall(
 
 	auto rnode = new RenderComponent();
 	auto obj = new GameObject();
-	obj->AddComponent(rnode);
-	obj->AddComponent(pnode);
+	obj->AddComponent(std::unique_ptr<Component>(rnode));
+	obj->AddComponent(std::unique_ptr<Component>(pnode));
 
 	return obj;
 }
@@ -289,7 +289,7 @@ GameObject* CommonUtils::BuildCameraObject(const std::string& name, const Vector
 {
 	auto go = new GameObject();
 	go->SetPosition(pos);
-	go->AddComponent(new CameraComponent());
+	go->AddComponent(std::make_unique<CameraComponent>());
 
 	return go;
 }

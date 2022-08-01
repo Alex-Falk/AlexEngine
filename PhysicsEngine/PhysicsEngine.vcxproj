@@ -154,7 +154,6 @@
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PhysicsNode.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SphereObject.h" />
     <ClInclude Include="WorldPartitioning.h" />
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +165,6 @@
     <ClCompile Include="OcTree.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PhysicsNode.cpp" />
-    <ClCompile Include="SphereObject.cpp" />
     <ClCompile Include="WorldPartitioning.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "Engine/CameraComponent.h"
 #include "Engine/Scene.h"
 #include "Engine/CommonUtils.h"
+#include "Engine/SphereObject.h"
 
 class TestScene : public Scene
 {
@@ -26,15 +27,11 @@ public:
 
 		this->AddGameObject(ground);
 
-		GameObject* sphere = CommonUtils::BuildSphereObject(
-			"sphery",
+		auto sphere = new SphereObject(
 			Vector3(0.f, 20.f, 0.f),
 			2.f,
 			true,
-			true,
-			0.1f,
-			true,
-			false,
+			10.f,
 			Vector4(1.f, 0.f, 0.f, 1.f));
 
 		this->AddGameObject(sphere);

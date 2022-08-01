@@ -151,6 +151,7 @@
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SphereObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraComponent.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SphereObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,18 +22,18 @@ void GameObject::OnInitialise()
 	}
 }
 
-void GameObject::AddComponent(Component* component)
+void GameObject::AddComponent(std::unique_ptr<Component> component)
 {
 	if (component)
 	{
-		auto type = component->GetName();
+		const auto type = component->GetName();
 		if (m_components.find(type) != m_components.end())
 		{
 			return;
 		}
 
 		component->m_owner = this;
-		m_components[type] = component;
+		m_components[type] = std::move(component);
 	}
 }
 
