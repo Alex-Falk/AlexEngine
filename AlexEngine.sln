@@ -24,6 +24,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nclgl", "nclgl\nclgl.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Maths", "Maths\Maths.vcxproj", "{CB96BBC1-3425-4098-889C-96C1FE8BDE77}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsEngine", "GraphicsEngine\GraphicsEngine.vcxproj", "{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -72,6 +74,14 @@ Global
 		{CB96BBC1-3425-4098-889C-96C1FE8BDE77}.Release|x64.Build.0 = Release|x64
 		{CB96BBC1-3425-4098-889C-96C1FE8BDE77}.Release|x86.ActiveCfg = Release|Win32
 		{CB96BBC1-3425-4098-889C-96C1FE8BDE77}.Release|x86.Build.0 = Release|Win32
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Debug|x64.ActiveCfg = Debug|x64
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Debug|x64.Build.0 = Debug|x64
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Debug|x86.ActiveCfg = Debug|Win32
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Debug|x86.Build.0 = Debug|Win32
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Release|x64.ActiveCfg = Release|x64
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Release|x64.Build.0 = Release|x64
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Release|x86.ActiveCfg = Release|Win32
+		{3AF92E26-65A2-446A-BEEA-87F5E0C33C65}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
