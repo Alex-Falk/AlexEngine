@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 
-#include "Maths/Vector3.h"
+#include "Utils/Vector3.h"
 #include "nclgl/common.h"
-#include "Maths/Matrix4.h"
+#include "Utils/Matrix4.h"
 
 
 // This is created with help from my University course

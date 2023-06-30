@@ -14,8 +14,8 @@ with graphics frustum culling by using both AABB and bounding sphere's inside Sc
 */ /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include <Maths/Vector3.h>
-#include <Maths/Vector4.h>
+#include <Utils/Vector3.h>
+#include <Utils/Vector4.h>
 #include <nclgl/common.h>
 #include <nclgl/NCLDebug.h>
 

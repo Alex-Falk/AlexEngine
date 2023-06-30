@@ -5,8 +5,8 @@
 
 #include "nclgl/RenderNode.h"
 #include "PhysicsEngine/PhysicsNode.h"
-#include <Engine/Component.h>
-#include <Maths/Matrix4.h>
+#include <Engine/Components/Component.h>
+#include <Utils/Matrix4.h>
 
 class GameObject
 {

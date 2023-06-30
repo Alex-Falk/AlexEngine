@@ -12,7 +12,7 @@ HeightMap::HeightMap(std::string name, const uint16_t rawWidth, const uint16_t r
 	numVertices = rawWidth * rawHeight;
 	numIndices = (rawWidth - 1) * (rawHeight - 1) * 6;
 	vertices = new Vector3[numVertices];
-	textureCoords = new Vector2[numVertices];
+	textureCoords = new Vector2F[numVertices];
 	indices = new GLuint[numIndices];
 	auto data = new unsigned char[numVertices];
 	file.read((char*)data, numVertices * sizeof(unsigned char));
@@ -26,7 +26,7 @@ HeightMap::HeightMap(std::string name, const uint16_t rawWidth, const uint16_t r
 
 			vertices[offset] = Vector3(x * HeightMapX, data[offset] * HeightMapY, z * HeightMapZ);
 
-			textureCoords[offset] = Vector2(x * HeightMapTexX, z * HeightMapTexZ);
+			textureCoords[offset] = Vector2F(x * HeightMapTexX, z * HeightMapTexZ);
 		}
 	}
 	delete data;

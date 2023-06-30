@@ -1,8 +1,8 @@
 #include "SphereObject.h"
 
-#include "CommonMeshes.h"
-#include "PhysicsComponent.h"
-#include "RenderComponent.h"
+#include "Common/CommonMeshes.h"
+#include "Components/PhysicsComponent.h"
+#include "Components/RenderComponent.h"
 
 SphereObject::SphereObject(const Vector3& pos, float radius, bool dynamic, float mass, const Vector4& color) : GameObject()
 {

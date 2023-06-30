@@ -124,7 +124,7 @@ protected:
 	~ScreenPicker() override;
 
 protected:
-	void SamplePickerFBO(const Vector2& mouse_pos, ushort& out_idx, float& out_depth);
+	void SamplePickerFBO(const Vector2F& mouse_pos, ushort& out_idx, float& out_depth);
 
 protected:
 	//Array of all objects to be tested

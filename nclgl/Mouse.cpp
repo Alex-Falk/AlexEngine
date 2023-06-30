@@ -174,7 +174,7 @@ bool Mouse::ButtonHeld(MouseButtons b)
 /*
 Returns how much the mouse has moved by since the last frame.
 */
-Vector2 Mouse::GetRelativePosition()
+Vector2F Mouse::GetRelativePosition()
 {
 	return relativePosition;
 }
@@ -182,7 +182,7 @@ Vector2 Mouse::GetRelativePosition()
 /*
 Returns the mouse pointer position in absolute space.
 */
-Vector2 Mouse::GetAbsolutePosition()
+Vector2F Mouse::GetAbsolutePosition()
 {
 	return absolutePosition;
 }

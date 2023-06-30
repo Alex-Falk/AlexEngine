@@ -1,6 +1,6 @@
 #include "CameraComponent.h"
 
-#include "GameObject.h"
+#include "Engine/GameObject.h"
 #include "nclgl/GraphicsPipeline.h"
 #include "nclgl/Window.h"
 

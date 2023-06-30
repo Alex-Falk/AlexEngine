@@ -152,7 +152,7 @@ void ScreenPicker::UpdateAssets(int screen_width, int screen_height)
 #endif
 }
 
-void ScreenPicker::SamplePickerFBO(const Vector2& mousepos, ushort& out_idx, float& out_depth)
+void ScreenPicker::SamplePickerFBO(const Vector2F& mousepos, ushort& out_idx, float& out_depth)
 {
 #ifdef USE_NSIGHT_HACK
 #define READ_PICKER_IDX(void_ptr) glReadPixels((int)(mousepos.x * scalar), (int)(mousepos.y * scalar), 1, 1, GL_RED, GL_FLOAT, void_ptr)
@@ -202,7 +202,7 @@ bool ScreenPicker::HandleMouseClicks(float dt)
 {
 	if (m_AllRegisteredObjects.size() > 0 && m_TexWidth > 0 && m_TexHeight > 0)
 	{
-		Vector2 mousepos;
+		Vector2F mousepos;
 		bool mouseInWindow = Window::GetWindow().GetMouseScreenPos(&mousepos);
 		mousepos.y = Window::GetWindow().GetScreenSize().y - mousepos.y; //Flip Y as opengl uses bottom left as origin
 
@@ -374,7 +374,7 @@ void ScreenPicker::RenderPickingScene(
 
 
 	//Check to see if we even need an updated picking texture?
-	Vector2 mousepos;
+	Vector2F mousepos;
 	if (m_pCurrentlyHeldObject != nullptr || !Window::GetWindow().GetMouseScreenPos(&mousepos))
 	{
 		return;

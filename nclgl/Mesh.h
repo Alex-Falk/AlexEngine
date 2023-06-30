@@ -89,8 +89,8 @@ public:
 	void GenerateSquareTangents();
 
 	//Helper function for GenerateTangents
-	Vector3 GenerateTangent(const Vector3& a, const Vector3& b, const Vector3& c, const Vector2& ta, const Vector2& tb,
-	                        const Vector2& tc);
+	Vector3 GenerateTangent(const Vector3& a, const Vector3& b, const Vector3& c, const Vector2F& ta, const Vector2F& tb,
+	                        const Vector2F& tc);
 
 	//VAO for this mesh
 	GLuint arrayObject;
@@ -121,7 +121,7 @@ public:
 	//Pointer to vertex colour attribute data
 	Vector4* colours;
 	//Pointer to vertex texture coordinate attribute data
-	Vector2* textureCoords;
+	Vector2F* textureCoords;
 	//Pointer to vertex normals attribute data
 	Vector3* normals;
 	//Pointer to vertex tangents attribute data

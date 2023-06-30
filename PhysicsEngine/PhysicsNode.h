@@ -1,8 +1,8 @@
 #pragma once
 
 #include <functional>
-#include <Maths/Matrix4.h>
-#include <Maths/Quaternion.h>
+#include <Utils/Matrix4.h>
+#include <Utils/Quaternion.h>
 
 #include "CollisionShape.h"
 #include "common.h"

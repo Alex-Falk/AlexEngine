@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 
-#include "CommonMeshes.h"
+#include "Common/CommonMeshes.h"
 
 void SceneManager::AddScene(Scene* scene)
 {

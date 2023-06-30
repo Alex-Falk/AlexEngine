@@ -42,14 +42,14 @@ Mesh::Mesh(const Mesh& rhs)
 
 	//Later tutorial stuff
 	vertices = rhs.vertices ? new Vector3[numVertices] : nullptr;
-	textureCoords = rhs.textureCoords ? new Vector2[numVertices] : nullptr;
+	textureCoords = rhs.textureCoords ? new Vector2F[numVertices] : nullptr;
 	normals = rhs.normals ? new Vector3[numVertices] : nullptr;
 	tangents = rhs.tangents ? new Vector3[numVertices] : nullptr;
 	colours = rhs.colours ? new Vector4[numVertices] : nullptr;
 	indices = rhs.indices ? new unsigned int[numIndices] : nullptr;
 
 	if (vertices) memcpy(vertices, rhs.vertices, numVertices * sizeof(Vector3));
-	if (textureCoords) memcpy(textureCoords, rhs.textureCoords, numVertices * sizeof(Vector2));
+	if (textureCoords) memcpy(textureCoords, rhs.textureCoords, numVertices * sizeof(Vector2F));
 	if (normals) memcpy(normals, rhs.normals, numVertices * sizeof(Vector3));
 	if (tangents) memcpy(tangents, rhs.tangents, numVertices * sizeof(Vector3));
 	if (colours) memcpy(colours, rhs.colours, numVertices * sizeof(Vector4));
@@ -133,10 +133,10 @@ Mesh* Mesh::GenerateTriangle()
 	m->vertices[1] = Vector3(0.5f, -0.5f, 0.0f);
 	m->vertices[2] = Vector3(-0.5f, -0.5f, 0.0f);
 
-	m->textureCoords = new Vector2[m->numVertices];
-	m->textureCoords[0] = Vector2(0.5f, 0.0f);
-	m->textureCoords[1] = Vector2(1.0f, 1.0f);
-	m->textureCoords[2] = Vector2(0.0f, 1.0f);
+	m->textureCoords = new Vector2F[m->numVertices];
+	m->textureCoords[0] = Vector2F(0.5f, 0.0f);
+	m->textureCoords[1] = Vector2F(1.0f, 1.0f);
+	m->textureCoords[2] = Vector2F(0.0f, 1.0f);
 
 	m->colours = new Vector4[m->numVertices];
 	m->colours[0] = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -157,7 +157,7 @@ Mesh* Mesh::TestQuad(float r)
 	m->type = GL_TRIANGLES;
 
 	m->vertices = new Vector3[m->numVertices];
-	m->textureCoords = new Vector2[m->numVertices];
+	m->textureCoords = new Vector2F[m->numVertices];
 	//m->colours			= new Vector4[m->numVertices];
 	//m->normals			= new Vector3[m->numVertices];
 	//m->tangents			= new Vector3[m->numVertices];
@@ -170,13 +170,13 @@ Mesh* Mesh::TestQuad(float r)
 	m->vertices[4] = Vector3(1.0f, 1.0f, 0.0f);
 	m->vertices[5] = Vector3(-1.0f, 1.0f, 0.0f);
 
-	m->textureCoords[0] = Vector2(0.0f, 0.0f);
-	m->textureCoords[1] = Vector2(1.0f, 0.0f);
-	m->textureCoords[2] = Vector2(0.0f, 1.0f);
+	m->textureCoords[0] = Vector2F(0.0f, 0.0f);
+	m->textureCoords[1] = Vector2F(1.0f, 0.0f);
+	m->textureCoords[2] = Vector2F(0.0f, 1.0f);
 
-	m->textureCoords[3] = Vector2(1.0f, 0.0f);
-	m->textureCoords[4] = Vector2(1.0f, 1.0f);
-	m->textureCoords[5] = Vector2(0.0f, 1.0f);
+	m->textureCoords[3] = Vector2F(1.0f, 0.0f);
+	m->textureCoords[4] = Vector2F(1.0f, 1.0f);
+	m->textureCoords[5] = Vector2F(0.0f, 1.0f);
 
 	Maths::Matrix4 pushPos = Maths::Matrix4::CreateTranslationMatrix(Vector3(0.5, 0.5, 0));
 	Maths::Matrix4 popPos = Maths::Matrix4::CreateTranslationMatrix(Vector3(-0.5, -0.5, 0));
@@ -276,10 +276,10 @@ Mesh* Mesh::TestTriangle(float r)
 	m->vertices[1] = Vector3(1.0f, 0.0f, 0.0f);
 	m->vertices[2] = Vector3(0.0f, 1.0f, 0.0f);
 
-	m->textureCoords = new Vector2[m->numVertices];
-	m->textureCoords[0] = Vector2(0.0f, 0.0f);
-	m->textureCoords[1] = Vector2(1.0f, 0.0f);
-	m->textureCoords[2] = Vector2(0.0f, 1.0f);
+	m->textureCoords = new Vector2F[m->numVertices];
+	m->textureCoords[0] = Vector2F(0.0f, 0.0f);
+	m->textureCoords[1] = Vector2F(1.0f, 0.0f);
+	m->textureCoords[2] = Vector2F(0.0f, 1.0f);
 
 	Maths::Matrix4 pushPos = Maths::Matrix4::CreateTranslationMatrix(Vector3(0.5, 0.5, 0));
 	Maths::Matrix4 popPos = Maths::Matrix4::CreateTranslationMatrix(Vector3(-0.5, -0.5, 0));
@@ -308,7 +308,7 @@ Mesh* Mesh::GenerateQuad()
 	m->type = GL_TRIANGLE_STRIP;
 
 	m->vertices = new Vector3[m->numVertices];
-	m->textureCoords = new Vector2[m->numVertices];
+	m->textureCoords = new Vector2F[m->numVertices];
 	m->colours = new Vector4[m->numVertices];
 	m->normals = new Vector3[m->numVertices];
 	m->tangents = new Vector3[m->numVertices];
@@ -318,10 +318,10 @@ Mesh* Mesh::GenerateQuad()
 	m->vertices[2] = Vector3(1.0f, -1.0f, 0.0f);
 	m->vertices[3] = Vector3(1.0f, 1.0f, 0.0f);
 
-	m->textureCoords[0] = Vector2(0.0f, 1.0f);
-	m->textureCoords[1] = Vector2(0.0f, 0.0f);
-	m->textureCoords[2] = Vector2(1.0f, 1.0f);
-	m->textureCoords[3] = Vector2(1.0f, 0.0f);
+	m->textureCoords[0] = Vector2F(0.0f, 1.0f);
+	m->textureCoords[1] = Vector2F(0.0f, 0.0f);
+	m->textureCoords[2] = Vector2F(1.0f, 1.0f);
+	m->textureCoords[3] = Vector2F(1.0f, 0.0f);
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -346,7 +346,7 @@ Mesh* Mesh::GenerateQuadAlt()
 	m->type = GL_TRIANGLE_STRIP;
 
 	m->vertices = new Vector3[m->numVertices];
-	m->textureCoords = new Vector2[m->numVertices];
+	m->textureCoords = new Vector2F[m->numVertices];
 	m->colours = new Vector4[m->numVertices];
 	m->normals = new Vector3[m->numVertices];
 	m->tangents = new Vector3[m->numVertices];
@@ -356,10 +356,10 @@ Mesh* Mesh::GenerateQuadAlt()
 	m->vertices[2] = Vector3(1.0f, 0.0f, 0.0f);
 	m->vertices[3] = Vector3(1.0f, 1.0f, 0.0f);
 
-	m->textureCoords[0] = Vector2(0.0f, 0.0f);
-	m->textureCoords[1] = Vector2(0.0f, 1.0f);
-	m->textureCoords[2] = Vector2(1.0f, 0.0f);
-	m->textureCoords[3] = Vector2(1.0f, 1.0f);
+	m->textureCoords[0] = Vector2F(0.0f, 0.0f);
+	m->textureCoords[1] = Vector2F(0.0f, 1.0f);
+	m->textureCoords[2] = Vector2F(1.0f, 0.0f);
+	m->textureCoords[3] = Vector2F(1.0f, 1.0f);
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -381,7 +381,7 @@ Mesh* Mesh::GenerateMesh(int w, int h, float s)
 	//m->type = GL_TRIANGLE_STRIP;
 
 	m->vertices = new Vector3[m->numVertices];
-	m->textureCoords = new Vector2[m->numVertices];
+	m->textureCoords = new Vector2F[m->numVertices];
 	m->colours = new Vector4[m->numVertices];
 	m->normals = new Vector3[m->numVertices];
 	m->tangents = new Vector3[m->numVertices];
@@ -400,18 +400,18 @@ Mesh* Mesh::GenerateMesh(int w, int h, float s)
 			m->vertices[c + 4] = Vector3(s * (i + 1), s * (j + 1), 0.0f);
 			m->vertices[c + 5] = Vector3(s * (i + 1), s * j, 0.0f);
 
-			m->textureCoords[c] = Vector2(static_cast<float>(i) / static_cast<float>(w),
+			m->textureCoords[c] = Vector2F(static_cast<float>(i) / static_cast<float>(w),
 			                              static_cast<float>(j) / static_cast<float>(h));
-			m->textureCoords[c + 1] = Vector2(static_cast<float>(i) / static_cast<float>(w),
+			m->textureCoords[c + 1] = Vector2F(static_cast<float>(i) / static_cast<float>(w),
 			                                  static_cast<float>(j + 1) / static_cast<float>(h));
-			m->textureCoords[c + 2] = Vector2(static_cast<float>(i + 1) / static_cast<float>(w),
+			m->textureCoords[c + 2] = Vector2F(static_cast<float>(i + 1) / static_cast<float>(w),
 			                                  static_cast<float>(j) / static_cast<float>(h));
 
-			m->textureCoords[c + 3] = Vector2(static_cast<float>(i) / static_cast<float>(w),
+			m->textureCoords[c + 3] = Vector2F(static_cast<float>(i) / static_cast<float>(w),
 			                                  static_cast<float>(j + 1) / static_cast<float>(h));
-			m->textureCoords[c + 4] = Vector2(static_cast<float>(i + 1) / static_cast<float>(w),
+			m->textureCoords[c + 4] = Vector2F(static_cast<float>(i + 1) / static_cast<float>(w),
 			                                  static_cast<float>(j + 1) / static_cast<float>(h));
-			m->textureCoords[c + 5] = Vector2(static_cast<float>(i + 1) / static_cast<float>(w),
+			m->textureCoords[c + 5] = Vector2F(static_cast<float>(i + 1) / static_cast<float>(w),
 			                                  static_cast<float>(j) / static_cast<float>(h));
 
 			c += 6;
@@ -439,7 +439,7 @@ Mesh* Mesh::GenerateMeshAlt(int w, int h, float s)
 	//m->type = GL_TRIANGLE_STRIP;
 
 	m->vertices = new Vector3[m->numVertices];
-	m->textureCoords = new Vector2[m->numVertices];
+	m->textureCoords = new Vector2F[m->numVertices];
 	m->colours = new Vector4[m->numVertices];
 	m->normals = new Vector3[m->numVertices];
 	m->tangents = new Vector3[m->numVertices];
@@ -452,7 +452,7 @@ Mesh* Mesh::GenerateMeshAlt(int w, int h, float s)
 		for (int j = 0; j < w; ++j)
 		{
 			m->vertices[(i * w) + j] = Vector3(s * j, s * i, 0.0f);
-			m->textureCoords[(i * w) + j] = Vector2(static_cast<float>(j) / static_cast<float>(w),
+			m->textureCoords[(i * w) + j] = Vector2F(static_cast<float>(j) / static_cast<float>(w),
 			                                        static_cast<float>(i) / static_cast<float>(h));
 
 			if (i < h - 1 && j < w - 1)
@@ -506,7 +506,7 @@ void Mesh::BufferData()
 	{
 		glGenBuffers(1, &bufferObject[TEXTURE_BUFFER]);
 		glBindBuffer(GL_ARRAY_BUFFER, bufferObject[TEXTURE_BUFFER]);
-		glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vector2), textureCoords, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vector2F), textureCoords, GL_STATIC_DRAW);
 		glVertexAttribPointer(TEXTURE_BUFFER, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 		glEnableVertexAttribArray(TEXTURE_BUFFER);
 	}
@@ -698,11 +698,11 @@ void Mesh::GenerateTangents()
 	}
 }
 
-Vector3 Mesh::GenerateTangent(const Vector3& a, const Vector3& b, const Vector3& c, const Vector2& ta,
-                              const Vector2& tb, const Vector2& tc)
+Vector3 Mesh::GenerateTangent(const Vector3& a, const Vector3& b, const Vector3& c, const Vector2F& ta,
+                              const Vector2F& tb, const Vector2F& tc)
 {
-	Vector2 coord1 = tb - ta;
-	Vector2 coord2 = tc - ta;
+	Vector2F coord1 = tb - ta;
+	Vector2F coord2 = tc - ta;
 
 	Vector3 vertex1 = b - a;
 	Vector3 vertex2 = c - a;

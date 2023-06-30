@@ -171,7 +171,7 @@
     <ResourceCompile Include="PhysicsEngine.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Maths\Maths.vcxproj">
+	  <ProjectReference Include="..\Utils\Utils.vcxproj">
       <Project>{cb96bbc1-3425-4098-889c-96c1fe8bde77}</Project>
     </ProjectReference>
   </ItemGroup>

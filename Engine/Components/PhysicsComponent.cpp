@@ -1,6 +1,6 @@
 #include "PhysicsComponent.h"
 
-#include "GameObject.h"
+#include "Engine/GameObject.h"
 #include "PhysicsEngine/PhysicsEngine.h"
 
 PhysicsComponent::PhysicsComponent(const Vector3& initialPos, float inverseMass, float boundingRadius, bool applyGravity, Physics::CollisionShape* collisionShape)

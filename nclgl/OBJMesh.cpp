@@ -39,7 +39,7 @@ bool OBJMesh::LoadOBJMesh(std::string filename)
 	/*
 	Stores the loaded in vertex attributes
 	*/
-	std::vector<Vector2> inputTexCoords;
+	std::vector<Vector2F> inputTexCoords;
 	std::vector<Vector3> inputVertices;
 	std::vector<Vector3> inputNormals;
 
@@ -109,7 +109,7 @@ bool OBJMesh::LoadOBJMesh(std::string filename)
 		else if (currentLine == OBJTEX)
 		{
 			//This line is a texture coordinate!
-			Vector2 texCoord;
+			Vector2F texCoord;
 			f >> texCoord.x;
 			f >> texCoord.y;
 			/*
@@ -263,7 +263,7 @@ bool OBJMesh::LoadOBJMesh(std::string filename)
 
 		if (!sm->texIndices.empty())
 		{
-			m->textureCoords = new Vector2[m->numVertices];
+			m->textureCoords = new Vector2F[m->numVertices];
 			for (unsigned int j = 0; j < sm->texIndices.size(); ++j)
 			{
 				m->textureCoords[j] = inputTexCoords[sm->texIndices[j] - 1];

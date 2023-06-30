@@ -18,9 +18,9 @@ _-_-_-_-_-_-_-""  ""
 
 
 #pragma once
-#include <Maths/Matrix4.h>
-#include <Maths/Vector3.h>
-#include <Maths/Vector4.h>
+#include <Utils/Matrix4.h>
+#include <Utils/Vector3.h>
+#include <Utils/Vector4.h>
 #include "Mesh.h"
 #include <vector>
 

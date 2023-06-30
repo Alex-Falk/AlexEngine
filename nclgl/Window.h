@@ -53,14 +53,14 @@ public:
 	void LockMouseToWindow(bool lock);
 	void ShowOSPointer(bool show);
 
-	Vector2 GetScreenSize() { return size; };
+	Vector2F GetScreenSize() { return size; };
 
 	static Keyboard* GetKeyboard() { return keyboard; }
 	static Mouse* GetMouse() { return mouse; }
 
 	//Mouse class stores relative position, and this returns exact position relative to the top left of the window
 	//	returns true if the mouse is within the bounds of the window or false otherwise
-	bool GetMouseScreenPos(Vector2* out_pos);
+	bool GetMouseScreenPos(Vector2F* out_pos);
 
 	void SetCursorStyle(CursorStyle style);
 
@@ -88,8 +88,8 @@ protected:
 	bool lockMouse;
 	bool showMouse;
 
-	Vector2 position;
-	Vector2 size;
+	Vector2F position;
+	Vector2F size;
 
 	float elapsedMS;
 

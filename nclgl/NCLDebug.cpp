@@ -243,7 +243,7 @@ void NCLDebug::DrawPolygonNDT(int n_verts, const Vector3* verts, const Vector4& 
 void NCLDebug::DrawTextCs(const Vector4& cs_pos, const float font_size, const std::string& text,
                           const TextAlignment alignment, const Vector4 color)
 {
-	const Vector2 ss = Window::GetWindow().GetScreenSize();
+	const Vector2F ss = Window::GetWindow().GetScreenSize();
 	auto cs_size = Vector3(font_size / ss.x, font_size / ss.y, 0.0f);
 	cs_size = cs_size * cs_pos.w;
 
@@ -325,7 +325,7 @@ void NCLDebug::AddStatusEntry(const Vector4& color, const std::string text, ...)
 {
 	if (g_StatusVisible)
 	{
-		const Vector2 ss = Window::GetWindow().GetScreenSize();
+		const Vector2F ss = Window::GetWindow().GetScreenSize();
 		float cs_size_x = STATUS_TEXT_SIZE / ss.x * 2.0f;
 		float cs_size_y = STATUS_TEXT_SIZE / ss.y * 2.0f;
 
@@ -541,7 +541,7 @@ void NCLDebug::_SortRenderLists()
 
 void NCLDebug::_BuildTextBackgrounds()
 {
-	const Vector2 ss = Window::GetWindow().GetScreenSize();
+	const Vector2F ss = Window::GetWindow().GetScreenSize();
 	float cs_size_x = LOG_TEXT_SIZE / ss.x * 2.0f;
 	float cs_size_y = LOG_TEXT_SIZE / ss.y * 2.0f;
 
@@ -549,10 +549,10 @@ void NCLDebug::_BuildTextBackgrounds()
 	float rounded_offset_x = 10.f / ss.x * 2.0f;
 	float rounded_offset_y = 10.f / ss.y * 2.0f;
 
-	auto cs_mouse = Vector2(-10.f, -10.f);
+	auto cs_mouse = Vector2F(-10.f, -10.f);
 	if (Window::GetWindow().GetMouseScreenPos(&cs_mouse))
 	{
-		cs_mouse = Vector2(cs_mouse.x / ss.x * 2.0f - 1.0f, (1.f - cs_mouse.y / ss.y) * 2.0f - 1.0f);
+		cs_mouse = Vector2F(cs_mouse.x / ss.x * 2.0f - 1.0f, (1.f - cs_mouse.y / ss.y) * 2.0f - 1.0f);
 	}
 
 	Vector3 centre;

@@ -17,9 +17,8 @@ Description:
 
 #pragma once
 
-#include "GameObject.h"
 #include "Engine/GameObject.h"
-#include <Maths/Vector3.h>
+#include <Utils/Vector3.h>
 
 
 namespace CommonUtils

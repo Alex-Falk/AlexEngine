@@ -22,8 +22,8 @@ _-_-_-_-_-_-_-""  ""
 
 #include <string>
 #include <vector>
-#include <Maths/Matrix4.h>
-#include <Maths/Quaternion.h>
+#include <Utils/Matrix4.h>
+#include <Utils/Quaternion.h>
 
 #include <GL/glew.h>
 #include <GL/wglew.h>

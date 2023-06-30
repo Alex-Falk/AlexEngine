@@ -1,7 +1,7 @@
 #pragma once
-#include "Engine/CameraComponent.h"
+#include "Engine/Components/CameraComponent.h"
 #include "Engine/Scene.h"
-#include "Engine/CommonUtils.h"
+#include "Engine/Common/CommonUtils.h"
 #include "Engine/SphereObject.h"
 
 class TestScene : public Scene

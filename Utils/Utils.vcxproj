@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{cb96bbc1-3425-4098-889c-96c1fe8bde77}</ProjectGuid>
-    <RootNamespace>Maths</RootNamespace>
+    <RootNamespace>Utils</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Utils</ProjectName>
   </PropertyGroup>
@@ -161,6 +161,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
   </ItemGroup>
@@ -323,6 +324,7 @@
       <LibCompiled>true</LibCompiled>
     </ClCompile>
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector2Int.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
   </ItemGroup>

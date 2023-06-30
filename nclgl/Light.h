@@ -1,6 +1,6 @@
 #pragma once
-#include <Maths/Vector4.h>
-#include <Maths/Vector3.h>
+#include <Utils/Vector4.h>
+#include <Utils/Vector3.h>
 
 class Light
 {

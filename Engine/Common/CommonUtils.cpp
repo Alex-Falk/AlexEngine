@@ -3,10 +3,10 @@
 #include <nclgl/RenderNode.h>
 #include <functional>
 
-#include <Engine/RenderComponent.h>
-#include <Engine/PhysicsComponent.h>
+#include <Engine/Components/RenderComponent.h>
+#include <Engine/Components/PhysicsComponent.h>
 
-#include "CameraComponent.h"
+#include "Engine/Components/CameraComponent.h"
 #include "PhysicsEngine/CollisionShape.h"
 #include "nclgl/ScreenPicker.h"
 

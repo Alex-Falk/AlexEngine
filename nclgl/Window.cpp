@@ -187,16 +187,16 @@ void Window::SetWindowTitle(std::string title, ...)
 	SetWindowTextA(windowHandle, buf);
 }
 
-bool Window::GetMouseScreenPos(Vector2* out_pos)
+bool Window::GetMouseScreenPos(Vector2F* out_pos)
 {
-	Vector2(-1.0f, -1.0f);
+	Vector2F(-1.0f, -1.0f);
 
 	POINT p;
 	if (GetCursorPos(&p))
 	{
 		if (ScreenToClient(windowHandle, &p))
 		{
-			auto sp = Vector2(static_cast<float>(p.x), static_cast<float>(p.y));
+			auto sp = Vector2F(static_cast<float>(p.x), static_cast<float>(p.y));
 			if (sp.x >= 0.f && sp.y >= 0.f &&
 				sp.x <= size.x && sp.y <= size.y)
 			{
