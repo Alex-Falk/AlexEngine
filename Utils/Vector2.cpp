@@ -1,5 +1,7 @@
-#include "pch.h"
 #include "Vector2.h"
+
+template <class T>
+Vector2<T> operator*(float lhs, const Vector2<T>& rhs);
 
 template <class T>
 Vector2<T>::Vector2()
@@ -24,25 +26,27 @@ Vector2<T>::Vector2(const T x, const T y) : x(x), y(y)
 template<class T>
 float Vector2<T>::Length() const
 {
-	return sqrtf((x * x) + (y * y));
+	const auto xF = static_cast<float>(x);
+	const auto yF = static_cast<float>(y);
+	return sqrtf((xF * xF) + (yF * yF));
 }
 
 template<class T>
 Vector2<T> Vector2<T>::operator-(const Vector2& other) const
 {
-	return {x - other.x, y - other.y};
+	return { x - other.x, y - other.y };
 }
 
 template<class T>
 Vector2<T> Vector2<T>::operator+(const Vector2& other) const
 {
-	return {x + other.x, y + other.y};
+	return { x + other.x, y + other.y };
 }
 
 template<class T>
-Vector2<T> Vector2<T>::operator*(const float num) const
+Vector2<T> Vector2<T>::operator*(const T num) const
 {
-	return {x * num, y * num};
+	return { x * num, y * num };
 }
 
 template<class T>
@@ -64,13 +68,13 @@ Vector2<T>& Vector2<T>::operator-=(const Vector2& other)
 template<class T>
 Vector2<T> Vector2<T>::operator-() const
 {
-	return {-x, -y};
+	return { -x, -y };
 }
 
 template<class T>
 Vector2<T> Vector2<T>::Zero()
 {
-	return {0.f, 0.f};
+	return { T(), T() };
 }
 
 template<class T>
@@ -89,7 +93,7 @@ float Vector2<T>::LengthSqr() const
 template<class T>
 void Vector2<T>::Normalize()
 {
-	const float length = Length();
+	const T length = static_cast<T>(Length());
 	x /= length;
 	y /= length;
 }
@@ -97,8 +101,8 @@ void Vector2<T>::Normalize()
 template<class T>
 Vector2<T> Vector2<T>::Normalized() const
 {
-	const float length = Length();
-	return {x / length, y / length};
+	const T length = static_cast<T>(Length());
+	return { x / length, y / length };
 }
 
 template<class T>
@@ -125,3 +129,7 @@ void Vector2<T>::Set(const T x, const T y)
 	this->x = x;
 	this->y = y;
 }
+
+
+template class Vector2<int>;
+template class Vector2<float>;

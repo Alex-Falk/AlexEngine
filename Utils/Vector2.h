@@ -26,7 +26,7 @@ public:
 
     Vector2 operator-(const Vector2& other) const;
     Vector2 operator+(const Vector2& other) const;
-    Vector2 operator*(float num) const;
+    Vector2 operator*(T num) const;
     Vector2& operator +=(const Vector2& other);
     Vector2& operator -=(const Vector2& other);
     Vector2 operator-() const;
@@ -40,7 +40,5 @@ protected:
 private:
 };
 
-template <class T>
-Vector2<T> operator*(float lhs, const Vector2<T>& rhs);
-
 using Vector2F = Vector2<float>;
+
