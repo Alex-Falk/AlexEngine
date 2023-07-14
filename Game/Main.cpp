@@ -4,6 +4,8 @@
 #include <Engine/SceneManager.h>
 
 #include "TestScene.h"
+#include "Engine/MessageSystem.h"
+#include "Engine/Interfaces/ISystem.h"
 
 class Game
 {
@@ -33,6 +35,16 @@ public:
 
 			GraphicsPipeline::Instance()->UpdateScene(dt);
 			GraphicsPipeline::Instance()->RenderScene();
+
+			UpdateSystems(dt);
+		}
+	}
+
+	void UpdateSystems(float dt)
+	{
+		for(auto system : m_systems)
+		{
+			system->onUpdate(dt);
 		}
 	}
 
@@ -62,6 +74,8 @@ public:
 
 		Scene* scene = new TestScene("test");
 		SceneManager::Instance()->AddScene(scene);
+
+		m_systems.push_back(ae::MessageSystem::Instance());
 	}
 
 	void Quit(bool error, const string& reason)
@@ -85,6 +99,8 @@ private:
 	std::thread _renderThread;
 	std::mutex _mutex;
 	std::atomic<float> _dt;
+
+	std::vector<std::shared_ptr<Ae::ISystem>> m_systems;
 
 	bool _running{};
 };

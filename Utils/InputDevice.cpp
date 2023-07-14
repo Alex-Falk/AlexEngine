@@ -1,11 +1,11 @@
 #include "InputDevice.h"
 
-void InputDevice::SetAwake(bool awake)
+void ae::InputDevice::SetAwake(bool awake)
 {
 	m_awake = awake;
 }
 
-bool InputDevice::IsAwake() const
+bool ae::InputDevice::IsAwake() const
 {
 	return m_awake;
 }

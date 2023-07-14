@@ -125,6 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -154,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="InputDevice.h" />
+    <ClInclude Include="ISingleton.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix3.h" />
@@ -167,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputDevice.cpp" />
+    <ClCompile Include="ISingleton.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Matrix3.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>

@@ -1,4 +1,5 @@
 #pragma once
+#include "Engine/MessageSystem.h"
 #include "Engine/Components/CameraComponent.h"
 #include "Engine/Scene.h"
 #include "Engine/Common/CommonUtils.h"
@@ -56,5 +57,16 @@ public:
 		sphere->OnInitialise();
 		cam->OnInitialise();
 		//sphere2->OnInitialise();
+
+		const ae::MessageCallback func = [this](ae::Message& msg) { OnMessageRecieved(msg); };
+		ae::MessageSystem::Instance()->subscribe<ae::Message>(func);
+
+		ae::Message msg = ae::Message();
+		ae::MessageSystem::Instance()->addMessage(msg);
+	}
+
+	void OnMessageRecieved(ae::Message& msg)
+	{
+		NCLDebug::Log("hello there");
 	}
 };
