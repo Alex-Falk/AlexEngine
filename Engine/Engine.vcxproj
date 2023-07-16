@@ -156,6 +156,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SphereObject.h" />
+    <ClInclude Include="SystemManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\CommonMeshes.cpp">
@@ -603,6 +604,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SphereObject.cpp" />
+    <ClCompile Include="SystemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interfaces\IUpdatable.h" />

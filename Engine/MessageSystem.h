@@ -14,7 +14,7 @@ namespace ae
 {
 	using MessageCallback = std::function<void(Message& msg)>;
 
-	class MessageSystem : public ISingleton<MessageSystem>, public Ae::ISystem
+	class MessageSystem : public Ae::ISystem
 	{
 	public:
 		template <class T>

@@ -59,10 +59,10 @@ public:
 		//sphere2->OnInitialise();
 
 		const ae::MessageCallback func = [this](ae::Message& msg) { OnMessageRecieved(msg); };
-		ae::MessageSystem::Instance()->subscribe<ae::Message>(func);
+		//ae::MessageSystem::Instance()->subscribe<ae::Message>(func);
 
 		ae::Message msg = ae::Message();
-		ae::MessageSystem::Instance()->addMessage(msg);
+		//ae::MessageSystem::Instance()->addMessage(msg);
 	}
 
 	void OnMessageRecieved(ae::Message& msg)
