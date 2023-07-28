@@ -42,7 +42,14 @@ void GameObject::AddComponent(std::unique_ptr<Component> component)
 
 void GameObject::SetTransform(const Maths::Matrix4 transform)
 {
-	m_transform = transform;
+	if (auto* component = GetComponentOfType<PhysicsComponent>())
+	{
+		component->SetWorldTransform(transform);
+	}
+	else
+	{
+		m_transform = transform;
+	}
 }
 
 Maths::Matrix4 GameObject::GetTransform() const
@@ -51,13 +58,10 @@ Maths::Matrix4 GameObject::GetTransform() const
 	{
 		return component->GetWorldTransform();
 	}
-	else if (const auto* renderComponent = GetComponentOfType<RenderComponent>())
+	else
 	{
-		return renderComponent->GetWorldTransform();
+		return m_transform;
 	}
-
-	NCLERROR("Game Object has neither got a Physics or Render Component")
-	return Maths::Matrix4();
 }
 
 void GameObject::TranslatePosition(const Vector3& by)
@@ -67,26 +71,42 @@ void GameObject::TranslatePosition(const Vector3& by)
 
 void GameObject::TranslateLocalPosition(const Vector3& by)
 {
-	//m_transform.Translate(by);
-	GetComponentOfType<PhysicsComponent>()->TranslatePosition(by);
+	if (auto* component = GetComponentOfType<PhysicsComponent>())
+	{
+		GetComponentOfType<PhysicsComponent>()->TranslatePosition(by);
+	}
+	else
+	{
+		m_transform.Translate(by);
+	}
 }
 
 void GameObject::SetPosition(const Vector3& position)
 {
-	//m_transform.SetPositionVector(position);
 	if (auto* component = GetComponentOfType<PhysicsComponent>())
 	{
 		component->SetPosition(position);
+	}
+	else
+	{
+		m_transform.SetPositionVector(position);
 	}
 }
 
 void GameObject::SetRotation(const Maths::Quaternion& rotation)
 {
-	//const auto& pos = m_transform.GetPositionVector();
-	//m_transform = rotation.ToMatrix4();
-	//m_transform.SetPositionVector(pos);
 
-	GetComponentOfType<PhysicsComponent>()->SetRotation(rotation);
+
+	if (auto* component = GetComponentOfType<PhysicsComponent>())
+	{
+		GetComponentOfType<PhysicsComponent>()->SetRotation(rotation);
+	}
+	else
+	{
+		const auto& pos = m_transform.GetPositionVector();
+		m_transform = rotation.ToMatrix4();
+		m_transform.SetPositionVector(pos);
+	}
 }
 
 void GameObject::OnUpdate(const float dt) const

@@ -37,6 +37,8 @@ namespace Physics
 
 		void SetGravityEnabled(bool enabled);
 
+		void SetWorldTransform(Maths::Matrix4 transform);
+
 		void SetOnUpdateCallback(UpdateCallback callback) { m_onUpdateCallback = callback; }
 		void FireOnUpdateCallback();
 

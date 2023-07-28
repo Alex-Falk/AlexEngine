@@ -119,6 +119,11 @@ void Physics::PhysicsNode::SetGravityEnabled(bool enabled)
 	m_applyGravity = enabled;
 }
 
+void Physics::PhysicsNode::SetWorldTransform(Maths::Matrix4 transform)
+{
+	m_worldTransform = transform;
+}
+
 void Physics::PhysicsNode::FireOnUpdateCallback()
 {
 	m_worldTransform = m_orientation.ToMatrix4();
