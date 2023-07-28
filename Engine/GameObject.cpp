@@ -66,18 +66,39 @@ Maths::Matrix4 GameObject::GetTransform() const
 
 void GameObject::TranslatePosition(const Vector3& by)
 {
-	m_transform.Translate(by);
+	if (auto* component = GetComponentOfType<PhysicsComponent>())
+	{
+		component->TranslatePosition(by);
+	}
+	else
+	{
+		m_transform.Translate(by);
+	}
 }
 
 void GameObject::TranslateLocalPosition(const Vector3& by)
 {
 	if (auto* component = GetComponentOfType<PhysicsComponent>())
 	{
-		GetComponentOfType<PhysicsComponent>()->TranslatePosition(by);
+		component->TranslateLocalPosition(by);
 	}
 	else
 	{
-		m_transform.Translate(by);
+		m_transform.TranslateLocal(by);
+	}
+}
+
+void GameObject::Rotate(const float pitch, const float yaw, const float roll)
+{
+	if (auto* component = GetComponentOfType<PhysicsComponent>())
+	{
+		component->ApplyRotation(Maths::Quaternion::EulerAnglesToQuaternion(pitch, yaw, roll));
+	}
+	else
+	{
+		const auto pos = m_transform.GetPositionVector();
+		m_transform = Maths::Quaternion::EulerAnglesToQuaternion(pitch, yaw, roll).ToMatrix4();
+		m_transform.SetPositionVector(pos);
 	}
 }
 
@@ -91,6 +112,10 @@ void GameObject::SetPosition(const Vector3& position)
 	{
 		m_transform.SetPositionVector(position);
 	}
+}
+
+void GameObject::Rotate(const Maths::Quaternion& rotation)
+{
 }
 
 void GameObject::SetRotation(const Maths::Quaternion& rotation)

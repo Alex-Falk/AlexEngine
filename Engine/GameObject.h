@@ -27,6 +27,8 @@ public:
 	Maths::Matrix4 GetTransform() const;
 	void TranslatePosition(const Vector3& by);
 	void TranslateLocalPosition(const Vector3& by);
+	void Rotate(const float pitch, const float yaw, const float roll);
+	void Rotate(const Maths::Quaternion& rotation);
 
 	void SetPosition(const Vector3& position);
 	void SetRotation(const Maths::Quaternion& rotation);

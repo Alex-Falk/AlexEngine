@@ -27,10 +27,12 @@ namespace Physics
 		void ApplyImpulse(Vector3 impulse);
 		void SetLinearVelocity(Vector3 velocity);
 		void TranslatePosition(const Vector3& translation);
+		void TranslateLocalPosition(const Vector3& translation);
 
 		void ApplyTorque(Vector3 torque);
 		void ApplyAngularVelocity(Vector3 angularVelocity);
 		void SetRotation(Maths::Quaternion rotation);
+		void ApplyRotation(Maths::Quaternion rotation);
 
 		void SetInverseMass(float inverseMass);
 		void SetCollisionShape(CollisionShape* collisionShape);

@@ -18,10 +18,14 @@ private:
 	void RegisterInput() const;
 	void HandleInput(float dt) const;
 
-	std::string m_forwardBinding = GetName() + "_Forward";
-	std::string m_backBinding = GetName() + "_Back";
-	std::string m_leftBinding = GetName() + "_Left";
-	std::string m_rightBinding = GetName() + "_Right";
+	static constexpr const char* s_forwardKey = "camera_forward";
+	static constexpr const char* s_backKey = "camera_back";
+	static constexpr const char* s_leftKey = "camera_left";
+	static constexpr const char* s_rightKey = "camera_right";
+
+	static constexpr const char* s_upKey = "camera_up";
+	static constexpr const char* s_downKey = "camera_down";
+	static constexpr const char* s_speedKey = "camera_speed";
 
 	float m_speed;
 };

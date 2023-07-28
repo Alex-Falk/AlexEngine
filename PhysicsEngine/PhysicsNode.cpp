@@ -89,6 +89,11 @@ void Physics::PhysicsNode::TranslatePosition(const Vector3& translation)
 	m_position += translation;
 }
 
+void Physics::PhysicsNode::TranslateLocalPosition(const Vector3& translation)
+{
+	m_position += m_orientation.Transform(translation);
+}
+
 void Physics::PhysicsNode::ApplyTorque(Vector3 torque)
 {
 	m_torque += torque;
@@ -102,6 +107,11 @@ void Physics::PhysicsNode::ApplyAngularVelocity(Vector3 angularVelocity)
 void Physics::PhysicsNode::SetRotation(Maths::Quaternion rotation)
 {
 	m_orientation = rotation;
+}
+
+void Physics::PhysicsNode::ApplyRotation(Maths::Quaternion rotation)
+{
+	m_orientation = m_orientation + rotation;
 }
 
 void Physics::PhysicsNode::SetInverseMass(float inverseMass)
