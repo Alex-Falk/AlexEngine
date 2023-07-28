@@ -21,7 +21,7 @@ public:
 	void AddComponent(std::unique_ptr<Component> component);
 
 	template <class T>
-	T* GetComponentOfType();
+	T* GetComponentOfType() const;
 
 	void SetTransform(Maths::Matrix4 transform);
 	Maths::Matrix4 GetTransform() const;
@@ -39,7 +39,7 @@ protected:
 private:
 	UUID m_id;
 
-	unordered_map<std::string, std::unique_ptr<Component>> m_components;
+	unordered_map<ComponentHash, std::unique_ptr<Component>> m_components;
 
 
 };

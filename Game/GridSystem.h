@@ -6,7 +6,7 @@ class Tile;
 
 namespace game
 {    
-    class GridSystem : public Ae::ISystem
+    class GridSystem : public ae::ISystem
     {
     static constexpr float c_tileSize = 1;
         

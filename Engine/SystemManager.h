@@ -8,7 +8,7 @@
 
 #define USE_SYSTEM(ptr) ptr = SystemManager::Instance()->GetSystem<std::decay_t<decltype(*ptr)>>();
 
-namespace Ae
+namespace ae
 {
 	class ISystem;
 }
@@ -31,6 +31,6 @@ public:
 	}
 
 private:
-	std::map<std::type_index, Ae::ISystem*> m_systems;
+	std::map<std::type_index, ae::ISystem*> m_systems;
 };
 

@@ -4,6 +4,9 @@
 
 class GameObject;
 
+using ComponentHash = size_t;
+
+
 class Component
 {
 	friend class GameObject;
@@ -18,6 +21,8 @@ public:
 	GameObject* GetOwner() const { return m_owner; }
 
 	std::string GetName() const { return m_name; }
+
+	ComponentHash GetId();
 
 protected:
 	GameObject* m_owner;

@@ -14,7 +14,7 @@ namespace ae
 {
 	using MessageCallback = std::function<void(Message& msg)>;
 
-	class MessageSystem : public Ae::ISystem
+	class MessageSystem : public ae::ISystem
 	{
 	public:
 		template <class T>
@@ -24,7 +24,7 @@ namespace ae
 		void unsubscribe(MessageCallback callback);
 
 		void addMessage(Message& msg);
-		void onUpdate(float dt) override;
+		void OnUpdate(float dt) override;
 
 	private:
 		std::map<MessageHash, std::vector<MessageCallback>> m_subscribers;

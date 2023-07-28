@@ -5,7 +5,7 @@ void ae::MessageSystem::addMessage(Message& msg)
 	m_messageQueue.push(msg);
 }
 
-void ae::MessageSystem::onUpdate(float dt)
+void ae::MessageSystem::OnUpdate(float dt)
 {
 	while (!m_messageQueue.empty())
 	{

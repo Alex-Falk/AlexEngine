@@ -26,6 +26,7 @@ namespace Physics
 		void SetPosition(Vector3 position);
 		void ApplyImpulse(Vector3 impulse);
 		void SetLinearVelocity(Vector3 velocity);
+		void TranslatePosition(const Vector3& translation);
 
 		void ApplyTorque(Vector3 torque);
 		void ApplyAngularVelocity(Vector3 angularVelocity);

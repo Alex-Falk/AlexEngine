@@ -1,10 +1,10 @@
 #pragma once
 #include "Engine/Interfaces/IUpdatable.h"
 
-class Tile : public Ae::IUpdatable
+class Tile : public ae::IUpdatable
 {
 public:
-    void onUpdate(float dt) override;
+    void OnUpdate(float dt) override;
 
 private:
     

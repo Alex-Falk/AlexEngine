@@ -84,6 +84,11 @@ void Physics::PhysicsNode::SetLinearVelocity(Vector3 velocity)
 	m_linearVelocity = velocity;
 }
 
+void Physics::PhysicsNode::TranslatePosition(const Vector3& translation)
+{
+	m_position += translation;
+}
+
 void Physics::PhysicsNode::ApplyTorque(Vector3 torque)
 {
 	m_torque += torque;

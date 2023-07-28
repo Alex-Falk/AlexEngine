@@ -1,7 +1,7 @@
 #pragma once
 #include "IUpdatable.h"
 
-namespace Ae
+namespace ae
 {
     class ISystem : public IUpdatable
     {

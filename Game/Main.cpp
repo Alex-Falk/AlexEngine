@@ -39,6 +39,8 @@ public:
 			GraphicsPipeline::Instance()->UpdateScene(dt);
 			GraphicsPipeline::Instance()->RenderScene();
 
+			Physics::PhysicsEngine::Instance()->UpdatePhysics(dt);
+
 			UpdateSystems(dt);
 		}
 	}
@@ -47,7 +49,7 @@ public:
 	{
 		for(auto system : m_systems)
 		{
-			system->onUpdate(dt);
+			system->OnUpdate(dt);
 		}
 	}
 
@@ -57,7 +59,7 @@ public:
 
 		while (_running)
 		{
-			Physics::PhysicsEngine::Instance()->UpdatePhysics(timer.GetTimedMS() * 0.001f);
+			//Physics::PhysicsEngine::Instance()->UpdatePhysics(timer.GetTimedMS() * 0.001f);
 			//GraphicsPipeline::Instance()->UpdateScene(timer.GetTimedMS() * 0.001f);
 			//GraphicsPipeline::Instance()->RenderScene();
 		}
@@ -107,7 +109,7 @@ private:
 	std::mutex _mutex;
 	std::atomic<float> _dt;
 
-	std::vector<std::shared_ptr<Ae::ISystem>> m_systems;
+	std::vector<std::shared_ptr<ae::ISystem>> m_systems;
 
 	bool _running{};
 };

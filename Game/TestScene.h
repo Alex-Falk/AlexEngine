@@ -26,6 +26,7 @@ public:
 			false,
 			Vector4(0.2f, 0.5f, 1.0f, 1.0f));
 
+		ground->SetRotation(Maths::Quaternion::EulerAnglesToQuaternion(30, 30, 30));
 		this->AddGameObject(ground);
 
 		auto sphere = new SphereObject(

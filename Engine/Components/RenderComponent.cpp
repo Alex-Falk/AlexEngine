@@ -10,4 +10,6 @@ void RenderComponent::OnInitialise()
 void RenderComponent::OnUpdate(float dt)
 {
 	SetTransform(GetOwner()->GetTransform());
+
+	Update(dt);
 }

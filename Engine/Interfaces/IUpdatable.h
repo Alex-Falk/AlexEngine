@@ -1,11 +1,11 @@
 #pragma once
 
-namespace Ae
+namespace ae
 {
     class IUpdatable
     {
     public:
         virtual ~IUpdatable() = default;
-        virtual void onUpdate(float dt) = 0;
+        virtual void OnUpdate(float dt) = 0;
     };
 }
